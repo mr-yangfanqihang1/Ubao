@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手机_淘宝搜索</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <!-- 导入字体图标 -->
+    <link rel="stylesheet" href="font/iconfont.css">
+    <!-- 导入layui.css -->
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <!-- 导入基础样式 -->
+    <link rel="stylesheet" href="css/base.css">
+    <!-- 导入页面公共部分样式 -->
+    <link rel="stylesheet" href="css/common.css">
+    <!-- 导入本页的CSS -->
+    <link rel="stylesheet" href="css/goodslist.css">
+</head>
+
+<body>
+
+    <!-- 头部区域 -->
+    <div class="header">
+        <div class="header-wrap clearfix">
+            <ul class="header-left-nav clearfix">
+                <li class="li-hover-bg display-region-menu">中国大陆<i class="iconfont icon-ai-arrow-down"></i>
+                    <div class="sub-menu region-list">
+                        <ul>
+                            <li>全球</li>
+                            <li>中国大陆</li>
+                            <li>中国香港</li>
+                            <li>中国台湾</li>
+                            <li>中国澳门</li>
+                            <li>韩国</li>
+                            <li>马来西亚</li>
+                            <li>澳大利亚</li>
+                            <li>新加坡</li>
+                            <li>新西兰</li>
+                            <li>加拿大</li>
+                            <li>美国</li>
+                            <li>日本</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="welcome-user"></li>
+                <li><a href="#">手机逛淘宝</a></li>
+            </ul>
+            <ul class="header-right-nav clearfix">
+                <li><a href="./index.html">淘宝网首页</a></li>
+                <li class="li-hover-bg mytaobao"><a href="#">我的淘宝</a><i class="iconfont icon-ai-arrow-down"></i>
+                    <div class="sub-menu mytaobao-menu">
+                        <a href="#">已买到的宝贝</a>
+                        <a href="#">我的足迹</a>
+                    </div>
+                </li>
+                <li class="li-hover-bg shopping-cart"><i class="iconfont icon-tianchongxing-"></i><a href="./cart.html">购物车<em class="good-num">0</em></a><i class="iconfont icon-ai-arrow-down"></i>
+                    <div class="sub-menu shopping-cart-menu">
+                        <p>您购物车里还没有任何宝贝。<a href="#" class="my-shopping-cart-link">查看我的购物车</a></p>
+                    </div>
+                </li>
+                <li class="li-hover-bg favorites"><i class="iconfont icon-iconfontxingxing"></i><a href="#">收藏夹</a><i class="iconfont icon-ai-arrow-down"></i>
+                    <div class="sub-menu favorites-menu">
+                        <a href="#">收藏的宝贝</a>
+                        <a href="#">收藏的店铺</a>
+                    </div>
+                </li>
+                <li><a href="#">商品分类</a></li>
+                <li class="li-hover-bg seller-center"><a href="#">卖家中心</a><i class="iconfont icon-ai-arrow-down"></i>
+                    <div class="sub-menu seller-center-menu">
+                        <a href="#">免费开店</a>
+                        <a href="#">已卖出的宝贝</a>
+                        <a href="#">出售中的宝贝</a>
+                        <a href="#">卖家服务市场</a>
+                        <a href="#">卖家培训中心</a>
+                        <a href="#">体检中心</a>
+                        <a href="#">问商友</a>
+                    </div>
+                </li>
+                <li class="li-hover-bg customer-service"><a href="#">联系客服</a><i class="iconfont icon-ai-arrow-down"></i>
+                    <div class="sub-menu customer-service-menu">
+                        <a href="#">消费者客服</a>
+                        <a href="#">卖家客服</a>
+                    </div>
+                </li>
+                <li class="li-hover-bg site-nav" id="siteNavTrigger"><i class="iconfont icon-caidan"></i><a href="#">网站导航</a><i class="iconfont icon-ai-arrow-down"></i>
+
+                </li>
+            </ul>
+            <!-- 网站导航 -->
+            <div class="site-nav-float clearfix" id="sideNavModule">
+                <div class="site-nav-mod-wrap">
+                    <div class="site-nav-mod theme-mark">
+                        <h4>主题市场</h4>
+                        <div class="site-nav-sitemap">
+                            <ul class="clearfix">
+                                <li>
+                                    <a href="#">女装</a>
+                                </li>
+                                <li>
+                                    <a href="#">男装</a>
+                                </li>
+                                <li>
+                                    <a href="#">内衣</a>
+                                </li>
+                                <li>
+                                    <a href="#">鞋靴</a>
+                                </li>
+                                <li>
+                                    <a href="#">箱包</a>
+                                </li>
+                                <li>
+                                    <a href="#">婴童</a>
+                                </li>
+                                <li>
+                                    <a href="#">家电</a>
+                                </li>
+                                <li>
+                                    <a href="#">数码</a>
+                                </li>
+                                <li>
+                                    <a href="#">手机</a>
+                                </li>
+                                <li>
+                                    <a href="#">美妆</a>
+                                </li>
+                                <li>
+                                    <a href="#">珠宝</a>
+                                </li>
+                                <li>
+                                    <a href="#">眼镜</a>
+                                </li>
+                                <li>
+                                    <a href="#">手表</a>
+                                </li>
+                                <li>
+                                    <a href="#">运动</a>
+                                </li>
+                                <li>
+                                    <a href="#">户外</a>
+                                </li>
+                                <li>
+                                    <a href="#">乐器</a>
+                                </li>
+                                <li>
+                                    <a href="#">游戏</a>
+                                </li>
+                                <li>
+                                    <a href="#">动漫</a>
+                                </li>
+                                <li>
+                                    <a href="#">影视</a>
+                                </li>
+                                <li>
+                                    <a href="#">美食</a>
+                                </li>
+                                <li>
+                                    <a href="#">鲜花</a>
+                                </li>
+                                <li>
+                                    <a href="#">宠物</a>
+                                </li>
+                                <li>
+                                    <a href="#">农资</a>
+                                </li>
+                                <li>
+                                    <a href="#">房产</a>
+                                </li>
+                                <li>
+                                    <a href="#">装修</a>
+                                </li>
+                                <li>
+                                    <a href="#">建材</a>
+                                </li>
+                                <li>
+                                    <a href="#">家居</a>
+                                </li>
+                                <li>
+                                    <a href="#">百货</a>
+                                </li>
+                                <li>
+                                    <a href="#">汽车</a>
+                                </li>
+                                <li>
+                                    <a href="#">二手车</a>
+                                </li>
+                                <li>
+                                    <a href="#">办公</a>
+                                </li>
+                                <li>
+                                    <a href="#">定制</a>
+                                </li>
+                                <li>
+                                    <a href="#">教育</a>
+                                </li>
+                                <li>
+                                    <a href="#">卡券</a>
+                                </li>
+                                <li>
+                                    <a href="#">本地</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="site-nav-mod-wrap">
+                    <div class="site-nav-mod features-mark">
+                        <h4>特色市场</h4>
+                        <div class="site-nav-sitemap">
+                            <ul class="clearfix">
+                                <li>
+                                    <a href="#">全球购</a>
+                                </li>
+                                <li>
+                                    <a href="#">极有家</a>
+                                </li>
+                                <li>
+                                    <a href="#">阿里拍卖</a>
+                                </li>
+                                <li>
+                                    <a href="#">淘宝众筹</a>
+                                </li>
+                                <li>
+                                    <a href="#">飞猪</a>
+                                </li>
+                                <li>
+                                    <a href="#">农资</a>
+                                </li>
+                                <li>
+                                    <a href="#">天天特卖</a>
+                                </li>
+                                <li>
+                                    <a href="#">Outlets</a>
+                                </li>
+                                <li>
+                                    <a href="#">淘抢购</a>
+                                </li>
+                                <li>
+                                    <a href="#">试用</a>
+                                </li>
+                                <li>
+                                    <a href="#">量贩团</a>
+                                </li>
+                                <li>
+                                    <a href="#">阿里翻译</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="site-nav-mod-wrap">
+                    <div class="site-nav-mod ali-app">
+                        <h4>阿里APP</h4>
+                        <div class="site-nav-sitemap">
+                            <ul class="clearfix">
+                                <li>
+                                    <a href="#">淘宝</a>
+                                </li>
+                                <li>
+                                    <a href="#">天猫</a>
+                                </li>
+                                <li>
+                                    <a href="#">支付宝</a>
+                                </li>
+                                <li>
+                                    <a href="#">聚划算</a>
+                                </li>
+                                <li>
+                                    <a href="#">飞猪</a>
+                                </li>
+                                <li>
+                                    <a href="#">蚂蚁聚宝</a>
+                                </li>
+                                <li>
+                                    <a href="#">闲鱼</a>
+                                </li>
+                                <li>
+                                    <a href="#">淘小铺</a>
+                                </li>
+                                <li>
+                                    <a href="#">阿里钱盾</a>
+                                </li>
+                                <li>
+                                    <a href="#">钉钉</a>
+                                </li>
+                                <li>
+                                    <a href="#">高德地图</a>
+                                </li>
+                                <li>
+                                    <a href="#">虾米音乐</a>
+                                </li>
+                                <li>
+                                    <a href="#">淘票票</a>
+                                </li>
+                                <li>
+                                    <a href="#">菜鸟裹裹</a>
+                                </li>
+                                <li>
+                                    <a href="#">阿里云</a>
+                                </li>
+                                <li>
+                                    <a href="#">网商银行</a>
+                                </li>
+                                <li>
+                                    <a href="#">阿里邮箱</a>
+                                </li>
+                                <li>
+                                    <a href="#">阿里众包</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="site-nav-mod-wrap">
+                    <div class="site-nav-mod good-rec">
+                        <h4>精彩推荐集</h4>
+                        <div class="site-nav-sitemap">
+                            <ul class="clearfix">
+                                <li>
+                                    <a href="#">余额宝</a>
+                                </li>
+                                <li>
+                                    <a href="#">大牌捡宝</a>
+                                </li>
+                                <li>
+                                    <a href="#">淘公仔</a>
+                                </li>
+                                <li>
+                                    <a href="#">浏览器</a>
+                                </li>
+                                <li>
+                                    <a href="#">淘宝香港</a>
+                                </li>
+                                <li>
+                                    <a href="#">淘宝台湾</a>
+                                </li>
+                                <li>
+                                    <a href="#">淘宝全球</a>
+                                </li>
+                                <li>
+                                    <a href="#">淘宝东南亚</a>
+                                </li>
+                                <li>
+                                    <a href="#">闺蜜淘货</a>
+                                </li>
+                                <li>
+                                    <a href="#">大众评审</a>
+                                </li>
+                                <li>
+                                    <a href="#">淘工作</a>
+                                </li>
+                                <li>
+                                    <a href="#">阿里巴巴认证</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="main">
+        <div class="grid-total">
+            <div class="grid-left">
+                <div class="main-header clearfix">
+                    <div class="logo">
+                        <a href="./index.html"></a>
+                    </div>
+                    <div class="search">
+                        <div class="search-wrap clearfix">
+                            <div class="search-input-inner">
+                                <label class="search-tag">宝贝<i class="iconfont icon-ai-arrow-down"></i></label>
+                                <input type="text" class="search-input" placeholder="请输入要搜索的词">
+                            </div>
+                            <div class="search-btn-inner">
+                                <button type="submit" class="search-submit-btn"></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="grid-total">
+            <div class="grid-left">
+                <div class="category-tabs">
+                    <ul class="clearfix">
+                        <li>
+                            <a href="javascript:;" class="activity">所有宝贝</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">天猫</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">二手</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="main-nav">
+                    <div class="category-path">
+                        <span class="all-cat-text">所有分类</span>
+                        <i class="iconfont icon-jiantou"></i>
+                    </div>
+                    <!-- 分类筛选群组 -->
+                    <div class="main-nav-groups">
+                        <div class="nav-row">
+                            <div class="nav-head">
+                                <span class="nav-title">品牌：</span>
+                            </div>
+                            <div class="nav-body">
+                                <div class="nav-body-items nav-body-twolines">
+                                    <div class="items-inner clearfix">
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">华为</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">honor/荣耀</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">Xiaomi/小米</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">vivo</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">Apple/苹果</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">OPPO</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">三星</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">守护宝</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">realme</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">魅族</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">纽曼</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">OnePlus/一加</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">nubia/努比亚</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">坚果</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">索尼</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">联想</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">飞利浦</span>
+                                        </a>
+                                    </div>
+                                    <div class="filter-btns">
+                                        <button type="submit" class="filter-submit-btn">提交</button>
+                                        <button type="button" class="cancel-multi-select">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-foot">
+                                <span class="multi-select" data-flag="0">多选</span>
+                            </div>
+                        </div>
+                        <div class="nav-row">
+                            <div class="nav-head">
+                                <span class="nav-title">手机类型：</span>
+                            </div>
+                            <div class="nav-body">
+                                <div class="nav-body-items">
+                                    <div class="items-inner clearfix">
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">智能手机</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">时尚手机</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">拍照手机</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">音乐手机</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">女性手机</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">老人手机</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">电视手机</span>
+                                        </a>
+                                    </div>
+                                    <div class="filter-btns">
+                                        <button type="submit" class="filter-submit-btn">提交</button>
+                                        <button type="button" class="cancel-multi-select">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-foot">
+                                <span class="multi-select" data-flag="0">多选</span>
+                            </div>
+                        </div>
+                        <div class="nav-row">
+                            <div class="nav-head">
+                                <span class="nav-title">机身内存ROM：</span>
+                            </div>
+                            <div class="nav-body">
+                                <div class="nav-body-items">
+                                    <div class="items-inner clearfix">
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">256GB</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">128G</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">64g</span>
+                                        </a>
+                                    </div>
+                                    <div class="filter-btns">
+                                        <button type="submit" class="filter-submit-btn">提交</button>
+                                        <button type="button" class="cancel-multi-select">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-foot">
+                                <span class="multi-select" data-flag="0">多选</span>
+                            </div>
+                        </div>
+                        <div class="nav-row">
+                            <div class="nav-head">
+                                <span class="nav-title">运行内存RAM：</span>
+                            </div>
+                            <div class="nav-body">
+                                <div class="nav-body-items">
+                                    <div class="items-inner clearfix">
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">512MB</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">4GB</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">2GB</span>
+                                        </a>
+                                        <a href="javascript:;" class="item">
+                                            <span class="select"></span>
+                                            <span class="text" select-flag="0">1GB</span>
+                                        </a>
+                                    </div>
+                                    <div class="filter-btns">
+                                        <button type="submit" class="filter-submit-btn">提交</button>
+                                        <button type="button" class="cancel-multi-select">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-foot">
+                                <span class="multi-select" data-flag="0">多选</span>
+                            </div>
+                        </div>
+                        <div class="nav-row filter-condi">
+                            <div class="nav-head">
+                                <span class="nav-title">筛选条件：</span>
+                            </div>
+                            <div class="nav-body">
+                                <div class="nav-body-items">
+                                    <div class="items-inner clearfix">
+                                        <span class="filter-items">附加功能<i class="iconfont icon-ai-arrow-down"></i><i class="iconfont icon-jiantoushang-copy"></i></span>
+                                        <span class="filter-items">像素<i class="iconfont icon-ai-arrow-down"></i><i class="iconfont icon-jiantoushang-copy"></i></span>
+                                        <span class="filter-items">相关分类<i class="iconfont icon-ai-arrow-down"></i><i class="iconfont icon-jiantoushang-copy"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-foot">
+
+                            </div>
+                            <div class="filter-sub-items">
+                                <div class="filter-sub-item clearfix">
+                                    <a href="#javascript:; " class="item">GPS</a>
+                                    <a href="#javascript:; " class="item">WIFI</a>
+                                    <a href="#javascript:; " class="item">重力感应</a>
+                                    <a href="#javascript:; " class="item">光线感应</a>
+                                </div>
+                                <div class="filter-sub-item clearfix">
+                                    <a href="#javascript:; " class="item">2000万</a>
+                                    <a href="#javascript:; " class="item">1200万</a>
+                                    <a href="#javascript:; " class="item">800-1600万</a>
+                                </div>
+                                <div class="filter-sub-item clearfix">
+                                    <a href="#javascript:; " class="item">女士内衣/男士内衣/家居服</a>
+                                    <a href="#javascript:; " class="item">男包</a>
+                                    <a href="#javascript:; " class="item">服饰配件/皮带/帽子/围巾</a>
+                                    <a href="#javascript:; " class="item">女包</a>
+                                    <a href="#javascript:; " class="item">男装</a>
+                                    <a href="#javascript:; " class="item">功能箱包</a>
+                                    <a href="#javascript:; " class="item">童装/婴儿装/亲子装</a>
+                                    <a href="#javascript:; " class="item">保健滋补医药器械</a>
+                                    <a href="#javascript:; " class="item">居家日用</a>
+                                    <a href="#javascript:; " class="item">玩具/童车/益智/积木/模型</a>
+                                    <a href="#javascript:; " class="item">厨房/餐饮用具</a>
+                                    <a href="#javascript:; " class="item">清洁工具/收纳整理</a>
+                                    <a href="#javascript:; " class="item">流行男装</a>
+                                    <a href="#javascript:; " class="item">运动服/休闲服</a>
+                                    <a href="#javascript:; " class="item">3C数码配件市场</a>
+                                    <a href="#javascript:; " class="item">家居饰品</a>
+                                    <a href="#javascript:; " class="item">零食/坚果/特产</a>
+                                    <a href="#javascript:; " class="item">家装主材</a>
+                                    <a href="#javascript:; " class="item">住宅家具</a>
+                                    <a href="#javascript:; " class="item">孕妇装/孕产妇用品/营养</a>
+                                    <a href="#javascript:; " class="item">户外运动用品</a>
+                                    <a href="#javascript:; " class="item">饰品/流行首饰/时尚饰品</a>
+                                    <a href="#javascript:; " class="item">宠物/宠物食品及用品</a>
+                                    <a href="#javascript:; " class="item">彩妆/香水/美妆工具</a>
+                                    <a href="#javascript:; " class="item">餐饮具</a>
+                                    <a href="#javascript:; " class="item">模玩/动漫/明星/COS/桌游</a>
+                                    <a href="#javascript:; " class="item">运动/瑜伽/健身/球迷用品</a>
+                                    <a href="#javascript:; " class="item">节庆用品/礼品</a>
+                                    <a href="#javascript:; " class="item">文具电教/文化用品/商务...</a>
+                                    <a href="#javascript:; " class="item">居家布艺/窗帘地毯/缝纫...</a>
+                                    <a href="#javascript:; " class="item">汽车内外饰用品</a>
+                                    <a href="#javascript:; " class="item">宝宝用品</a>
+                                    <a href="#javascript:; " class="item">洗护清洁剂/卫生巾/纸/...</a>
+                                    <a href="#javascript:; " class="item">收纳整理</a>
+                                    <a href="#javascript:; " class="item">五金/工具</a>
+                                    <a href="#javascript:; " class="item">书籍/杂志/报纸</a>
+                                    <a href="#javascript:; " class="item">厨房电器</a>
+                                    <a href="#javascript:; " class="item">乐器/吉他/钢琴/配件</a>
+                                    <a href="#javascript:; " class="item">大家电</a>
+                                    <a href="#javascript:; " class="item">生活电器</a>
+                                    <a href="#javascript:; " class="item">影音电器</a>
+                                    <a href="#javascript:; " class="item">商业/办公家具</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sort-module">
+                    <div class="sort-main">
+                        <div class="sort-bar clearfix">
+                            <ul class="sorts clearfix">
+                                <li class="sort">
+                                    <a href="javascript:;" class="sort-default-btn sort-btn activity">综合排序</a>
+                                </li>
+                                <li class="sort">
+                                    <a href="javascript:;" class="sort-sales-btn sort-btn">销量</a>
+                                </li>
+                                <li class="sort">
+                                    <a href="javascript:;" class="sort-credit-btn sort-btn">信用</a>
+                                </li>
+                                <li class="sort price-sort">
+                                    <a href="javascript:;" class="sort-price">价格<i class="iconfont icon-ai-arrow-down"></i></a>
+                                    <ul class="sort-sub-list">
+                                        <li>
+                                            <a href="javascript:;" class="sort-price-asc sort-btn">价格从低到高</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" class="sort-price-desc sort-btn">价格从高到低</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="price-interval">
+                                <li class="price-input">
+                                    <input type="text" placeholder="￥" class="input-price-filter1">
+                                </li>
+                                <li class="div-line"> - </li>
+                                <li class="price-input">
+                                    <input type="text" placeholder="￥" class="input-price-filter2">
+                                </li>
+                                <li>
+                                    <button type="submit" class="price-submit-btn">确定</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="goods-list-module">
+                    <div class="m-goods-items clearfix" id="goodsItemsBox"></div>
+                </div>
+                <div id="goodsPage" class="goods-page">
+                </div>
+            </div>
+            <div class="grid-right">
+                <div class="hot-goods">
+                    <div class="hot-goods-title">
+                        <a href="#">掌柜热卖</a>
+                    </div>
+                    <ul class="hot-goods-list" id="hotGoodsBox">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <!-- 底部区域 -->
+    <div class="footer">
+
+        <div class="footer2">
+            <div class="footer2-wrap">
+                <div class="ali-link-list">
+                    <p>
+                        <span><a href="#">阿里巴巴集团</a></span><em>|</em>
+                        <span><a href="#">淘宝网</a></span><em>|</em>
+                        <span><a href="#">天猫</a></span><em>|</em><span><a href="#">聚划算</a></span><em>|</em><span><a href="#">全球速卖通</a></span><em>|</em><span><a href="#">阿里巴巴国际交易市场</a></span><em>|</em><span><a href="#">1688</a></span><em>|</em><span><a href="#">阿里妈妈</a></span><em>|</em><span><a href="#">飞猪</a></span><em>|</em><span><a href="#">淘小铺</a></span><em>|</em><span><a href="#">阿里云计算</a></span><em>|</em><span><a href="#">AliOS</a></span><em>|</em><span><a href="#">阿里通信</a></span><em>|</em><span><a href="#">一淘</a></span><em>|</em><span><a href="#">万网</a></span><em>|</em><span><a href="#">高德</a></span><em>|</em><span><a href="#">UC</a></span><em>|</em><span><a href="#">友盟</a></span><em>|</em><span><a href="#">阿里安全</a></span><br
+                        /><em>|</em><span><a href="#">虾米</a></span><em>|</em><span><a href="#">大麦网</a></span><em>|</em><span><a href="#">钉钉</a></span><em>|</em><span><a href="#">支付宝</a></span><em>|</em><span><a href="#">优酷</a></span><em>|</em><span><a href="#">土豆</a></span><em>|</em><span><a href="#">阿里健康</a></span><em>|</em><span><a href="#">阿里影业</a></span><em>|</em><span><a href="#">阿里体育</a></span><em>|</em><span><a href="#">网商银行</a></span><em>|</em>
+                    </p>
+                </div>
+                <div class="ft-aboutus">
+                    <p>
+                        <span><a href="#">关于淘宝</a></span><span><a href="#">合作伙伴</a></span><span><a href="#">营销中心</a></span><span><a href="#">廉正举报</a></span><span><a href="#">联系客服</a></span><span><a href="#">开放平台</a></span><span><a href="#">诚征英才</a></span><span><a href="#">联系我们</a></span><span><a href="#">网站地图</a></span><span><a href="#">隐私权政策</a></span><span><a href="#">法律声明</a></span><span><a href="#">知识产权</a></span>
+                        <em>|</em>
+                        <b class="copyright-dec">© 2003-现在 Taobao.com 版权所有</b>
+                    </p>
+                    <P>
+                        <span><a href="#">增值电信业务经营许可证:浙B2-20080224</a></span><em>|</em><span><a href="#">增值电信业务经营许可证（跨地区》∶B2-20150210</a></span><em>|</em><span><a href="#">浙网文(2019)1033-086号</a></span><em>|</em><span>浙江省网络食品销售第三方平台提供者备案:浙网食A33010001</span>
+                    </P>
+                    <p>
+                        <span>互联网药品信息服务资格证书〈浙〉-经营性-2018-0010</span><em>|</em><span>互短消息类服务接入代码使用证书:号【2016】00154-A01</span><em>|</em><span>信息网络传播视听许可证:1109364号</span><em>|</em><span>出版物网络交易平台服务经营备案号:新出发浙备字第002号</span>
+                    </p>
+                    <p>
+                        <a href="#">
+                            <span class="ft-sprite ft-sprite1"></span>浙公网安备 33010002000078号
+                        </a>
+                        <em>|</em><span>广播电视节目制作经营许可证（浙）字第01012号</span><em>|</em><span>市场名称登记证：工商网市字3301004120号</span><em>|</em><span>医疗器械网络交易服务第三方平台备案：（浙）网械平台备字[2018]第00004号</span>
+                    </p>
+                </div>
+                <div class="supervise-link">
+                    <a href="#" class="supervise-mode supervise-mode1"></a>
+                    <a href="#" class="supervise-mode supervise-mode2"></a>
+                    <a href="#" class="supervise-mode supervise-mode3"></a>
+                    <a href="#" class="supervise-mode supervise-mode4"></a>
+                    <a href="#" class="supervise-mode supervise-mode5"></a>
+                    <a href="#" class="supervise-mode supervise-mode6"></a>
+                    <a href="#" class="supervise-mode supervise-mode7"></a>
+                    <a href="#" class="supervise-mode supervise-mode8"></a>
+                    <a href="#" class="supervise-mode supervise-mode9"></a>
+                    <a href="#" class="supervise-mode supervise-mode10"></a>
+                    <a href="#" class="supervise-mode supervise-mode11"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导入Jquery -->
+    <script src="lib/jquery-3.5.1.min.js"></script>
+    <!-- 导入layui.js -->
+    <script src="lib/layui/layui.js"></script>
+    <!-- 导入API根路径 -->
+    <script src="./js/baseAPI.js"></script>
+    <!-- 导入公共JS文件 -->
+    <script src="js/common.js"></script>
+    <!-- 导入本页的JS文件 -->
+    <script src="js/goodslist.js"></script>
+</body>
+
+</html>

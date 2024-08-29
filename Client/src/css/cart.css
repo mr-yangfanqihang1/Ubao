@@ -1,0 +1,399 @@
+body {
+  overflow-x: auto;
+  background-color: #fff;
+}
+.header .header-wrap {
+  width: 1190px;
+  margin: 0 auto;
+}
+.c-container {
+  /* 结算模块 */
+}
+.c-container .cart-inner {
+  width: 1190px;
+  margin: 0 auto;
+}
+.c-container .car-header {
+  padding: 20px 0;
+}
+.c-container .car-logo img {
+  vertical-align: middle;
+}
+.c-container .car-logo b {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+.c-container .cart-filter-bar {
+  font-size: 16px;
+  color: #E2231A;
+  font-weight: 700;
+}
+.c-container .cart-filter-bar em {
+  padding: 5px;
+  border-bottom: 1px solid #E2231A;
+}
+.c-container .cart-thead {
+  height: 32px;
+  line-height: 32px;
+  margin: 5px 0 10px;
+  padding: 5px 0;
+  border-top: 0;
+  position: relative;
+}
+.c-container .cart-thead > div,
+.c-container .cart-item-inner > div {
+  float: left;
+}
+.c-container .cart-thead > div {
+  height: 50px;
+  line-height: 50px;
+}
+.c-container .cart-item-inner > div {
+  min-height: 119px;
+}
+.c-container .cart-item {
+  margin-bottom: 15px;
+}
+.c-container .t-checkbox,
+.c-container .p-checkbox {
+  height: 18px;
+  line-height: 18px;
+  width: 122px;
+  text-align: center;
+}
+.c-container .t-checkbox {
+  width: 80px;
+}
+.c-container .t-goods {
+  width: 292px;
+  padding-left: 20px;
+}
+.c-container .t-info {
+  width: 212px;
+  padding-right: 40px;
+}
+.c-container .t-price {
+  width: 120px;
+  padding-left: 10px;
+  text-align: left;
+}
+.c-container .t-num {
+  width: 110px;
+  padding-left: 10px;
+  text-align: left;
+}
+.c-container .t-sum {
+  width: 140px;
+  text-align: left;
+}
+.c-container .t-action {
+  width: 119px;
+  padding-left: 30px;
+  text-align: left;
+}
+.c-container .cart-item-inner {
+  border: 1px solid #CCCCCC;
+  background: #FCFCFC;
+}
+.c-container .diy-checkbox {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  background: url("../images/sprite7.png") no-repeat 0 0;
+  cursor: pointer;
+}
+.c-container .diy-checkbox[data-checked="true"] {
+  background-position: 0 -20px;
+}
+.c-container .shop-info {
+  padding-left: 15px;
+  line-height: 38px;
+}
+.c-container .shop-info .shop-checkbox-wrap {
+  float: left;
+}
+.c-container .shop-info .shop-checkbox-wrap .shop-checkbox {
+  position: relative;
+  top: 2px;
+}
+.c-container .shop-info .shop-name-box {
+  float: left;
+}
+.c-container .shop-info .shop-name-box a.shop-name:hover {
+  text-decoration: underline;
+}
+.c-container .shop-info .shop-name-box .wangwang-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+  background: url("../images/wangwang-icon.gif") no-repeat;
+  background-size: 15px;
+  vertical-align: middle;
+}
+.c-container .p-category {
+  width: 212px;
+  min-height: 119px !important;
+  padding-right: 40px;
+}
+.c-container .p-category .td-inner {
+  min-height: 84px;
+  padding: 16px 0;
+}
+.c-container .p-category .cat-line {
+  overflow: hidden;
+  margin: 0 5px 0 15px;
+  color: #9c9c9c;
+  text-overflow: ellipsis;
+}
+.c-container .p-checkbox {
+  width: 50px;
+  min-height: 119px;
+}
+.c-container .p-checkbox .td-inner {
+  padding-top: 20px;
+}
+.c-container .p-goods {
+  width: 342px;
+  min-height: 119px;
+}
+.c-container .p-goods .td-inner {
+  padding-top: 20px;
+}
+.c-container .p-img {
+  float: left;
+  border: 1px solid #ccc;
+  width: 80px;
+  height: 80px;
+}
+.c-container .p-img img {
+  width: 80px;
+  height: 80px;
+  vertical-align: top;
+}
+.c-container .p-msg {
+  float: left;
+  width: 210px;
+  margin: 0 10px;
+}
+.c-container .p-msg a {
+  display: block;
+  overflow: hidden;
+  max-height: 36px;
+  text-overflow: ellipsis;
+}
+.c-container .p-msg a:hover {
+  text-decoration: underline;
+}
+.c-container .p-price {
+  width: 130px;
+  font-family: Verdana,Tahoma,arial;
+}
+.c-container .p-price .td-inner {
+  padding-top: 12px;
+}
+.c-container .p-price .td-inner .pre-price {
+  padding-bottom: 4px;
+  color: #9c9c9c;
+  text-decoration: line-through;
+}
+.c-container .p-price .td-inner .now-price {
+  color: #3c3c3c;
+  font-weight: 700;
+}
+.c-container .quantity-form {
+  width: 80px;
+  height: 22px;
+}
+.c-container .p-num {
+  width: 120px;
+}
+.c-container .p-num .td-inner {
+  padding-top: 20px;
+}
+.c-container .p-num .td-inner .itxt {
+  width: 39px;
+  height: 15px;
+  padding: 4px 0;
+  color: #343434;
+  border: 1px solid #aaa;
+  text-align: center;
+}
+.c-container .p-num .td-inner a.btn {
+  width: 17px;
+  height: 23px;
+  padding: 0;
+  line-height: 23px;
+  background-color: #f0f0f0;
+  border: 1px solid #e5e5e5;
+}
+.c-container .p-num .td-inner a.btn:hover {
+  color: #f50;
+  border-color: #f60;
+}
+.c-container .p-num .td-inner a.increment {
+  margin: 0;
+}
+.c-container .p-num .td-inner a.decrement {
+  margin-right: 1px;
+}
+.c-container .decrement,
+.c-container .increment {
+  float: left;
+  border: 1px solid #cacbcb;
+  height: 18px;
+  line-height: 18px;
+  padding: 1px 0;
+  width: 16px;
+  text-align: center;
+  color: #666;
+  margin: 0;
+  background: #fff;
+  margin-left: -1px;
+}
+.c-container .decrement.ban,
+.c-container .increment.ban {
+  color: #ccc;
+  cursor: not-allowed;
+  background-color: #ededed;
+}
+.c-container .decrement.ban:hover,
+.c-container .increment.ban:hover {
+  color: #CCCCCC !important;
+  border-color: #E5E5E5 !important;
+}
+.c-container .itxt {
+  float: left;
+  border: 1px solid #cacbcb;
+  width: 42px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  padding: 1px;
+  margin: 0;
+  margin-left: -1px;
+  font-size: 12px;
+  font-family: verdana;
+  color: #333;
+  -webkit-appearance: none;
+}
+.c-container .p-sum {
+  font-weight: 700;
+  width: 140px;
+}
+.c-container .p-sum .td-inner {
+  padding-top: 16px;
+}
+.c-container .p-sum .td-inner .item-price-sum {
+  color: #FF4400;
+  font-family: Verdana,Tahoma,arial;
+}
+.c-container .p-action {
+  width: 119px;
+  padding-left: 30px;
+}
+.c-container .p-action .td-inner {
+  padding-top: 17px;
+}
+.c-container .p-action .td-inner a {
+  display: block;
+  padding-bottom: 3px;
+}
+.c-container .p-action .td-inner a:hover {
+  text-decoration: underline;
+}
+.c-container .cart-floatbar-box {
+  width: 1190px;
+  height: 50px;
+}
+.c-container .cart-floatbar {
+  position: relative;
+  height: 50px;
+  color: #3c3c3c;
+  line-height: 50px;
+  background: #E5E5E5;
+}
+.c-container .cart-floatbar-fixed {
+  position: fixed;
+  bottom: 0;
+  width: 1190px;
+  margin-bottom: 0;
+}
+.c-container .select-all {
+  float: left;
+  height: 18px;
+  line-height: 18px;
+  padding: 16px 0 16px 9px;
+  white-space: nowrap;
+}
+.c-container .select-all input {
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 5px;
+}
+.c-container .operation {
+  float: left;
+  margin-left: 40px;
+}
+.c-container .operation a:hover {
+  text-decoration: underline;
+}
+.c-container .clear-all {
+  font-weight: 700;
+  margin: 0 20px;
+}
+.c-container .toolbar-right {
+  float: right;
+}
+.c-container .add-favorites {
+  margin-left: 20px;
+}
+.c-container .amount-sum {
+  float: left;
+  line-height: 48px;
+}
+.c-container .amount-sum em {
+  padding: 0 5px;
+  color: #F40;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: tohoma,arial;
+  vertical-align: middle;
+}
+.c-container .price-sum {
+  float: left;
+  margin: 0 15px;
+  line-height: 48px;
+}
+.c-container .price-sum em {
+  color: #F40;
+  font-size: 22px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+.c-container .price-sum i {
+  color: #F40;
+  font-size: 14px;
+  font-family: verdana;
+  vertical-align: middle;
+}
+.c-container .btn-area {
+  overflow: hidden;
+  width: 120px;
+  height: 50px;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  font-family: 'Lantinghei SC', 'Microsoft Yahei';
+  text-align: center;
+}
+.c-container .btn-area[data-disabled="true"] {
+  background: #B0B0B0;
+  cursor: not-allowed;
+}
+.c-container .btn-area[data-disabled="false"] {
+  background: #FF4400;
+  cursor: pointer;
+}

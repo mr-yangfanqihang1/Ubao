@@ -1,0 +1,190 @@
+
+button, input, select, textarea {
+    font: 100% Microsoft YaHei,tahoma,arial,Hiragino Sans GB,\\5B8B\4F53,sans-serif;
+}
+body {
+    background-color: #fff;
+    font: 12/1.5 Microsoft YaHei,tahoma,arial,Hiragino Sans GB,\\5B8B\4F53,sans-serif;
+}
+a {
+    font: 100% Microsoft YaHei,tahoma,arial,Hiragino Sans GB,\\5B8B\4F53,sans-serif;
+}
+.header {
+    .header-wrap {
+        width: 1200px;
+        // height: 88px;
+        margin: 0 auto;
+        padding: 22px 0;
+        .logo {
+            float: left;
+            h1 {
+                width: 110px;
+                height: 44px;
+                a {
+                    img {
+                        width: 110px;
+                        height: 44px;
+                        vertical-align: top;
+                    }
+                }
+            }
+        }
+
+        .login-advice {
+            float: right;
+            a {
+                font-size: 12px;
+                line-height: 44px;
+                .iconfont {
+                    position: relative;
+                    top: 5px;
+                    color: #FF4400;
+                    font-size: 26px;
+                }
+            }
+        }
+    }
+}
+
+.content {
+    .login-bg {
+        height: 600px;
+        background: url("../images/login-bg2.jpg") no-repeat center;
+        background-size: cover;
+        .login-content {
+            position: relative;
+            width: 1200px;
+            margin: 0 auto;
+            .login-box {
+                position: absolute;
+                top: 120px;
+                right: 60px;
+                width: 350px;
+                min-height: 350px;
+                padding: 25px 25px 23px;
+                background-color: #E9E9F2;
+                box-sizing: border-box;
+                .login-tabs {
+                    margin-bottom: 20px;
+                    a {
+                        margin-right: 10px;
+                        padding-bottom: 3px;
+                        color: #3C3C3C;
+                        font-weight: 700;
+                        font-size: 16px;
+                        
+                    }
+                    a.activity {
+                        border-bottom: 2px solid #000000;
+                    }
+                }
+                .login-form {
+                    .login-error {
+                        margin-bottom: 10px;   
+                        padding: 5px 8px;
+                        background-color: #FEF2F2;
+                        border: 1px solid #FFB4A8;
+                        height: 18px;
+                        line-height: 18px;
+                        display: none;
+                        .iconfont {
+                            color: #FF934C;
+                        }
+                        span {
+                            height: 18px;
+                            color: #6C6C6C;
+                            font-size: 12px;
+                            
+                        }
+                    }
+                    .form-field {
+                        position: relative;
+                        margin-bottom: 20px;
+                        label {
+                            position: absolute;
+                            top: 0;
+                            left: 1px;
+                            width: 41px;
+                            height: 41px;
+                            color: #fff;
+                            text-align: center;
+                            line-height: 40px;
+                            background-color: #CCCCCC;
+                        }
+                        input {
+                            width: 100%;
+                            height: 42px;
+                            font-size: 14px;
+                            border: 1px solid #ccc;
+                            box-sizing: border-box;
+                        }
+                        .fm-text {
+                            padding-left: 50px;
+                        }
+                        .login-submit {
+                            color: #fff;
+                            font-size: 16px;
+                            background-color: #FF4400;
+                            cursor: pointer;
+                            &:hover {
+                                background-color: #f52b00;
+                            }
+                        }
+                    }
+                    .other-login-links {
+                        a {
+                            font-size: 12px;
+                         
+                        }
+                        a:last-of-type{
+                            margin-left: 10px;
+                        }
+                        .iconfont {
+                            position: relative;
+                            top: 2px;
+                        }
+                        .icon-logo-weibo {
+                            color: #E52425;
+                        }
+                        .icon-alipay-circle-fill {
+                            color: #1BA9EE;
+                        }
+                    }
+                    .account-option-links {
+                        margin-top: 16px;
+                        text-align: right;
+                    }
+                }
+
+                .login-pwd {
+                    display: block; 
+                }
+
+                .login-phone {
+                    display: none;
+                    .icon-lvzhou_zhongduan_shouji,.icon-duanxinyanzhengma {
+                        font-size: 20px;
+                    }
+                    .send-code {
+                        position: absolute;
+                        right: 10px;
+                        top: 0;
+                        height: 40px;
+                        line-height: 40px;
+                        a {
+                            color: #3C3C3C;
+                        }
+                    }
+                }
+
+
+            }
+        }
+    }
+}
+
+.footer {
+    .footer2 {
+        margin-top: 60px;
+    }
+}

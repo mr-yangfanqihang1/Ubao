@@ -1,0 +1,107 @@
+/* 公共样式 START */
+
+body,
+html,
+input,
+div,
+span,
+a,
+form,
+img,
+ul,
+li,
+ol,
+dl,
+dt,
+dd,
+p,
+h1,
+h3,
+h2,
+h4,
+h5,
+h6,
+select,
+textarea,
+button {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font: 12px/1.5 tahoma, arial, 'Hiragino Sans GB', '\5b8b\4f53', sans-serif;
+}
+
+body {
+    /* width: 100%; */
+    min-width: 1190px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    background-color: #F4F4F4;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    color: #3C3C3C;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #FF4400;
+}
+
+i,
+em {
+    font-style: normal;
+}
+
+p {
+    color: #3C3C3C;
+}
+
+b,
+strong {
+    font-weight: 400;
+}
+
+input,
+button {
+    border: none;
+    outline: none;
+}
+
+
+/* 清除浮动 */
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.icon-ai-arrow-down {
+    font-size: 14px;
+}
+
+.block {
+    display: block;
+}
+
+
+/* 公共样式 END */

@@ -1,0 +1,170 @@
+button,
+input,
+select,
+textarea {
+  font: 100% Microsoft YaHei, tahoma, arial, Hiragino Sans GB, \\5B8B\4F53, sans-serif;
+}
+body {
+  background-color: #fff;
+  font: 12/1.5 Microsoft YaHei, tahoma, arial, Hiragino Sans GB, \\5B8B\4F53, sans-serif;
+}
+a {
+  font: 100% Microsoft YaHei, tahoma, arial, Hiragino Sans GB, \\5B8B\4F53, sans-serif;
+}
+.header .header-wrap {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 22px 0;
+}
+.header .header-wrap .logo {
+  float: left;
+}
+.header .header-wrap .logo h1 {
+  width: 110px;
+  height: 44px;
+}
+.header .header-wrap .logo h1 a img {
+  width: 110px;
+  height: 44px;
+  vertical-align: top;
+}
+.header .header-wrap .login-advice {
+  float: right;
+}
+.header .header-wrap .login-advice a {
+  font-size: 12px;
+  line-height: 44px;
+}
+.header .header-wrap .login-advice a .iconfont {
+  position: relative;
+  top: 5px;
+  color: #FF4400;
+  font-size: 26px;
+}
+.content .login-bg {
+  height: 600px;
+  background: url("../images/login-bg2.jpg") no-repeat center;
+  background-size: cover;
+}
+.content .login-bg .login-content {
+  position: relative;
+  width: 1200px;
+  margin: 0 auto;
+}
+.content .login-bg .login-content .login-box {
+  position: absolute;
+  top: 120px;
+  right: 60px;
+  width: 350px;
+  min-height: 350px;
+  padding: 25px 25px 23px;
+  background-color: #E9E9F2;
+  box-sizing: border-box;
+}
+.content .login-bg .login-content .login-box .login-tabs {
+  margin-bottom: 20px;
+}
+.content .login-bg .login-content .login-box .login-tabs a {
+  margin-right: 10px;
+  padding-bottom: 3px;
+  color: #3C3C3C;
+  font-weight: 700;
+  font-size: 16px;
+}
+.content .login-bg .login-content .login-box .login-tabs a.activity {
+  border-bottom: 2px solid #000000;
+}
+.content .login-bg .login-content .login-box .login-form .login-error {
+  margin-bottom: 10px;
+  padding: 5px 8px;
+  background-color: #FEF2F2;
+  border: 1px solid #FFB4A8;
+  height: 18px;
+  line-height: 18px;
+  display: none;
+}
+.content .login-bg .login-content .login-box .login-form .login-error .iconfont {
+  color: #FF934C;
+}
+.content .login-bg .login-content .login-box .login-form .login-error span {
+  height: 18px;
+  color: #6C6C6C;
+  font-size: 12px;
+}
+.content .login-bg .login-content .login-box .login-form .form-field {
+  position: relative;
+  margin-bottom: 20px;
+}
+.content .login-bg .login-content .login-box .login-form .form-field label {
+  position: absolute;
+  top: 0;
+  left: 1px;
+  width: 41px;
+  height: 41px;
+  color: #fff;
+  text-align: center;
+  line-height: 40px;
+  background-color: #CCCCCC;
+}
+.content .login-bg .login-content .login-box .login-form .form-field input {
+  width: 100%;
+  height: 42px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.content .login-bg .login-content .login-box .login-form .form-field .fm-text {
+  padding-left: 50px;
+}
+.content .login-bg .login-content .login-box .login-form .form-field .login-submit {
+  color: #fff;
+  font-size: 16px;
+  background-color: #FF4400;
+  cursor: pointer;
+}
+.content .login-bg .login-content .login-box .login-form .form-field .login-submit:hover {
+  background-color: #f52b00;
+}
+.content .login-bg .login-content .login-box .login-form .other-login-links a {
+  font-size: 12px;
+}
+.content .login-bg .login-content .login-box .login-form .other-login-links a:last-of-type {
+  margin-left: 10px;
+}
+.content .login-bg .login-content .login-box .login-form .other-login-links .iconfont {
+  position: relative;
+  top: 2px;
+}
+.content .login-bg .login-content .login-box .login-form .other-login-links .icon-logo-weibo {
+  color: #E52425;
+}
+.content .login-bg .login-content .login-box .login-form .other-login-links .icon-alipay-circle-fill {
+  color: #1BA9EE;
+}
+.content .login-bg .login-content .login-box .login-form .account-option-links {
+  margin-top: 16px;
+  text-align: right;
+}
+.content .login-bg .login-content .login-box .login-pwd {
+  display: block;
+}
+.content .login-bg .login-content .login-box .login-phone {
+  display: none;
+}
+.content .login-bg .login-content .login-box .login-phone .icon-lvzhou_zhongduan_shouji,
+.content .login-bg .login-content .login-box .login-phone .icon-duanxinyanzhengma {
+  font-size: 20px;
+}
+.content .login-bg .login-content .login-box .login-phone .send-code {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  height: 40px;
+  line-height: 40px;
+}
+.content .login-bg .login-content .login-box .login-phone .send-code a {
+  color: #3C3C3C;
+}
+.footer .footer2 {
+  margin-top: 60px;
+}

@@ -1,0 +1,1 @@
+"use strict";$.ajaxPrefilter(function(e){e.url="http://127.0.0.1"+e.url,-1===e.url.indexOf("/user/")&&-1===e.url.indexOf("/shop/")||(e.headers={Authorization:localStorage.getItem("token")}),e.complete=function(e){401===e.responseJSON.status&&"身份认证失败"===e.responseJSON.message&&(localStorage.removeItem("token"),layui.use("layer",function(){layui.layer.msg("身份已过期，请重新登录！")}))}});

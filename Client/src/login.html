@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>淘宝网 - 淘！我喜欢</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <!-- 导入字体图标 -->
+    <link rel="stylesheet" href="font/iconfont.css">
+    <!-- 导入layui.css -->
+    <link rel="stylesheet" href="./lib/layui/css/layui.css">
+    <!-- 导入基础样式 -->
+    <link rel="stylesheet" href="css/base.css">
+    <!-- 导入footer样式 -->
+    <link rel="stylesheet" href="css/footer.css">
+    <!-- 导入本页的CSS -->
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <!-- 登录页头部区域 -->
+    <div class="header">
+        <div class="header-wrap clearfix">
+            <div class="logo">
+                <h1>
+                    <a href="./index.html" target="_self">
+                        <img src="images/fixed-logo.png" alt="">
+                    </a>
+                </h1>
+            </div>
+            <div class="login-advice">
+                <a href="#">
+                    <i class="iconfont icon-tousuyujianyi"></i> "登录页面"改进建议
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登录页内容区 -->
+    <div class="content">
+        <div class="login-bg">
+            <div class="login-content">
+                <div class="login-box">
+                    <div class="login-tabs">
+                        <a href="javascript:;" class="activity pwd-login-tab">密码登录</a>
+                        <a href="javascript:;" class="sms-login-tab">短信登陆</a>
+                    </div>
+                    <!-- 密码登录 -->
+                    <div class="login-form login-pwd">
+                        <form>
+                            <div class="login-error">
+                                <i class="iconfont icon-tishi"></i>
+                                <span class="login-error-text pwd-login-error">请输入密码</span>
+                            </div>
+                            <div class="form-field">
+                                <label>
+                                    <i class="iconfont icon-jurassic_user"></i>
+                                </label>
+                                <input type="text" placeholder="会员名/邮箱/手机号" name="username" class="login-username fm-text">
+                            </div>
+                            <div class="form-field">
+                                <label>
+                                    <i class="iconfont icon-mima"></i>
+                                </label>
+                                <input type="password" placeholder="请输入登陆密码" name="password" class="login-password fm-text">
+                            </div>
+                            <div class="form-field">
+                                <input type="submit" value="登录" class="login-submit login-pwd-submit">
+                            </div>
+                            <div class="other-login-links">
+                                <a href="#">
+                                    <i class="iconfont icon-logo-weibo"></i> 微博登录
+                                </a>
+                                <a href="#">
+                                    <i class="iconfont icon-alipay-circle-fill"></i> 支付宝登录
+                                </a>
+                            </div>
+                            <div class="account-option-links">
+                                <a href="#" class="forget-password">忘记密码</a>
+                                <a href="#" class="forget-username">忘记用户名</a>
+                                <a href="./registered.html" class="free-registered">免费注册</a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- 手机验证码登录 -->
+                    <div class="login-form login-phone">
+                        <form>
+                            <div class="login-error">
+                                <i class="iconfont icon-tishi"></i>
+                                <span class="login-error-text phone-login-error">请输入手机号</span>
+                            </div>
+                            <div class="form-field">
+                                <label>
+                                    <i class="iconfont icon-lvzhou_zhongduan_shouji"></i>
+                                </label>
+                                <input type="text" placeholder="请输入手机号" name="telnumber" class="login-telnumber fm-text">
+                            </div>
+                            <div class="form-field">
+                                <label>
+                                    <i class="iconfont icon-duanxinyanzhengma"></i>
+                                </label>
+                                <input type="text" placeholder="请输入验证码" name="verifyCode" class="login-verify-code fm-text">
+                                <div class="send-code">
+                                    <a href="javascript:;">获取验证码</a>
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <input type="submit" value="登录" class="login-submit login-phone-submit">
+                            </div>
+                            <div class="other-login-links">
+                                <a href="#">
+                                    <i class="iconfont icon-logo-weibo"></i> 微博登录
+                                </a>
+                                <a href="#">
+                                    <i class="iconfont icon-alipay-circle-fill"></i> 支付宝登录
+                                </a>
+                            </div>
+                            <div class="account-option-links">
+                                <a href="./registered.html" class="free-registered">免费注册</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部区域 -->
+    <div class="footer">
+
+        <div class="footer2">
+            <div class="footer2-wrap">
+                <div class="ali-link-list">
+                    <p>
+                        <span><a href="#">阿里巴巴集团</a></span><em>|</em>
+                        <span><a href="#">淘宝网</a></span><em>|</em>
+                        <span><a href="#">天猫</a></span><em>|</em><span><a href="#">聚划算</a></span><em>|</em><span><a href="#">全球速卖通</a></span><em>|</em><span><a href="#">阿里巴巴国际交易市场</a></span><em>|</em><span><a href="#">1688</a></span><em>|</em><span><a href="#">阿里妈妈</a></span><em>|</em><span><a href="#">飞猪</a></span><em>|</em><span><a href="#">淘小铺</a></span><em>|</em><span><a href="#">阿里云计算</a></span><em>|</em><span><a href="#">AliOS</a></span><em>|</em><span><a href="#">阿里通信</a></span><em>|</em><span><a href="#">一淘</a></span><em>|</em><span><a href="#">万网</a></span><em>|</em><span><a href="#">高德</a></span><em>|</em><span><a href="#">UC</a></span><em>|</em><span><a href="#">友盟</a></span><em>|</em><span><a href="#">阿里安全</a></span><br
+                        /><em>|</em><span><a href="#">虾米</a></span><em>|</em><span><a href="#">大麦网</a></span><em>|</em><span><a href="#">钉钉</a></span><em>|</em><span><a href="#">支付宝</a></span><em>|</em><span><a href="#">优酷</a></span><em>|</em><span><a href="#">土豆</a></span><em>|</em><span><a href="#">阿里健康</a></span><em>|</em><span><a href="#">阿里影业</a></span><em>|</em><span><a href="#">阿里体育</a></span><em>|</em><span><a href="#">网商银行</a></span><em>|</em>
+                    </p>
+                </div>
+                <div class="ft-aboutus">
+                    <p>
+                        <span><a href="#">关于淘宝</a></span><span><a href="#">合作伙伴</a></span><span><a href="#">营销中心</a></span><span><a href="#">廉正举报</a></span><span><a href="#">联系客服</a></span><span><a href="#">开放平台</a></span><span><a href="#">诚征英才</a></span><span><a href="#">联系我们</a></span><span><a href="#">网站地图</a></span><span><a href="#">隐私权政策</a></span><span><a href="#">法律声明</a></span><span><a href="#">知识产权</a></span>
+                        <em>|</em>
+                        <b class="copyright-dec">© 2003-现在 Taobao.com 版权所有</b>
+                    </p>
+                    <P>
+                        <span><a href="#">增值电信业务经营许可证:浙B2-20080224</a></span><em>|</em><span><a href="#">增值电信业务经营许可证（跨地区》∶B2-20150210</a></span><em>|</em><span><a href="#">浙网文(2019)1033-086号</a></span><em>|</em><span>浙江省网络食品销售第三方平台提供者备案:浙网食A33010001</span>
+                    </P>
+                    <p>
+                        <span>互联网药品信息服务资格证书〈浙〉-经营性-2018-0010</span><em>|</em><span>互短消息类服务接入代码使用证书:号【2016】00154-A01</span><em>|</em><span>信息网络传播视听许可证:1109364号</span><em>|</em><span>出版物网络交易平台服务经营备案号:新出发浙备字第002号</span>
+                    </p>
+                    <p>
+                        <a href="#">
+                            <span class="ft-sprite ft-sprite1"></span>浙公网安备 33010002000078号
+                        </a>
+                        <em>|</em><span>广播电视节目制作经营许可证（浙）字第01012号</span><em>|</em><span>市场名称登记证：工商网市字3301004120号</span><em>|</em><span>医疗器械网络交易服务第三方平台备案：（浙）网械平台备字[2018]第00004号</span>
+                    </p>
+                </div>
+                <div class="supervise-link">
+                    <a href="#" class="supervise-mode supervise-mode1"></a>
+                    <a href="#" class="supervise-mode supervise-mode2"></a>
+                    <a href="#" class="supervise-mode supervise-mode3"></a>
+                    <a href="#" class="supervise-mode supervise-mode4"></a>
+                    <a href="#" class="supervise-mode supervise-mode5"></a>
+                    <a href="#" class="supervise-mode supervise-mode6"></a>
+                    <a href="#" class="supervise-mode supervise-mode7"></a>
+                    <a href="#" class="supervise-mode supervise-mode8"></a>
+                    <a href="#" class="supervise-mode supervise-mode9"></a>
+                    <a href="#" class="supervise-mode supervise-mode10"></a>
+                    <a href="#" class="supervise-mode supervise-mode11"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导入Jquery -->
+    <script src="lib/jquery-3.5.1.min.js"></script>
+    <!-- 导入layui的js文件 -->
+    <script src="lib/layui/layui.js"></script>
+    <!-- 导入API根路径 -->
+    <script src="./js/baseAPI.js"></script>
+    <!-- 导入本页的JS文件 -->
+    <script src="js/login.js"></script>
+</body>
+
+</html>
