@@ -5,7 +5,7 @@ import TableView from '../views/TableView.vue'
 import ElementView from '@/views/ElementView.vue'
 import CartView from '@/views/CartView.vue'
 import MainPage from "@/views/MainPage.vue";
-import TestView from "@/views/TestView.vue";
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -33,11 +33,6 @@ const routes = [
     path: '/main',
     name: 'main',
     component: MainPage
-  },
-  {
-    path: '/test',
-    name: 'test',
-    component: TestView
   },
   {
     path: '/about',
