@@ -4,6 +4,8 @@ import HomeView from '../views/HomeView.vue'
 import TableView from '../views/TableView.vue'
 import ElementView from '@/views/ElementView.vue'
 import CartView from '@/views/CartView.vue'
+import MainPage from "@/views/MainPage.vue";
+import TestView from "@/views/TestView.vue";
 Vue.use(VueRouter)
 
 const routes = [
@@ -26,6 +28,16 @@ const routes = [
     path: '/cart',
     name: 'cart',
     component: CartView
+  },
+  {
+    path: '/main',
+    name: 'main',
+    component: MainPage
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: TestView
   },
   {
     path: '/about',
