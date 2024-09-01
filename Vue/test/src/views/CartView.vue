@@ -6,7 +6,6 @@
           <img src="/image/logo.png" height="70px" style="margin-right: 10px;" />
           <span style="font-size: x-large; line-height: 70px;">购物车</span>
         </el-header>
-  
         <!-- 内容主体 -->
         <el-main>
           <!-- 商家和商品列表 -->
@@ -18,9 +17,11 @@
   
             <!-- 商品信息表格 -->
             <el-table :data="merchant.goods" style="width: 100%" border
-              @selection-change="handleSelectionChange(merchant)">
+            @select="handleItemSelectionChange"
+            @select-all="handleMerchantSelectionChange(merchant.id)"
+            show-header="false">
               <!-- 表格列：选择 -->
-              <el-table-column type="selection" width="55" align="center"></el-table-column>
+              <el-table-column type="selection" width="55" align="center" ></el-table-column>
   
               <!-- 表格列：商品信息 -->
               <el-table-column label="商品信息" prop="goods_name">
@@ -122,7 +123,7 @@
     },
     computed: {
         selectedItemsCount() {
-            console.log("selectedItemsCount computed");
+            /* console.log("selectedItemsCount computed"); */
             return this.cartItems.reduce((count, merchant) => {
                 return count + merchant.goods
                     .filter((item) => item.selected)
@@ -144,17 +145,29 @@
       updateTotalPrice() {
         // 更新总价的逻辑
       },
-      handleSelectionChange(merchant) {
-        return (selectedItems) => {
-          // 更新每个商品的 selected 状态
+      handleMerchantSelectionChange(merchantId) {
+        let merchantIndex = this.cartItems.findIndex((m) => m.id === merchantId);
+        if (merchantIndex !== -1) {
+          let merchant = this.cartItems[merchantIndex];
+          const selectAll = merchant.goods.every((item) => item.selected);
           merchant.goods.forEach((item) => {
-            item.selected = selectedItems.includes(item);
+            item.selected = !selectAll;
+            console.log(item.goods_id+" "+item.selected);
           });
-          // 更新选中的商品列表
-          this.$nextTick(() => {
-            this.updateSelectedItems();
-            });
-        };
+        }
+        this.updateSelectedItems();
+      },
+      handleItemSelectionChange(selection, row) {
+        let merchantIndex = this.cartItems.findIndex((m) => m.goods.some((item) => item.goods_id === row.goods_id));
+        if (merchantIndex !== -1) {
+          let merchant = this.cartItems[merchantIndex];
+          let itemIndex = merchant.goods.findIndex((item) => item.goods_id === row.goods_id);
+          if (itemIndex !== -1) {
+            merchant.goods[itemIndex].selected = !merchant.goods[itemIndex].selected;
+            console.log(merchant.goods[itemIndex].goods_id + " " + merchant.goods[itemIndex].selected);
+          }
+        }
+        this.updateSelectedItems();
       },
       updateSelectedItems() {
         this.selectedItems = this.cartItems.flatMap((m) =>
@@ -162,21 +175,55 @@
         );
       },
       toggleSelectAll() {
-        const selectAll = this.selectAll;
-        this.cartItems.forEach((merchant) =>
-          merchant.goods.forEach((item) => (item.selected = selectAll))
-        );
-        this.$nextTick(() => {
+          // 切换全选状态
+          this.selectAll = !this.selectAll;
+          const selectAll = this.selectAll;
+
+          // 更新每个商品的选中状态
+          this.cartItems.forEach((merchant) =>
+            merchant.goods.forEach((item) => {
+              item.selected = selectAll;
+              console.log(item.goods_id + " " + item.selected);
+            })
+          );
+
+          // 使用 Vue 的 nextTick 确保表格已更新，然后更新选择状态
+          this.$nextTick(() => {
             this.updateSelectedItems();
-        });
-      },
+
+            // 使用 Element UI 表格的 toggleAllSelection 方法
+            // 获取所有 el-table 实例并调用其 toggleAllSelection
+            const tables = this.$el.querySelectorAll('.el-table');
+            tables.forEach((table) => {
+              const tableInstance = table.__vue__;
+              if (tableInstance) {
+                if (selectAll) {
+                  tableInstance.store.states.data.forEach((row) => {
+                    tableInstance.toggleRowSelection(row, true);
+                  });
+                } else {
+                  tableInstance.clearSelection();
+                }
+              }
+            });
+          });
+        },
+
       removeItem(goodsId, merchantId) {
-        const merchant = this.cartItems.find((m) => m.id === merchantId);
-        if (merchant) {
+        let merchantIndex = this.cartItems.findIndex((m) => m.id === merchantId);
+        if (merchantIndex !== -1) {
+          let merchant = this.cartItems[merchantIndex];
+          // Remove the item from the merchant's goods
           merchant.goods = merchant.goods.filter((item) => item.goods_id !== goodsId);
+
+          // If the merchant has no goods left, remove the merchant from cartItems
+          if (merchant.goods.length === 0) {
+            this.cartItems.splice(merchantIndex, 1); // Remove the merchant
+          }
         }
         this.updateSelectedItems();
       },
+
       checkout() {
         alert("结算成功！");
       },
