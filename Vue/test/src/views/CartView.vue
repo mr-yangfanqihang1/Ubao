@@ -3,16 +3,17 @@
       <el-container>
         <!-- 顶部导航 -->
         <el-header style="background-color: transparent; display: flex; align-items: center; font-weight: 800; font-size: x-large; line-height: 60px;">
-          <img src="/image/logo.png" height="70px" style="margin-right: 10px;" />
+          <el-image :src=logo style="height:100%;margin-right: 10px;" />
           <span style="font-size: x-large; line-height: 70px;">购物车</span>
+
         </el-header>
         <!-- 内容主体 -->
-        <el-main>
+        <el-main style="margin-left:50px; margin-right: 50px">
           <!-- 商家和商品列表 -->
           <div v-for="merchant in cartItems" :key="merchant.id" style="margin-bottom: 10px;">
             <!-- 商家名称 -->
             <div style="font-size: large; font-weight: bold; margin: 0px;">
-              {{ merchant.name }}
+              <el-img></el-img>{{ merchant.name }}
             </div>
   
             <!-- 商品信息表格 -->
@@ -59,7 +60,7 @@
         </el-main>
   
         <!-- 底部操作区 -->
-        <el-footer class="cart-footer"  style="display: flex; align-items: center;margin-left: 20px">
+        <el-footer class="cart-footer"  style="margin-left:70px; margin-right: 5%;display: flex; align-items: center;">
           <el-checkbox v-model="selectAll" @change="toggleSelectAll">全选</el-checkbox>
           <span>已选商品 {{ selectedItemsCount }} 件</span>
           <span>合计（不含运费）：¥{{ totalAmount }}</span>
@@ -70,14 +71,16 @@
   </template>
   
   <script>
+  import logo from '@/assets/logo2.png'
   export default {
     data() {
       return {
+        logo: logo,
         selectAll: false,
         cartItems: [
           {
             id: 1,
-            name: "商家名称1",
+            name: "小米旗舰店",
             goods: [
               {
                 goods_id: 456,
@@ -103,7 +106,7 @@
           },
           {
             id: 2,
-            name: "商家名称2",
+            name: "蓝月亮旗舰店",
             goods: [
               {
                 goods_id: 987,
@@ -122,114 +125,106 @@
       };
     },
     computed: {
-        selectedItemsCount() {
-            /* console.log("selectedItemsCount computed"); */
-            return this.cartItems.reduce((count, merchant) => {
-                return count + merchant.goods
-                    .filter((item) => item.selected)
-                    .reduce((sum, item) => sum + item.goods_num, 0);
-                }, 0);
-        },
-      totalAmount() {
-        return this.cartItems.reduce(
-          (sum, merchant) =>
-            sum +
-            merchant.goods
-              .filter((item) => item.selected)
-              .reduce((s, item) => s + item.goods_price * item.goods_num, 0),
-          0
-        );
-      },
+    selectedItemsCount() {
+      return this.cartItems.reduce((count, merchant) => {
+        return count + merchant.goods
+          .filter((item) => item.selected)
+          .reduce((sum, item) => sum + item.goods_num, 0);
+      }, 0);
     },
-    methods: {
-      updateTotalPrice() {
-        // 更新总价的逻辑
-      },
-      handleMerchantSelectionChange(merchantId) {
-        let merchantIndex = this.cartItems.findIndex((m) => m.id === merchantId);
-        if (merchantIndex !== -1) {
-          let merchant = this.cartItems[merchantIndex];
-          const selectAll = merchant.goods.every((item) => item.selected);
-          merchant.goods.forEach((item) => {
-            item.selected = !selectAll;
-            console.log(item.goods_id+" "+item.selected);
-          });
-        }
-        this.updateSelectedItems();
-      },
-      handleItemSelectionChange(selection, row) {
-        let merchantIndex = this.cartItems.findIndex((m) => m.goods.some((item) => item.goods_id === row.goods_id));
-        if (merchantIndex !== -1) {
-          let merchant = this.cartItems[merchantIndex];
-          let itemIndex = merchant.goods.findIndex((item) => item.goods_id === row.goods_id);
-          if (itemIndex !== -1) {
-            merchant.goods[itemIndex].selected = !merchant.goods[itemIndex].selected;
-            console.log(merchant.goods[itemIndex].goods_id + " " + merchant.goods[itemIndex].selected);
-          }
-        }
-        this.updateSelectedItems();
-      },
-      updateSelectedItems() {
-        this.selectedItems = this.cartItems.flatMap((m) =>
-          m.goods.filter((item) => item.selected)
-        );
-      },
-      toggleSelectAll() {
-          // 切换全选状态
-          this.selectAll = !this.selectAll;
-          const selectAll = this.selectAll;
-
-          // 更新每个商品的选中状态
-          this.cartItems.forEach((merchant) =>
-            merchant.goods.forEach((item) => {
-              item.selected = selectAll;
-              console.log(item.goods_id + " " + item.selected);
-            })
-          );
-
-          // 使用 Vue 的 nextTick 确保表格已更新，然后更新选择状态
-          this.$nextTick(() => {
-            this.updateSelectedItems();
-
-            // 使用 Element UI 表格的 toggleAllSelection 方法
-            // 获取所有 el-table 实例并调用其 toggleAllSelection
-            const tables = this.$el.querySelectorAll('.el-table');
-            tables.forEach((table) => {
-              const tableInstance = table.__vue__;
-              if (tableInstance) {
-                if (selectAll) {
-                  tableInstance.store.states.data.forEach((row) => {
-                    tableInstance.toggleRowSelection(row, true);
-                  });
-                } else {
-                  tableInstance.clearSelection();
-                }
-              }
-            });
-          });
-        },
-
-      removeItem(goodsId, merchantId) {
-        let merchantIndex = this.cartItems.findIndex((m) => m.id === merchantId);
-        if (merchantIndex !== -1) {
-          let merchant = this.cartItems[merchantIndex];
-          // Remove the item from the merchant's goods
-          merchant.goods = merchant.goods.filter((item) => item.goods_id !== goodsId);
-
-          // If the merchant has no goods left, remove the merchant from cartItems
-          if (merchant.goods.length === 0) {
-            this.cartItems.splice(merchantIndex, 1); // Remove the merchant
-          }
-        }
-        this.updateSelectedItems();
-      },
-
-      checkout() {
-        alert("结算成功！");
-      },
+    totalAmount() {
+      return this.cartItems.reduce(
+        (sum, merchant) =>
+          sum +
+          merchant.goods
+            .filter((item) => item.selected)
+            .reduce((s, item) => s + item.goods_price * item.goods_num, 0),
+        0
+      );
     },
-  };
-  </script>
+  },
+  methods: {
+    updateTotalPrice() {
+      // Update total price logic...
+    },
+    handleMerchantSelectionChange(merchantId) {
+      let merchantIndex = this.cartItems.findIndex((m) => m.id === merchantId);
+      if (merchantIndex !== -1) {
+        let merchant = this.cartItems[merchantIndex];
+        const selectAll = merchant.goods.every((item) => item.selected);
+        merchant.goods.forEach((item) => {
+          item.selected = !selectAll;
+        });
+      }
+      this.updateSelectedItems();
+      this.updateSelectAllState();
+    },
+    handleItemSelectionChange(selection, row) {
+      let merchantIndex = this.cartItems.findIndex((m) => m.goods.some((item) => item.goods_id === row.goods_id));
+      if (merchantIndex !== -1) {
+        let merchant = this.cartItems[merchantIndex];
+        let itemIndex = merchant.goods.findIndex((item) => item.goods_id === row.goods_id);
+        if (itemIndex !== -1) {
+          merchant.goods[itemIndex].selected = !merchant.goods[itemIndex].selected;
+        }
+      }
+      this.updateSelectedItems();
+      this.updateSelectAllState();
+    },
+    updateSelectedItems() {
+      this.selectedItems = this.cartItems.flatMap((m) =>
+        m.goods.filter((item) => item.selected)
+      );
+    },
+    updateSelectAllState() {
+      // Update the 'selectAll' state based on individual item selections
+      this.selectAll = this.cartItems.every((merchant) =>
+        merchant.goods.every((item) => item.selected)
+      );
+    },
+    toggleSelectAll() {
+      this.selectAll = !this.selectAll;
+      const selectAll = this.selectAll;
+      this.cartItems.forEach((merchant) =>
+        merchant.goods.forEach((item) => {
+          item.selected = selectAll;
+        })
+      );
+      this.$nextTick(() => {
+        this.updateSelectedItems();
+        const tables = this.$el.querySelectorAll('.el-table');
+        tables.forEach((table) => {
+          const tableInstance = table.__vue__;
+          if (tableInstance) {
+            if (selectAll) {
+              tableInstance.store.states.data.forEach((row) => {
+                tableInstance.toggleRowSelection(row, true);
+              });
+            } else {
+              tableInstance.clearSelection();
+            }
+          }
+        });
+      });
+    },
+    removeItem(goodsId, merchantId) {
+      let merchantIndex = this.cartItems.findIndex((m) => m.id === merchantId);
+      if (merchantIndex !== -1) {
+        let merchant = this.cartItems[merchantIndex];
+        merchant.goods = merchant.goods.filter((item) => item.goods_id !== goodsId);
+        if (merchant.goods.length === 0) {
+          this.cartItems.splice(merchantIndex, 1);
+        }
+      }
+      this.updateSelectedItems();
+      this.updateSelectAllState();
+    },
+    checkout() {
+      alert("结算成功！");
+    },
+  },
+};
+</script>
   
   <style>
   .cart-page {
