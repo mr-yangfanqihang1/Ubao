@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import TableView from '../views/TableView.vue'
-import ElementView from '@/views/ElementView.vue'
 import CartView from '@/views/CartView.vue'
 import MainPage from "@/views/MainPage.vue";
 
@@ -21,8 +20,8 @@ const routes = [
   },
   {
     path: '/',
-    name: 'element',
-    component: ElementView
+    name: 'main',
+    component: MainPage
   },
   {
     path: '/cart',
