@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "Ubao",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
     "core-js": "^3.38.1",
     "element-ui": "^2.15.14",
     "test": "file:",
+    "Ubao": "file:",
     "vite-plugin-vue2": "^2.0.3",
     "vue": "^2.7.14",
     "vue-router": "^3.5.2"
