@@ -1,8 +1,0 @@
-{
-    "protocol": "mysql",
-    "host": "127.0.0.1",
-    "database": "taobao",
-    "user": "root",
-    "password": "1234",
-    "port": 3306
-}
