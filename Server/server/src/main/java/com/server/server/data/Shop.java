@@ -1,6 +1,9 @@
 // Shop.java
 package com.server.server.data;
-import lombok.*;
+
+
+import lombok.Data;
+
 @Data
 public class Shop {
     private int id;

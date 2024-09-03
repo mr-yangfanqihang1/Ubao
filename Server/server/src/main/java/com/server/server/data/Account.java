@@ -1,5 +1,7 @@
 package com.server.server.data;
-import lombok.*;
+
+import lombok.Data;
+
 @Data
 public class Account {
     private int id;

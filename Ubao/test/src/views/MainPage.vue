@@ -83,11 +83,11 @@
       <el-row :gutter="0">
         <el-col :span="5" v-for="(o, index) in count" :key="o" :offset="index%4 > 0 ? 1 : 0"  v-infinite-scroll="load" style="overflow:auto;cursor: pointer;">
           <el-card :body-style="{ padding: '0px',height: '500px'}" style="height: 360px">
-            <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" @click="toGoodsDetail(index)" class="image">
+            <img :src=goodsList[index].goodsImg @click="toGoodsDetail(index)" class="image">
             <div style="padding: 14px;" @click="toGoodsDetail(index)" >
-              <span>好吃的汉堡</span>
+              <span>{{goodsList[index].goodsTitle}}</span>
               <div class="bottom clearfix" >
-                <div>价格十元</div>
+                <span>价格：{{goodsList[index].goodsPrice}}元</span>
                 <el-button type="text" class="button">立即购买</el-button>
               </div>
             </div>
@@ -203,8 +203,20 @@ export default {
           input: category
         }
       })
-    }
+    },
+  },
+  beforeMount() {
+    this.$axios.get('http://localhost:8080/api/goodslist',{
+      params: {
+      }
+    }).then(res=>{
+      console.log(res.data);
+      this.goodsList=res.data.data
+    },err=>{
+      console.log(err);
+    })
   }
+
 }
 </script>
 

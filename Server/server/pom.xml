@@ -50,8 +50,13 @@
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>3.0.2</version> <!-- 请使用最新的稳定版本 -->
+			<version>3.0.3</version> <!-- 请使用最新的稳定版本 -->
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.baomidou</groupId>-->
+<!--			<artifactId>mybatis-plus-spring-boot3-starter</artifactId>-->
+<!--			<version>3.5.7</version>-->
+<!--		</dependency>-->
 		<!--        Mysql连接依赖-->
 		<dependency>
 			<groupId>com.mysql</groupId>
@@ -63,10 +68,6 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-
-
-
-
         
 	</dependencies>
 
