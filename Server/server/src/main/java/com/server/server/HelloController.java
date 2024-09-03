@@ -55,7 +55,7 @@ public class HelloController {
 
         return Collections.singletonList(user);
     }
-     @RequestMapping(value = "/result", method = RequestMethod.POST)
+/*      @RequestMapping(value = "/result", method = RequestMethod.POST)
     public Result<Data.User> result(@RequestBody Data.User user) {
         // 创建一个 Result 对象，封装响应数据
         Result<Data.User> result = new Result<>();
@@ -65,7 +65,7 @@ public class HelloController {
 
         // 返回封装好的 Result 对象
         return result;
-    }
+    } */
     @RequestMapping("/world")
     public String hello() {
         System.out.println("hello world!");

@@ -151,7 +151,7 @@
   },
   methods: {
     fetchCartItems() {
-      axios.post('http://localhost:8080/order/cart', {
+      axios.post('http://localhost:8080/order/cartItems', {
         user_id: 1
       })
       .then(response => {

@@ -15,7 +15,7 @@ public interface OrderMapper {
     @Select("SELECT * FROM `order`")
     List<Order> findAll();
 
-    @Select("SELECT o.shop_id AS order_shop_id, o.shop_name, g.* FROM `order` o JOIN goods g ON o.goods_id = g.id WHERE o.user_id = #{userId}")
+    @Select("SELECT o.shop_id AS order_shop_id, o.shop_name, g.* FROM `order` o JOIN goods g ON o.goods_id = g.id WHERE o.user_id = #{userId}& o.status=0")
     @Results({
         @Result(property = "shopId", column = "order_shop_id"),        //会与下面的shop_id冲突
         @Result(property = "shopName", column = "shop_name"),

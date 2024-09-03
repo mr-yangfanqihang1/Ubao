@@ -1,14 +1,14 @@
 package com.server.server;
 
+import com.server.server.data.Response;
 import com.server.server.data.Goods;
-import com.server.server.data.Result;
-import com.server.server.data.Shop;
+
 import com.server.server.mapper.GoodsMapper;
-import com.server.server.mapper.ShopMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
@@ -20,9 +20,9 @@ public class MainPageController {
 
     @GetMapping("/api/goodslist")
 //    @CrossOrigin(origins = "http://localhost:7000")
-    public Result<List<Goods>> getGoodsList() {
+    public Response<List<Goods>> getGoodsList() {
         List<Goods> list= goodsMapper.getGoodsList();
-        Result<List<Goods>> result = new Result<>();
+        Response<List<Goods>> result = new Response<>();
         result.setData(list);
         return result;
     }

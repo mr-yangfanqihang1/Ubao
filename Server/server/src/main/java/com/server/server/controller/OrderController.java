@@ -17,10 +17,10 @@ public class OrderController {
         return orderService.createOrder(token, request);
     }
 
-    @GetMapping("/cart")
-    public Response getCartInfo(@RequestHeader("Authorization") String token,@PathVariable Integer id) {
+    @GetMapping("/cartItems")
+    public Response getCartItems(@RequestHeader("Authorization") String token,@PathVariable Integer userId) {
         // 处理获取购物车信息的逻辑
-        return orderService.getCartInfo(token);
+        return orderService.getCartItems(userId);
     }
 
     @PostMapping("/updateNum")

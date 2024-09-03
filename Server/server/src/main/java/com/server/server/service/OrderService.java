@@ -21,16 +21,12 @@ public class OrderService {
         if (result > 0) {
             return new Response<>(1, "添加商品到购物车成功！", null);
         } else {
-            return new Response<>(5, "添加商品失败，请重新尝试！", null);
+            return new Response<>(2, "添加商品失败，请重新尝试！", null);
         }
     }
 
-    public Response<List<CartItems>> getCartItems(String token, int userId) {
+    public Response<List<CartItems>> getCartItems(int userId) {
         try {
-            // 验证token的逻辑
-            if (!isValidToken(token)) {
-                return new Response<>(0, "无效的token", null);
-            }
             //调用mapper连接数据库查询
             List<CartItems> cartItems = orderMapper.getCartItems(userId);
             
@@ -46,11 +42,7 @@ public class OrderService {
         }
     }
 
-    // 验证token的示例方法
-    private boolean isValidToken(String token) {
-        // 这里添加你的token验证逻辑
-        return true; // 假设token有效
-    }
+
 
 
     public Response<Void> updateNum(String token, UpdateNum request) {
