@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+@Mapper
 public interface GoodsMapper {
     @Select("SELECT * FROM goods WHERE id = #{id}")
     Goods findById(int id);
