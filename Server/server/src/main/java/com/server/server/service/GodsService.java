@@ -1,6 +1,6 @@
 package com.server.server.service;
 
-import com.server.server.Data;
+import com.server.server.data.Data;
 
 public interface GodsService {
 

@@ -1,4 +1,4 @@
-package com.server.server;
+package com.server.server.data;
 import java.util.List;
 public class Data {
     public static class table{

@@ -1,6 +1,6 @@
 package com.server.server.dao;
-import com.server.server.Data;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.server.server.data.Data;
 
 import java.io.IOException;
 //import java.util.List;

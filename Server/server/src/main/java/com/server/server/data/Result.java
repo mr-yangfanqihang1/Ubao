@@ -1,21 +1,11 @@
-package com.server.server;
+package com.server.server.data;
 
 public class Result<T> {
     private int code;
     private String message;
     private T data;
 
-    // 构造函数
-    public Result() {
-    }
-
-    public Result(int code, String message, T data) {
-        this.code = code;
-        this.message = message;
-        this.data = data;
-    }
-
-    // Getter 和 Setter
+    // Getter and Setter for code
     public int getCode() {
         return code;
     }
@@ -24,6 +14,7 @@ public class Result<T> {
         this.code = code;
     }
 
+    // Getter and Setter for message
     public String getMessage() {
         return message;
     }
@@ -32,22 +23,13 @@ public class Result<T> {
         this.message = message;
     }
 
+    // Getter and Setter for data
     public T getData() {
         return data;
     }
 
     public void setData(T data) {
         this.data = data;
-    }
-
-    // toString 方法
-    @Override
-    public String toString() {
-        return "Result{" +
-                "code=" + code +
-                ", message='" + message + '\'' +
-                ", data=" + data +
-                '}';
     }
 }
 
