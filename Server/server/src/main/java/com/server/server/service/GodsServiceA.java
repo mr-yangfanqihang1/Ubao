@@ -2,7 +2,7 @@ package com.server.server.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.server.server.data.Data;
+import com.server.server.Data;
 import com.server.server.dao.GodsDao;
 
 @Service
