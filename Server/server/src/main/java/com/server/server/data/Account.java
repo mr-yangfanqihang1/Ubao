@@ -1,6 +1,8 @@
 package com.server.server.data;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 @Data
+@AllArgsConstructor
 public class Account {
     private int id;
     private int userType;
