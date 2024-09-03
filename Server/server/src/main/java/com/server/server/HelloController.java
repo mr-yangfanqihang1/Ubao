@@ -17,10 +17,11 @@ import java.util.Collections;
 import java.util.List;
 
 @SpringBootApplication
-@MapperScan("com.server.server.mapper")
 @RestController
 public class HelloController {
-    
+
+
+
     @RequestMapping("/hello/{id}/{name}")
     public String hello(@PathVariable Integer id, @PathVariable String name) {
         System.out.println(id+" "+name);
