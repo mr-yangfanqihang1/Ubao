@@ -11,6 +11,9 @@ public interface GoodsMapper {
     @Select("SELECT * FROM goods")
     List<Goods> findAll();
 
+    @Select("SELECT * FROM goods WHERE shop_id = #{shop_id}")
+    List<Goods> selectGoodsByShopId(int shop_id);
+
     @Insert("INSERT INTO goods(category, brand, goods_title, goods_price, goods_sales, cmt_num, goods_reserve, goods_img, goods_params, goods_desc, shop_id) VALUES(#{category}, #{brand}, #{goodsTitle}, #{goodsPrice}, #{goodsSales}, #{cmtNum}, #{goodsReserve}, #{goodsImg}, #{goodsParams}, #{goodsDesc}, #{shopId})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Goods goods);

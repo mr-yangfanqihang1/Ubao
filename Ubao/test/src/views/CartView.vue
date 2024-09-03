@@ -72,11 +72,13 @@
   
   <script>
   import logo from '@/assets/logo2.png'
+  import axios from 'axios'
   export default {
     data() {
       return {
         logo: logo,
         selectAll: false,
+        selectedItems: [],
         cartItems: [
           {
             id: 1,
@@ -121,9 +123,13 @@
             ],
           },
         ],
-        selectedItems: [],
+        
       };
     },
+    mounted() {
+    this.fetchCartItems();
+  },
+  
     computed: {
     selectedItemsCount() {
       return this.cartItems.reduce((count, merchant) => {
@@ -144,6 +150,21 @@
     },
   },
   methods: {
+    fetchCartItems() {
+      axios.post('http://localhost:8080/order/cart', {
+        user_id: 1
+      })
+      .then(response => {
+        if (response.data.status === 1) {
+          this.cartItems = response.data.data;
+        } else {
+          console.error(response.data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching cart items:', error);
+      });
+    },
     updateTotalPrice() {
       // Update total price logic...
     },
