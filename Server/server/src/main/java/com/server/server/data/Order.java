@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Order {
     private int id;
-    private int user_id;
-    private int goods_id;
+    private int userId;
+    private int goodsId;
     private int num;
     private int total;
     private int status;

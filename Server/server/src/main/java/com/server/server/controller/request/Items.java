@@ -1,20 +1,15 @@
 package com.server.server.controller.request;
 
-import lombok.Data;
-
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-@Data
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
-public class CreateOrder {
-    private int user_id;
+public class Items {
     private int goods_id;
-    private int num;
-    private double total;
-    private int status;
-    
-    
-}
-
-
+    private String goods_img;
+    private String goods_name;
+    private int goods_num;
+    private double goods_price;
+} 
