@@ -20,8 +20,7 @@ import java.util.List;
 @RestController
 public class HelloController {
 
-    @Autowired
-    ShopMapper shopMapper;
+
 
     @RequestMapping("/hello/{id}/{name}")
     public String hello(@PathVariable Integer id, @PathVariable String name) {

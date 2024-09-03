@@ -20,4 +20,7 @@ public interface GoodsMapper {
 
     @Delete("DELETE FROM goods WHERE id=#{id}")
     void delete(int id);
+
+    @Select("SELECT * FROM goods limit 100")
+    List<Goods> getGoodsList();
 }
