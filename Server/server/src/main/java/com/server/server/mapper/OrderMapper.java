@@ -35,20 +35,21 @@ List<CartItems> getCartItems(@Param("userId") int userId, @Param("status") int s
 
 // 子查询
 @Select("SELECT g.id AS goods_id, g.goods_img, g.goods_title AS goods_name, " +
-"o.num AS goods_num, g.goods_price " +
-"FROM `order` o " +
-"JOIN goods g ON o.goods_id = g.id " +
-"WHERE o.user_id = #{userId} AND o.status = #{status} AND g.shop_id = #{shop_id}")
+    "o.num AS goods_num, g.goods_price " +
+    "FROM `order` o " +
+    "JOIN goods g ON o.goods_id = g.id " +
+    "WHERE o.user_id = #{userId} AND o.status = #{status} AND g.shop_id = #{shop_id}")
 @Results({
-@Result(property = "goods_id", column = "goods_id"),
-@Result(property = "goods_img", column = "goods_img"),
-@Result(property = "goods_name", column = "goods_name"),
-@Result(property = "goods_num", column = "goods_num"),
-@Result(property = "goods_price", column = "goods_price")
+    @Result(property = "goods_id", column = "goods_id"),
+    @Result(property = "goods_img", column = "goods_img"),
+    @Result(property = "goods_name", column = "goods_name"),
+    @Result(property = "goods_num", column = "goods_num"),
+    @Result(property = "goods_price", column = "goods_price")
 })
 List<Items> selectGoodsByShopId(@Param("shop_id") int shop_id, 
-                            @Param("userId") int userId, 
-                            @Param("status") int status);
+                                @Param("userId") int userId, 
+                                @Param("status") int status);
+                                // 打印传入的参数值
 
 
 

@@ -77,6 +77,7 @@ public class HelloController {
     public Data.table table() {
         return service.table();
     }
+    
     public static void main(String[] args) {
         SpringApplication.run(HelloController.class, args);
     }

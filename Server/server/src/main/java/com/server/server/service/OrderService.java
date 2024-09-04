@@ -29,6 +29,7 @@ public class OrderService {
         try {
             //调用mapper连接数据库查询
             System.out.println("userId: "+userId);
+
             List<CartItems> cartItems = orderMapper.getCartItems(userId,status);
             
             // 处理空购物车的情况
@@ -41,8 +42,18 @@ public class OrderService {
             // 处理异常情况
             return new Response<>(-1, "获取购物车信息失败：" + e.getMessage(), null);
         }
+       
     }
-
+    public List<Items> getItemsByShopId(int shopId, int userId, int status) {
+        // Print the parameters before calling the mapper method
+        System.out.println("hello");
+        System.out.println("shop_id: " + shopId);
+        System.out.println("userId: " + userId);
+        System.out.println("status: " + status);
+        
+        // Call the mapper method
+        return orderMapper.selectGoodsByShopId(shopId, userId, status);
+    }
 
 
 
