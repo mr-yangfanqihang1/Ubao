@@ -1,6 +1,8 @@
 package com.server.server.data;
+
 import com.server.server.controller.request.CreateOrder;
 import com.server.server.controller.request.DeleteOrder;
+import com.server.server.controller.request.QueryOrder;
 import com.server.server.controller.request.UpdateNum;
 import com.server.server.controller.request.UpdateStatus;
 
@@ -38,6 +40,17 @@ public class Order {
             0,
             0,
             0
+        );
+    }
+
+    public static Order convertToOrder(QueryOrder queryOrder) {
+        return new Order(
+            0,
+            queryOrder.getUser_Id(),
+            0,
+            0,
+            0,
+            queryOrder.getStatus()
         );
     }
 

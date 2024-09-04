@@ -42,7 +42,7 @@
             </div>
   
             <!-- 商品信息表格 -->
-            <el-table ref="table_{{ merchant.shop_id }}" :data="merchant.items" style="width: 100%" border
+            <el-table :data="merchant.items" style="width: 100%" border
             @select="handleItemSelectionChange"
             @select-all="handleMerchantSelectionChange(merchant.shop_id)"
             show-header="false">
@@ -80,7 +80,7 @@
               <!-- 表格列：操作 -->
               <el-table-column label="操作" align="center">
                 <template #default="scope">
-                  <el-button type="text" @click="removeItem(scope.row.order_id,scope.row.goods_id, merchant.shop_id)" style="color: #FF5000">删除</el-button>
+                  <el-button type="text" @click="removeItem(scope.row.goods_id, merchant.shop_id)" style="color: #FF5000">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -116,8 +116,7 @@
             shop_name: "小米旗舰店",
             items: [
               {
-                order_id:0,
-                goods_id: 0,
+                goods_id: 456,
                 goods_img: "",
                 goods_name: "",
                 goods_num: 1,
@@ -209,8 +208,7 @@
       }
       this.updateSelectedItems();
       this.updateSelectAllState();
-      
-},
+    },
     updateSelectedItems() {
       this.selectedItems = this.cartItems.flatMap((m) =>
         m.items.filter((item) => item.selected)
@@ -247,23 +245,7 @@
         });
       });
     },
-
-
-    delete(orderIds) {
-      axios.post('http://localhost:8080/api/order/delete', orderIds, {
-        headers: {
-          'authorization': this.token
-        }
-      })
-      .then(response => {
-        console.log('Items deleted successfully:', response.data);
-        // 你可以在这里更新购物车的状态
-      })
-      .catch(error => {
-        console.error('Error deleting items:', error);
-      });
-    },
-    removeItem(order_id,goodsId, merchantId) {
+    removeItem(goodsId, merchantId) {
       let merchantIndex = this.cartItems.findIndex((m) => m.shop_id === merchantId);
       if (merchantIndex !== -1) {
         let merchant = this.cartItems[merchantIndex];
@@ -274,7 +256,6 @@
       }
       this.updateSelectedItems();
       this.updateSelectAllState();
-      this.delete([order_id]);
     },
     checkout() {
       alert("结算成功！");

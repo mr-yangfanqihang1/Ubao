@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Items {
-        //order_id隐藏属性,不展示
-    private int order_id;
     private int goods_id;
     private String goods_img;
     private String goods_name;
