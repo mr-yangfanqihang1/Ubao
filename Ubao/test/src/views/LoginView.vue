@@ -106,20 +106,6 @@ export default {
     };
   },
   methods: {
-<<<<<<< HEAD
-    // 处理登录逻辑
-    handleLogin() {
-      if (this.username === 'user' && this.password === 'password') {
-        this.errorMessage = '';
-        alert('登录成功！');
-        // 在此处处理登录后的逻辑，例如导航到主页
-        // this.$router.push('/home');
-      } else {
-        this.errorMessage = '用户名或密码错误！';
-      }
-    },
-    // 处理注册逻辑
-=======
   handleLogin() {
     axios
       .post('http://localhost:8080/api/login', {
@@ -142,7 +128,6 @@ export default {
         this.errorMessage = '登录失败，请稍后重试。';
       });
   },
->>>>>>> 32598e6c5b56e7376242087d6403cc46f34d6c5f
     handleRegister() {
       if (this.registerPassword !== this.confirmPassword) {
         this.errorMessage = '两次输入的密码不匹配！';

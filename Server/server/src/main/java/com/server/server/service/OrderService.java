@@ -58,7 +58,7 @@ public class OrderService {
 
 
     public Response<Void> updateNum(String token, UpdateNum request) {
-        int result = orderMapper.update(new Order(/* 初始化 Order 对象 */));
+        int result = orderMapper.updateNum(new Order(/* 初始化 Order 对象 */));
         if (result > 0) {
             return new Response<>(1, "更新购物车商品数量成功！", null);
         } else {
