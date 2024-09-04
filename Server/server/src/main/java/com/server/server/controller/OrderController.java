@@ -2,10 +2,14 @@ package com.server.server.controller;
 import com.server.server.data.Response;
 import com.server.server.controller.request.*;
 import com.server.server.service.OrderService;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
-@RequestMapping("/order")
+@CrossOrigin
+@RequestMapping("/api/order")
 public class OrderController {
 
     @Autowired
@@ -17,10 +21,11 @@ public class OrderController {
         return orderService.createOrder(token, request);
     }
 
-    @GetMapping("/cartItems")
-    public Response getCartItems(@RequestHeader("Authorization") String token,@PathVariable Integer userId) {
+    @PostMapping("/cartItems")
+    public Response getCartItems(@RequestHeader("Authorization") String token,@RequestParam Integer userId,@RequestParam Integer status) {
         // 处理获取购物车信息的逻辑
-        return orderService.getCartItems(userId);
+        System.out.println("userID: " + userId);
+        return orderService.getCartItems(userId,status);
     }
 
     @PostMapping("/updateNum")
