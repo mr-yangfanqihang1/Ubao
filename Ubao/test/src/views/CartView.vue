@@ -255,6 +255,9 @@
       }
       this.updateSelectedItems();
       this.updateSelectAllState();
+      // 在使用 orderIds 之前定义它
+      let orderIds = []; 
+
       axios.post('http://localhost:8080/api/order/delete', orderIds, {
         headers: {
           'authorization': this.token

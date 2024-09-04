@@ -1,15 +1,12 @@
 package com.server.server.service;
 
+import com.server.server.controller.request.*;
 import com.server.server.data.Order;
 import com.server.server.data.Response;
-import com.server.server.mapper.AccountMapper;
-import com.server.server.mapper.GoodsMapper;
 import com.server.server.mapper.OrderMapper;
-import com.server.server.mapper.ShopMapper;
-import com.server.server.controller.request.*;
-
+import com.server.server.service.DeleteOrder;
+import com.server.server.service.UpdateNum;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,5 +87,10 @@ public class OrderService {
     public Response<Void> clearGoods(String token) {
         // 处理清空购物车的逻辑
         return new Response<>(1, "清空购物车成功", null);
+    }
+
+    public Response getCartInfo(String token) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCartInfo'");
     }
 }

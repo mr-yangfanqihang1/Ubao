@@ -1,8 +1,8 @@
 package com.server.server.mapper;
 
 import com.server.server.data.Account;
-import org.apache.ibatis.annotations.*;
 import java.util.List;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface AccountMapper {
@@ -21,6 +21,8 @@ public interface AccountMapper {
 
     @Delete("DELETE FROM account WHERE id=#{id}")
     void delete(int id);
+
+    Account findByUsername(String username);
 
 }
 
