@@ -18,7 +18,7 @@ public class GoodsController {
     @Autowired
     GoodsMapper goodsMapper;
 
-    @GetMapping("/api/goodslist")
+    @GetMapping("/api/goodslist1")
 //    @CrossOrigin(origins = "http://localhost:7000")
     public Response<List<Goods>> getGoodsList() {
         List<Goods> list= goodsMapper.getGoodsList();

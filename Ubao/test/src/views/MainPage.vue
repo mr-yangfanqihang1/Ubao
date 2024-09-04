@@ -2,7 +2,7 @@
 <template>
 <div>
   <el-container style="margin-left:5%;margin-right:5%; ">
-    <el-header height="100px"  >
+    <el-header height="100px" style="background-color: transparent"  >
 
 <!--      <el-link type="primary" href="https://element.eleme.io" target="_blank">主要链接</el-link>-->
       <el-row >
@@ -204,8 +204,13 @@ export default {
         }
       })
     },
+
   },
+<<<<<<< HEAD
   beforeMount() {
+=======
+  mounted() {
+>>>>>>> e76d27ddc134d9e88cf3ad929158f0ef13b3f1e0
     this.$axios.get('http://localhost:8080/api/goodslist',{
       params: {
       }
@@ -215,6 +220,12 @@ export default {
     },err=>{
       console.log(err);
     })
+<<<<<<< HEAD
+=======
+  },
+  beforeDestroy() {
+    //销毁localStorage
+>>>>>>> e76d27ddc134d9e88cf3ad929158f0ef13b3f1e0
   }
 
 }
