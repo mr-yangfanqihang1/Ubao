@@ -29,9 +29,9 @@ public class OrderController {
     }
 
     @PostMapping("/updateNum")
-    public Response updateGoodsNum(@RequestHeader("Authorization") String token, @RequestBody UpdateNum request) {
+    public Response updateGoodsNum(@RequestHeader("Authorization") String token, @RequestParam Integer userId,@RequestParam Integer num) {
         // 处理更新购物车中商品数量的逻辑
-        return orderService.updateNum(token, request);
+        return orderService.updateNum(token, userId,num);
     }
 
     @PostMapping("/delete")

@@ -111,7 +111,7 @@
         selectedItems: [],
         cartItems: [
           {
-            goods_id: 1,
+            order_id: 1,
             shop_id: 1,
             shop_name: "小米旗舰店",
             items: [
