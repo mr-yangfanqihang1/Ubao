@@ -112,8 +112,4 @@ public class OrderService {
     
 
 
-    public Response<Void> clearGoods(String token) {
-        // 处理清空购物车的逻辑
-        return new Response<>(1, "清空购物车成功", null);
-    }
 }
