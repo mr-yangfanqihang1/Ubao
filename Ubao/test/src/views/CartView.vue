@@ -255,7 +255,21 @@
       }
       this.updateSelectedItems();
       this.updateSelectAllState();
+      axios.post('http://localhost:8080/api/order/delete', orderIds, {
+        headers: {
+          'authorization': this.token
+        }
+      })
+      .then(response => {
+        console.log('Items deleted successfully:', response.data);
+        // 你可以在这里更新购物车的状态
+      })
+      .catch(error => {
+        console.error('Error deleting items:', error);
+      });
     },
+
+    
     checkout() {
       alert("结算成功！");
     },

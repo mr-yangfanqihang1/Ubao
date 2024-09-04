@@ -6,10 +6,6 @@ import java.util.List;
 
 @Mapper
 public interface AccountMapper {
-<<<<<<< HEAD
-=======
-
->>>>>>> 32598e6c5b56e7376242087d6403cc46f34d6c5f
     @Select("SELECT * FROM account WHERE id = #{id}")
     Account findById(int id);
 
