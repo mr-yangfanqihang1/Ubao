@@ -204,8 +204,9 @@ export default {
         }
       })
     },
+
   },
-  beforeMount() {
+  mounted() {
     this.$axios.get('http://localhost:8080/api/goodslist',{
       params: {
       }
@@ -215,6 +216,9 @@ export default {
     },err=>{
       console.log(err);
     })
+  },
+  beforeDestroy() {
+    //销毁localStorage
   }
 
 }
