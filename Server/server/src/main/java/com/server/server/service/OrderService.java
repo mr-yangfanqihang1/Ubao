@@ -2,8 +2,11 @@ package com.server.server.service;
 
 import com.server.server.data.Order;
 import com.server.server.data.Response;
-import com.server.server.controller.request.*;
+import com.server.server.mapper.AccountMapper;
+import com.server.server.mapper.GoodsMapper;
 import com.server.server.mapper.OrderMapper;
+import com.server.server.mapper.ShopMapper;
+import com.server.server.controller.request.*;
 
 import java.util.List;
 
@@ -29,6 +32,7 @@ public class OrderService {
         try {
             //调用mapper连接数据库查询
             System.out.println("userId: "+userId);
+
             List<CartItems> cartItems = orderMapper.getCartItems(userId,status);
             
             // 处理空购物车的情况
@@ -41,13 +45,23 @@ public class OrderService {
             // 处理异常情况
             return new Response<>(-1, "获取购物车信息失败：" + e.getMessage(), null);
         }
+       
+    }
+    public List<Items> getItemsByShopId(int shopId, int userId, int status) {
+        // Print the parameters before calling the mapper method
+        System.out.println("hello");
+        System.out.println("shop_id: " + shopId);
+        System.out.println("userId: " + userId);
+        System.out.println("status: " + status);
+        
+        // Call the mapper method
+        return orderMapper.selectGoodsByShopId(shopId, userId, status);
     }
 
 
 
-
     public Response<Void> updateNum(String token, UpdateNum request) {
-        int result = orderMapper.update(new Order(/* 初始化 Order 对象 */));
+        int result = orderMapper.updateNum(new Order(/* 初始化 Order 对象 */));
         if (result > 0) {
             return new Response<>(1, "更新购物车商品数量成功！", null);
         } else {
@@ -65,7 +79,7 @@ public class OrderService {
     }
 
     public Response<Void> updateStatus(String token, UpdateStatus request) {
-        int result = orderMapper.update(new Order(/* 初始化 Order 对象 */));
+        int result = orderMapper.updateStatus(new Order(/* 初始化 Order 对象 */));
         if (result > 0) {
             return new Response<>(1, "结算成功！", null);
         } else {

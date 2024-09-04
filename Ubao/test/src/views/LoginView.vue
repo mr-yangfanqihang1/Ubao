@@ -106,18 +106,28 @@ export default {
     };
   },
   methods: {
-    // 处理登录逻辑
-    handleLogin() {
-      if (this.username === 'user' && this.password === 'password') {
-        this.errorMessage = '';
-        alert('登录成功！');
-        // 在此处处理登录后的逻辑，例如导航到主页
-        // this.$router.push('/home');
-      } else {
-        this.errorMessage = '用户名或密码错误！';
-      }
-    },
-    // 处理注册逻辑
+  handleLogin() {
+    axios
+      .post('http://localhost:8080/api/login', {
+        username: this.username,
+        password: this.password,
+      })
+      .then(response => {
+        const { status, message, token } = response.data;
+        if (status === 1) {
+          this.errorMessage = '';
+          localStorage.setItem('token', token); // 存储 JWT 令牌
+          alert('登录成功！');
+          // 进行页面跳转或其他操作
+        } else {
+          this.errorMessage = message;
+        }
+      })
+      .catch(error => {
+        console.error('登录请求失败:', error);
+        this.errorMessage = '登录失败，请稍后重试。';
+      });
+  },
     handleRegister() {
       if (this.registerPassword !== this.confirmPassword) {
         this.errorMessage = '两次输入的密码不匹配！';
