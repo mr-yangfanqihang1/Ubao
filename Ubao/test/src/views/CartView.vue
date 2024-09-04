@@ -22,7 +22,7 @@
             <el-col :span="2">
               <el-button type="primary" icon="el-icon-search" @click="toSelectGoods" style="background-color: #ff5000;">搜索</el-button>
             </el-col>
-            <el-col :span="4" style="border: 1px solid transparent;">
+            <el-col :span="5" style="border: 1px solid transparent;">
             </el-col>
             
             <el-col :span="3">
@@ -53,7 +53,7 @@
               <el-table-column label="商品信息" prop="goods_name" width="250">
                 <template #default="scope">
                   <div style="display: flex; align-items: center;">
-                    <el-image style=" margin-right: 10px;width:60px" :src="scope.row.goods_img" fit="scale-down" />
+                    <el-image style=" margin-right: 10px;width:150px" :src="scope.row.goods_img" fit="scale-down" />
                     <span>{{ scope.row.goods_name }}</span>
                   </div>
                 </template>
@@ -93,7 +93,7 @@
           <el-checkbox v-model="selectAll" @change="toggleSelectAll">全选</el-checkbox>
           <span>已选商品 {{ selectedItemsCount }} 件</span>
           <span>合计（不含运费）：¥{{ totalAmount }}</span>
-          <el-button type="primary" @click="checkout">结算</el-button>
+          <el-button type="primary" style="background-color: #FF5000" @click="checkout">结算</el-button>
         </el-footer>
       </el-container>
     </div>
@@ -117,10 +117,10 @@
             items: [
               {
                 goods_id: 456,
-                goods_img: "https://th.bing.com/th/id/R.d49459a4d41c2dd9be0d37efb6806349?rik=SIjmAu0JPBDh7w&riu=http%3a%2f%2fp1.itc.cn%2fq_70%2fimages03%2f20201229%2f2998843396b647a5874d30c3d80d678f.png&ehk=105kNnyoDRvI0uLndYoWtHadMrtn%2fzA07dE%2bKNwOzTE%3d&risl=&pid=ImgRaw&r=0",
-                goods_name: "米家电动冲牙器标准版",
+                goods_img: "",
+                goods_name: "",
                 goods_num: 1,
-                goods_price: 199.0,
+                goods_price: 0.0,
                 selected: false,
               },
             ],
@@ -155,7 +155,8 @@
     fetchCartItems() {
       axios.post('http://localhost:8080/api/order/cartItems',  null, {
         params: {
-          userId: 1
+          userId: 1,
+          status: 0
         },
         headers: {
           'authorization': this.token

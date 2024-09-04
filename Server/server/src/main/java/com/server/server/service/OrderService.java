@@ -25,35 +25,43 @@ public class OrderService {
         }
     }
 
-    public Response<List<CartItems>> getCartItems(int userId,int status) {
+    public Response<List<CartItems>> getCartItems(int userId, int status) {
         try {
-            //调用mapper连接数据库查询
-            System.out.println("userId: "+userId);
-
-            List<CartItems> cartItems = orderMapper.getCartItems(userId,status);
+            // 调用mapper连接数据库查询
+            System.out.println("userId: " + userId);
+    
+            List<CartItems> cartItems = orderMapper.getCartItems(userId, status);
             
             // 处理空购物车的情况
             if (cartItems == null || cartItems.isEmpty()) {
                 return new Response<>(1, "购物车为空", cartItems);
             }
-
+    
+            // 遍历购物车中的每个商店，为每个商店获取商品信息
+            for (CartItems cartItem : cartItems) {
+                int shopId = cartItem.getShop_id(); // 假设CartItems类有getShop_id方法
+                List<Items> items = getItemsByShopId(shopId, userId, status); // 调用getItemsByShopId获取商品信息
+                cartItem.setItems(items); // 设置商店的商品列表，假设CartItems有setItems方法
+            }
+    
             return new Response<>(1, "购物车状态请求成功！", cartItems);
         } catch (Exception e) {
             // 处理异常情况
             return new Response<>(-1, "获取购物车信息失败：" + e.getMessage(), null);
         }
-       
     }
+    
+
     public List<Items> getItemsByShopId(int shopId, int userId, int status) {
-        // Print the parameters before calling the mapper method
-        System.out.println("hello");
+        // 打印传入的参数值
         System.out.println("shop_id: " + shopId);
         System.out.println("userId: " + userId);
         System.out.println("status: " + status);
         
-        // Call the mapper method
+        // 调用mapper方法
         return orderMapper.selectGoodsByShopId(shopId, userId, status);
     }
+
 
 
 
