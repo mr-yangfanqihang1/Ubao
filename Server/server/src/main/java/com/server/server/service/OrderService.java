@@ -42,8 +42,18 @@ public class OrderService {
             // 处理异常情况
             return new Response<>(-1, "获取购物车信息失败：" + e.getMessage(), null);
         }
+       
     }
-
+    public List<Items> getItemsByShopId(int shopId, int userId, int status) {
+        // Print the parameters before calling the mapper method
+        System.out.println("hello");
+        System.out.println("shop_id: " + shopId);
+        System.out.println("userId: " + userId);
+        System.out.println("status: " + status);
+        
+        // Call the mapper method
+        return orderMapper.selectGoodsByShopId(shopId, userId, status);
+    }
 
 
 
