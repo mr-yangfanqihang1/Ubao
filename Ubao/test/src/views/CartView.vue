@@ -2,11 +2,36 @@
     <div class="cart-page">
       <el-container>
         <!-- 顶部导航 -->
-        <el-header style="background-color: transparent; display: flex; align-items: center; font-weight: 800; font-size: x-large; line-height: 60px;">
-          <el-image :src=logo style="height:100%;margin-right: 10px;" />
-          <span style="font-size: x-large; line-height: 70px;">购物车</span>
+          <el-header height="60px" style="background-color: transparent;" >
 
+  <!--      <el-link type="primary" href="https://element.eleme.io" target="_blank">主要链接</el-link>-->
+          <el-row >
+            <el-col :span="2">
+              <el-image style="height: 60px;" :src="logo" :fit="fit" />
+            </el-col>
+            <el-col :span="3">
+              <el-span  style="color: #FF5000;font-size: xx-large;">购物车</el-span>
+            </el-col>
+            
+            <!--空白占位-->
+            <el-col :span="1" style="border: 1px solid transparent;">
+            </el-col>
+            <el-col :span="8">
+              <el-input v-model="input" placeholder="请输入商品"></el-input>
+            </el-col>
+            <el-col :span="2">
+              <el-button type="primary" icon="el-icon-search" @click="toSelectGoods" style="background-color: #ff5000;">搜索</el-button>
+            </el-col>
+            <el-col :span="4" style="border: 1px solid transparent;">
+            </el-col>
+            
+            <el-col :span="3">
+              <el-link  type="primary"  target="_blank" style="color: #FF5000;font-size: x-large" @click="toLogin" >我的商品</el-link>
+            </el-col>
+            
+          </el-row>
         </el-header>
+          
         <!-- 内容主体 -->
         <el-main style="margin-left:50px; margin-right: 50px">
           <!-- 商家和商品列表 -->
@@ -25,22 +50,25 @@
               <el-table-column type="selection" width="55" align="center" ></el-table-column>
   
               <!-- 表格列：商品信息 -->
-              <el-table-column label="商品信息" prop="goods_name">
+              <el-table-column label="商品信息" prop="goods_name" width="250">
                 <template #default="scope">
-                  <el-image style="width: 60px; height: 60px; margin-right: 10px" :src="scope.row.goods_img" fit="cover" />
-                  <span>{{ scope.row.goods_name }}</span>
+                  <div style="display: flex; align-items: center;">
+                    <el-image style=" margin-right: 10px;width:60px" :src="scope.row.goods_img" fit="scale-down" />
+                    <span>{{ scope.row.goods_name }}</span>
+                  </div>
                 </template>
+
               </el-table-column>
   
               <!-- 表格列：单价 -->
-              <el-table-column label="单价" prop="goods_price" align="center">
+              <el-table-column label="单价" prop="goods_price" align="center" width="150">
                 <template #default="scope">¥{{ scope.row.goods_price }}</template>
               </el-table-column>
   
               <!-- 表格列：数量 -->
-              <el-table-column label="数量" align="center">
+              <el-table-column label="数量" align="center" width="200">
                 <template #default="scope">
-                  <el-input-number v-model="scope.row.goods_num" @change="updateTotalPrice" :min="1"></el-input-number>
+                  <el-input-number v-model="scope.row.goods_num" @change="updateTotalPrice" :min="1" :max="9999" style="width: fit-content;"></el-input-number>
                 </template>
               </el-table-column>
   
@@ -52,7 +80,7 @@
               <!-- 表格列：操作 -->
               <el-table-column label="操作" align="center">
                 <template #default="scope">
-                  <el-button type="text" @click="removeItem(scope.row.goods_id, merchant.shop_id)">删除</el-button>
+                  <el-button type="text" @click="removeItem(scope.row.goods_id, merchant.shop_id)" style="color: #FF5000">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -192,7 +220,7 @@
       );
     },
     toggleSelectAll() {
-      this.selectAll = !this.selectAll;
+      // this.selectAll = !this.selectAll;   //与v-model双向绑定冲突,会导致两次单击才触发
       const selectAll = this.selectAll;
       this.cartItems.forEach((merchant) =>
         merchant.items.forEach((item) => {
@@ -236,9 +264,11 @@
 </script>
   
   <style>
-  .cart-page {
-    padding: 20px;
-  }
+  .el-image, .el-span {
+    vertical-align: middle;
+}
+
+
   .cart-footer {
     display: flex;
     justify-content: space-between;

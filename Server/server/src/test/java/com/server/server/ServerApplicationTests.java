@@ -17,7 +17,7 @@ class ServerApplicationTests {
 	private OrderMapper orderMapper;
 	@Test
 	public void testListAccount(){
-		List<CartItems> accountList=orderMapper.getCartItems(1);
+		List<CartItems> accountList=orderMapper.getCartItems(1,0);
 		accountList.stream().forEach(user->{
 			System.out.println(user);
 		});

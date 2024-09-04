@@ -2,7 +2,7 @@
 <template>
 <div>
   <el-container style="margin-left:5%;margin-right:5%; ">
-    <el-header height="100px"  >
+    <el-header height="100px" style="background-color: transparent"  >
 
 <!--      <el-link type="primary" href="https://element.eleme.io" target="_blank">主要链接</el-link>-->
       <el-row >
@@ -205,7 +205,7 @@ export default {
       })
     },
   },
-  beforeMount() {
+  Mount() {
     this.$axios.get('http://localhost:8080/api/goodslist',{
       params: {
       }

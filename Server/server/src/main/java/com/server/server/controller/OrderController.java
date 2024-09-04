@@ -22,10 +22,10 @@ public class OrderController {
     }
 
     @PostMapping("/cartItems")
-    public Response getCartItems(@RequestHeader("Authorization") String token,@RequestParam Integer userId) {
+    public Response getCartItems(@RequestHeader("Authorization") String token,@RequestParam Integer userId,@RequestParam Integer status) {
         // 处理获取购物车信息的逻辑
         System.out.println("userID: " + userId);
-        return orderService.getCartItems(userId);
+        return orderService.getCartItems(userId,status);
     }
 
     @PostMapping("/updateNum")

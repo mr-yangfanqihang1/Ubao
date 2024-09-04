@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartItems {
-    int goods_id;   //隐藏属性，不展示，赋值需要
-    int shop_id;
-    String shop_name;
-    List<Items> items;
+      //隐藏属性，不展示，赋值需要
+   // private int goods_id;
+    private int shop_id;
+    private String shop_name;
+    private List<Items> items;
    
 }

@@ -25,10 +25,11 @@ public class OrderService {
         }
     }
 
-    public Response<List<CartItems>> getCartItems(int userId) {
+    public Response<List<CartItems>> getCartItems(int userId,int status) {
         try {
             //调用mapper连接数据库查询
-            List<CartItems> cartItems = orderMapper.getCartItems(userId);
+            System.out.println("userId: "+userId);
+            List<CartItems> cartItems = orderMapper.getCartItems(userId,status);
             
             // 处理空购物车的情况
             if (cartItems == null || cartItems.isEmpty()) {
