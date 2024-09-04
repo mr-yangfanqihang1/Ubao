@@ -1,20 +1,16 @@
 package com.server.server.mapper;
 
 import com.server.server.data.Account;
-import java.util.List;
 import org.apache.ibatis.annotations.*;
+import java.util.List;
 
 @Mapper
 public interface AccountMapper {
-    
     @Select("SELECT * FROM account WHERE id = #{id}")
     Account findById(int id);
 
     @Select("SELECT * FROM account")
-    List<Account> findAll();
-
-    @Select("SELECT * FROM account WHERE username = #{username}")
-    Account findByUsername(String username);
+    public List<Account> findAll();
 
     @Insert("INSERT INTO account(user_type, username, email, password, address) VALUES(#{userType}, #{username}, #{email}, #{password}, #{address})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
@@ -25,6 +21,6 @@ public interface AccountMapper {
 
     @Delete("DELETE FROM account WHERE id=#{id}")
     void delete(int id);
-}
 
+}
 
