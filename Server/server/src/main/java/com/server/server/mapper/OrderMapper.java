@@ -2,12 +2,10 @@ package com.server.server.mapper;
 
 import com.server.server.controller.request.CartItems;
 import com.server.server.controller.request.Items;
-import com.server.server.data.Goods;
 import com.server.server.data.Order;
+import java.util.List;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
-
-import java.util.List;
 
 @Mapper
 public interface OrderMapper {
