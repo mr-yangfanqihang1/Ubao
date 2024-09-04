@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface AccountMapper {
-    
+
     @Select("SELECT * FROM account WHERE id = #{id}")
     Account findById(int id);
 

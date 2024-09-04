@@ -109,26 +109,28 @@ export default {
     };
   },
   methods: {
-    handleLogin() {
-      axios
-        .post('http://localhost:8080/api/login', {
-          username: this.username,
-          password: this.password,
-        })
-        .then(response => {
-          const { status, message } = response.data;
-          if (status === 1) {
-            this.errorMessage = '';
-            alert('登录成功！');
-          } else {
-            this.errorMessage = message;
-          }
-        })
-        .catch(error => {
-          console.error('登录请求失败:', error);
-          this.errorMessage = '登录失败，请稍后重试。';
-        });
-    },
+  handleLogin() {
+    axios
+      .post('http://localhost:8080/api/login', {
+        username: this.username,
+        password: this.password,
+      })
+      .then(response => {
+        const { status, message, token } = response.data;
+        if (status === 1) {
+          this.errorMessage = '';
+          localStorage.setItem('token', token); // 存储 JWT 令牌
+          alert('登录成功！');
+          // 进行页面跳转或其他操作
+        } else {
+          this.errorMessage = message;
+        }
+      })
+      .catch(error => {
+        console.error('登录请求失败:', error);
+        this.errorMessage = '登录失败，请稍后重试。';
+      });
+  },
     handleRegister() {
       if (this.registerPassword !== this.confirmPassword) {
         this.errorMessage = '两次输入的密码不匹配！';
