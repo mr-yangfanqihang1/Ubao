@@ -22,7 +22,7 @@
             <el-col :span="2">
               <el-button type="primary" icon="el-icon-search" @click="toSelectGoods" style="background-color: #ff5000;">搜索</el-button>
             </el-col>
-            <el-col :span="4" style="border: 1px solid transparent;">
+            <el-col :span="5" style="border: 1px solid transparent;">
             </el-col>
             
             <el-col :span="3">
@@ -42,7 +42,7 @@
             </div>
   
             <!-- 商品信息表格 -->
-            <el-table :data="merchant.items" style="width: 100%" border
+            <el-table ref="table_{{ merchant.shop_id }}" :data="merchant.items" style="width: 100%" border
             @select="handleItemSelectionChange"
             @select-all="handleMerchantSelectionChange(merchant.shop_id)"
             show-header="false">
@@ -53,7 +53,7 @@
               <el-table-column label="商品信息" prop="goods_name" width="250">
                 <template #default="scope">
                   <div style="display: flex; align-items: center;">
-                    <el-image style=" margin-right: 10px;width:60px" :src="scope.row.goods_img" fit="scale-down" />
+                    <el-image style=" margin-right: 10px;width:150px" :src="scope.row.goods_img" fit="scale-down" />
                     <span>{{ scope.row.goods_name }}</span>
                   </div>
                 </template>
@@ -80,7 +80,7 @@
               <!-- 表格列：操作 -->
               <el-table-column label="操作" align="center">
                 <template #default="scope">
-                  <el-button type="text" @click="removeItem(scope.row.goods_id, merchant.shop_id)" style="color: #FF5000">删除</el-button>
+                  <el-button type="text" @click="removeItem(scope.row.order_id,scope.row.goods_id, merchant.shop_id)" style="color: #FF5000">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -93,7 +93,7 @@
           <el-checkbox v-model="selectAll" @change="toggleSelectAll">全选</el-checkbox>
           <span>已选商品 {{ selectedItemsCount }} 件</span>
           <span>合计（不含运费）：¥{{ totalAmount }}</span>
-          <el-button type="primary" @click="checkout">结算</el-button>
+          <el-button type="primary" style="background-color: #FF5000" @click="checkout">结算</el-button>
         </el-footer>
       </el-container>
     </div>
@@ -106,21 +106,23 @@
     data() {
       return {
         token:"1",
+        user_id:1,
         logo: logo,
         selectAll: false,
         selectedItems: [],
         cartItems: [
           {
-            order_id: 1,
+            goods_id: 1,
             shop_id: 1,
             shop_name: "小米旗舰店",
             items: [
               {
-                goods_id: 456,
-                goods_img: "https://th.bing.com/th/id/R.d49459a4d41c2dd9be0d37efb6806349?rik=SIjmAu0JPBDh7w&riu=http%3a%2f%2fp1.itc.cn%2fq_70%2fimages03%2f20201229%2f2998843396b647a5874d30c3d80d678f.png&ehk=105kNnyoDRvI0uLndYoWtHadMrtn%2fzA07dE%2bKNwOzTE%3d&risl=&pid=ImgRaw&r=0",
-                goods_name: "米家电动冲牙器标准版",
+                order_id:0,
+                goods_id: 0,
+                goods_img: "",
+                goods_name: "",
                 goods_num: 1,
-                goods_price: 199.0,
+                goods_price: 0.0,
                 selected: false,
               },
             ],
@@ -155,7 +157,8 @@
     fetchCartItems() {
       axios.post('http://localhost:8080/api/order/cartItems',  null, {
         params: {
-          userId: 1
+          userId: 1,
+          status: 0
         },
         headers: {
           'authorization': this.token
@@ -207,7 +210,8 @@
       }
       this.updateSelectedItems();
       this.updateSelectAllState();
-    },
+      
+},
     updateSelectedItems() {
       this.selectedItems = this.cartItems.flatMap((m) =>
         m.items.filter((item) => item.selected)
@@ -244,7 +248,27 @@
         });
       });
     },
-    removeItem(goodsId, merchantId) {
+
+
+    delete(orderId) {
+      const requestData = {
+        user_id: this.user_id,
+        order_id: orderId
+      };
+      axios.post('http://localhost:8080/api/order/delete', requestData, {
+          headers: {
+            'authorization': this.token
+          }
+        })
+        .then(response => {
+          alert(response.data.message);
+          console.log('Items deleted successfully:', response.data);
+        })
+        .catch(error => {
+          console.error('Error deleting items:', error);
+        });
+    },
+    removeItem(order_id,goodsId, merchantId) {
       let merchantIndex = this.cartItems.findIndex((m) => m.shop_id === merchantId);
       if (merchantIndex !== -1) {
         let merchant = this.cartItems[merchantIndex];
@@ -255,24 +279,8 @@
       }
       this.updateSelectedItems();
       this.updateSelectAllState();
-      // 在使用 orderIds 之前定义它
-      let orderIds = []; 
-
-      axios.post('http://localhost:8080/api/order/delete', orderIds, {
-        headers: {
-          'authorization': this.token
-        }
-      })
-      .then(response => {
-        console.log('Items deleted successfully:', response.data);
-        // 你可以在这里更新购物车的状态
-      })
-      .catch(error => {
-        console.error('Error deleting items:', error);
-      });
+      this.delete(order_id);
     },
-
-    
     checkout() {
       alert("结算成功！");
     },
