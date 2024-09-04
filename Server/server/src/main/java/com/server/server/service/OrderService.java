@@ -91,4 +91,9 @@ public class OrderService {
         // 处理清空购物车的逻辑
         return new Response<>(1, "清空购物车成功", null);
     }
+
+    public Response getCartInfo(String token) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCartInfo'");
+    }
 }

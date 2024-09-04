@@ -22,5 +22,7 @@ public interface AccountMapper {
     @Delete("DELETE FROM account WHERE id=#{id}")
     void delete(int id);
 
+    Account findByUsername(String username);
+
 }
 
