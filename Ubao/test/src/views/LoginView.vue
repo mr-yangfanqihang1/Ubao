@@ -1,5 +1,13 @@
 <template>
   <div class="login-register-container">
+    <!-- 背景图 -->
+    <div class="background-image"></div>
+    
+    <!-- 商标图标 -->
+    <div class="logo">
+      <img src="@/assets/logo.png" alt="Logo" />
+    </div>
+    
     <!-- 切换按钮 -->
     <div class="toggle-buttons">
       <button @click="isLogin = true" :class="{ active: isLogin }">登录</button>
@@ -7,10 +15,8 @@
     </div>
 
     <!-- 登录表单 -->
-    <form v-if="isLogin" @submit.prevent="handleLogin">
+    <form v-if="isLogin" @submit.prevent="handleLogin" class="login-form">
       <h2>登录</h2>
-
-      <!-- 用户名输入框 -->
       <div class="input-group">
         <label for="login-username">用户名</label>
         <input
@@ -21,8 +27,6 @@
           required
         />
       </div>
-
-      <!-- 密码输入框 -->
       <div class="input-group">
         <label for="login-password">密码</label>
         <input
@@ -33,16 +37,12 @@
           required
         />
       </div>
-
-      <!-- 登录按钮 -->
       <button type="submit">登录</button>
     </form>
 
     <!-- 注册表单 -->
-    <form v-else @submit.prevent="handleRegister">
+    <form v-else @submit.prevent="handleRegister" class="register-form">
       <h2>注册</h2>
-
-      <!-- 用户名输入框 -->
       <div class="input-group">
         <label for="register-username">用户名</label>
         <input
@@ -53,8 +53,16 @@
           required
         />
       </div>
-
-      <!-- 密码输入框 -->
+      <div class="input-group">
+        <label for="register-email">邮箱</label>
+        <input
+          type="email"
+          id="register-email"
+          v-model="registerEmail"
+          placeholder="请输入邮箱"
+          required
+        />
+      </div>
       <div class="input-group">
         <label for="register-password">密码</label>
         <input
@@ -65,8 +73,6 @@
           required
         />
       </div>
-
-      <!-- 确认密码输入框 -->
       <div class="input-group">
         <label for="confirm-password">确认密码</label>
         <input
@@ -77,8 +83,6 @@
           required
         />
       </div>
-
-      <!-- 注册按钮 -->
       <button type="submit">注册</button>
     </form>
 
@@ -88,65 +92,107 @@
 </template>
 
 <script>
+import axios from 'axios'; // 引入axios库
+
 export default {
   name: 'LoginView',
   data() {
     return {
-      // 是否处于登录状态
       isLogin: true,
-      // 登录用户名和密码
       username: '',
       password: '',
-      // 注册用户名、密码和确认密码
       registerUsername: '',
+      registerEmail: '',
       registerPassword: '',
       confirmPassword: '',
-      // 存储错误消息的变量
       errorMessage: '',
     };
   },
   methods: {
-    // 处理登录逻辑
     handleLogin() {
-      if (this.username === 'user' && this.password === 'password') {
-        this.errorMessage = '';
-        alert('登录成功！');
-        // 在此处处理登录后的逻辑，例如导航到主页
-        // this.$router.push('/home');
-      } else {
-        this.errorMessage = '用户名或密码错误！';
-      }
+      axios
+        .post('http://localhost:8080/api/login', {
+          username: this.username,
+          password: this.password,
+        })
+        .then(response => {
+          const { status, message } = response.data;
+          if (status === 1) {
+            this.errorMessage = '';
+            alert('登录成功！');
+          } else {
+            this.errorMessage = message;
+          }
+        })
+        .catch(error => {
+          console.error('登录请求失败:', error);
+          this.errorMessage = '登录失败，请稍后重试。';
+        });
     },
-    // 处理注册逻辑
     handleRegister() {
       if (this.registerPassword !== this.confirmPassword) {
         this.errorMessage = '两次输入的密码不匹配！';
         return;
       }
 
-      if (this.registerUsername && this.registerPassword) {
-        this.errorMessage = '';
-        alert('注册成功！');
-        // 在此处处理注册后的逻辑，例如保存用户信息
-        // this.$router.push('/login');
-      } else {
-        this.errorMessage = '请填写所有必填项！';
-      }
+      axios
+        .post('http://localhost:8080/api/register', {
+          userType: 1,
+          username: this.registerUsername,
+          email: this.registerEmail,
+          password: this.registerPassword,
+          address: '',
+        })
+        .then(response => {
+          const { status, message } = response.data;
+          if (status === 1) {
+            this.errorMessage = '';
+            alert('注册成功！');
+            this.isLogin = true;
+          } else {
+            this.errorMessage = message;
+          }
+        })
+        .catch(error => {
+          console.error('注册请求失败:', error);
+          this.errorMessage = '注册失败，请稍后重试。';
+        });
     },
   },
 };
 </script>
 
 <style scoped>
-/* 登录和注册页面的样式 */
 .login-register-container {
-  width: 300px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 400px;
+  margin: 100px auto;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+}
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('@/assets/images/login-bg2.jpg');
+  background-size: cover;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.logo {
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 150px;
+  height: auto;
 }
 
 .toggle-buttons {
@@ -156,16 +202,21 @@ export default {
 }
 
 .toggle-buttons button {
-  padding: 10px 20px;
-  margin: 0 5px;
+  background-color: #007bff;
+  color: white;
   border: none;
-  background-color: #ddd;
+  padding: 10px 20px;
+  margin: 0 10px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .toggle-buttons button.active {
-  background-color: #ff5000;
-  color: white;
+  background-color: #0056b3;
+}
+
+.toggle-buttons button:hover {
+  background-color: #0056b3;
 }
 
 .input-group {
@@ -179,26 +230,27 @@ export default {
 
 .input-group input {
   width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 button[type="submit"] {
-  width: 100%;
-  padding: 10px;
-  background-color: #ff5000;
+  background-color: #28a745;
   color: white;
   border: none;
-  border-radius: 5px;
+  padding: 10px 20px;
   cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
 button[type="submit"]:hover {
-  background-color: #ff5000;
+  background-color: #218838;
 }
 
 .error-message {
   color: red;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 </style>
