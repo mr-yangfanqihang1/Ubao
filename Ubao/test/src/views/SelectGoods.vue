@@ -1,103 +1,138 @@
 <template>
   <div>
-    <el-container style="margin-left:5%; margin-right:5%;">
-      <el-header height="100px">
-        <el-row>
-          <el-col :span="4">
-            <el-image style="height: 100px;" :src="logo2" :fit="fit" />
-          </el-col>
-          <el-col :span="8">
-            <el-input v-model="input" placeholder="请输入商品"></el-input>
-          </el-col>
-          <el-col :span="2">
-            <el-button type="primary" icon="el-icon-search" @click="toSelectGoods" style="background-color: #ff5000">搜索</el-button>
-          </el-col>
-          <el-col :span="3">
-            <el-link type="primary" target="_blank" style="color: #FF5000" @click="toLogin">登录/注册</el-link>
-          </el-col>
-          <el-col :span="3">
-            <el-link type="primary" target="_blank" @click="toCart" style="color: #FF5000">购物车</el-link>
-          </el-col>
-        </el-row>
-      </el-header>
+    <!-- 搜索栏 -->
+    <el-row :gutter="20" style="margin: 20px 0;">
+      <el-col :span="12">
+        <el-input v-model="searchQuery" placeholder="请输入商品名称" />
+      </el-col>
+      <el-col :span="6">
+        <el-select v-model="selectedTag" placeholder="请选择标签">
+          <el-option
+            v-for="tag in tags"
+            :key="tag"
+            :label="tag"
+            :value="tag"
+          />
+        </el-select>
+      </el-col>
+      <el-col :span="4">
+        <el-button type="primary" @click="searchGoods">搜索</el-button>
+      </el-col>
+    </el-row>
 
-      <el-main>
-        <!-- 商品列表 -->
-        <el-row :gutter="20" type="flex">
-          <el-col :span="6" v-for="(item) in goodsList" :key="item.id" style="margin-bottom: 20px;">
-            <el-card :body-style="{ padding: '10px' }">
-              <img :src="item.goodsImg" class="image" style="width: 100%; cursor: pointer;" @click="toGoodsDetail(item.id)" />
-              <div style="padding: 14px;">
-                <h3>{{ item.goodsTitle }}</h3>
-                <p>价格: {{ item.goodsPrice }} 元</p>
-                <el-button type="primary" size="mini" @click="toGoodsDetail(item.id)">查看详情</el-button>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-      </el-main>
-    </el-container>
+    <!-- 排序选项 -->
+    <el-row :gutter="20" style="margin-bottom: 20px;">
+      <el-col :span="12">
+        <el-button
+          type="text"
+          @click="sortGoods('price')"
+          :class="{ active: sortKey === 'price' }"
+        >价格排序</el-button>
+        <el-button
+          type="text"
+          @click="sortGoods('sales')"
+          :class="{ active: sortKey === 'sales' }"
+        >销量排序</el-button>
+      </el-col>
+    </el-row>
+
+    <!-- 商品列表 -->
+    <el-row :gutter="20">
+      <el-col :span="6" v-for="(product, index) in filteredGoodsList" :key="index">
+        <el-card :body-style="{ padding: '10px' }">
+          <img :src="product.goodsImg" alt="" style="width: 100%; height: 200px; object-fit: cover;" @click="toGoodsDetail(index)" />
+          <div style="padding: 14px;" @click="toGoodsDetail(index)">
+            <span>{{ product.goodsTitle }}</span>
+            <div class="bottom clearfix" style="margin-top: 10px;">
+              <span>价格：{{ product.goodsPrice }}元</span>
+              <span style="margin-left: 10px;">销量：{{ product.goodsSales }}</span>
+              <el-button type="text" class="button">立即购买</el-button>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import logo from '@/assets/logo.png';
-import logo2 from '@/assets/logo2.png';
-
 export default {
-  name: 'MainPage',
   data() {
     return {
-      input: '',
-      logo,
-      logo2,
-      goodsList: []
+      searchQuery: '',
+      selectedTag: '',
+      sortKey: '',
+      goodsList: [],
+      tags: ['女装', '男装', '美妆', '电子产品'], // 示例标签，可根据需求调整
     };
   },
-  methods: {
-    loadGoodsList() {
-      // 使用 Axios 从后端获取商品数据
-      axios.get('http://localhost:8080/api/goodslist')
-        .then(response => {
-          this.goodsList = response.data;
-        })
-        .catch(error => {
-          console.error('Error fetching goods list:', error);
+  computed: {
+    filteredGoodsList() {
+      // 过滤商品列表
+      let filteredList = this.goodsList;
+
+      // 根据搜索关键词过滤
+      if (this.searchQuery) {
+        filteredList = filteredList.filter((item) =>
+          item.goodsTitle.includes(this.searchQuery)
+        );
+      }
+
+      // 根据标签过滤
+      if (this.selectedTag) {
+        filteredList = filteredList.filter((item) =>
+          item.tags.includes(this.selectedTag)
+        );
+      }
+
+      // 根据排序字段排序
+      if (this.sortKey) {
+        filteredList.sort((a, b) => {
+          if (this.sortKey === 'price') {
+            return a.goodsPrice - b.goodsPrice;
+          } else if (this.sortKey === 'sales') {
+            return b.goodsSales - a.goodsSales;
+          }
         });
+      }
+
+      return filteredList;
     },
-    toSelectGoods() {
-      this.$router.push({
-        path: '/selectGoods',
-        query: {
-          input: this.input
-        }
-      });
+  },
+  methods: {
+    searchGoods() {
+      // 执行搜索逻辑
+      console.log('搜索商品：', this.searchQuery);
     },
-    toGoodsDetail(id) {
+    sortGoods(key) {
+      this.sortKey = key;
+    },
+    toGoodsDetail(index) {
+      let id = index;
       this.$router.push({
         path: '/goodsDetail',
-        query: {
-          id: id
-        }
+        query: { id },
       });
     },
-    toLogin() {
-      this.$router.push('/login');
-    },
-    toCart() {
-      this.$router.push('/cart');
-    }
   },
   mounted() {
-    this.loadGoodsList(); // 在组件挂载时加载商品列表
-  }
+    // 获取商品列表数据
+    this.$axios
+      .get('http://localhost:8080/api/goodslist1')
+      .then((res) => {
+        console.log(res.data);
+        this.goodsList = res.data.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
 };
 </script>
 
 <style scoped>
-.image {
-  width: 100%;
-  height: auto;
+.active {
+  color: #ff5000;
 }
 </style>
+
