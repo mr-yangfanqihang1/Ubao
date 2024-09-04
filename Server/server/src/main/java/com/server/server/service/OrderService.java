@@ -2,8 +2,11 @@ package com.server.server.service;
 
 import com.server.server.data.Order;
 import com.server.server.data.Response;
-import com.server.server.controller.request.*;
+import com.server.server.mapper.AccountMapper;
+import com.server.server.mapper.GoodsMapper;
 import com.server.server.mapper.OrderMapper;
+import com.server.server.mapper.ShopMapper;
+import com.server.server.controller.request.*;
 
 import java.util.List;
 
@@ -76,7 +79,7 @@ public class OrderService {
     }
 
     public Response<Void> updateStatus(String token, UpdateStatus request) {
-        int result = orderMapper.update(new Order(/* 初始化 Order 对象 */));
+        int result = orderMapper.updateStatus(new Order(/* 初始化 Order 对象 */));
         if (result > 0) {
             return new Response<>(1, "结算成功！", null);
         } else {

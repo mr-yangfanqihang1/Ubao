@@ -19,17 +19,16 @@ public class OrderController {
         return orderService.createOrder(token, request);
     }
 
-    @PostMapping("/cartItems")
-    public Response getCartItems(@RequestHeader("Authorization") String token,@RequestParam Integer userId,@RequestParam Integer status) {
+    @PostMapping("/cartInfo")
+    public Response getCartInfo(@RequestHeader("Authorization") String token) {
         // 处理获取购物车信息的逻辑
-        System.out.println("userID: " + userId);
-        return orderService.getCartItems(userId,status);
+        return orderService.getCartInfo(token);
     }
 
     @PostMapping("/updateNum")
-    public Response updateGoodsNum(@RequestHeader("Authorization") String token, @RequestParam Integer userId,@RequestParam Integer num) {
+    public Response updateGoodsNum(@RequestHeader("Authorization") String token, @RequestBody UpdateNum request) {
         // 处理更新购物车中商品数量的逻辑
-        return orderService.updateNum(token, userId,num);
+        return orderService.updateNum(token, request);
     }
 
     @PostMapping("/delete")

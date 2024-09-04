@@ -1,7 +1,9 @@
 package com.server.server.data;
 
 import com.server.server.controller.request.CreateOrder;
+import com.server.server.controller.request.DeleteOrder;
 import com.server.server.controller.request.QueryOrder;
+import com.server.server.controller.request.UpdateNum;
 import com.server.server.controller.request.UpdateStatus;
 
 import lombok.AllArgsConstructor;
@@ -30,6 +32,16 @@ public class Order {
         );
     }
 
+    public static Order convertToOrder(DeleteOrder deleteOrder) {
+        return new Order(
+            deleteOrder.getOrder_id(),
+            0,
+            0,
+            0,
+            0,
+            0
+        );
+    }
 
     public static Order convertToOrder(QueryOrder queryOrder) {
         return new Order(
@@ -42,7 +54,16 @@ public class Order {
         );
     }
 
-
+    public static Order convertToOrder(UpdateNum updateNum) {
+        return new Order(
+            updateNum.getOrder_id(),
+            0,
+            0,
+            updateNum.getNum(),
+            0,
+            0
+        );
+    }
 
     public static Order convertToOrder(UpdateStatus updateStatus) {
         return new Order(

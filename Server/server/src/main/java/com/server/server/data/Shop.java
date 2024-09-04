@@ -2,8 +2,10 @@
 package com.server.server.data;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Shop {
     private int id;
     private String shopName;

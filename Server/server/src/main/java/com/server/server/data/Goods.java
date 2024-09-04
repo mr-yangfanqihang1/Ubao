@@ -1,27 +1,14 @@
 package com.server.server.data;
-
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author author
- * @since 2024-09-03
- */
+
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class Goods implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    private Integer id;
-
-
+@AllArgsConstructor
+@NoArgsConstructor
+public class Goods {
+    private int id;
     private String category;
 
 
