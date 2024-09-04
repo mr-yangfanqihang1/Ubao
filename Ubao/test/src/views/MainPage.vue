@@ -205,17 +205,17 @@ export default {
       })
     },
   },
-  beforeMount() {
-    this.$axios.get('http://localhost:8080/api/goodslist',{
-      params: {
-      }
-    }).then(res=>{
-      console.log(res.data);
-      this.goodsList=res.data.data
-    },err=>{
-      console.log(err);
-    })
-  }
+  // beforeMount() {
+  //   this.$axios.get('http://localhost:8080/api/goodslist',{
+  //     params: {
+  //     }
+  //   }).then(res=>{
+  //     console.log(res.data);
+  //     this.goodsList=res.data.data
+  //   },err=>{
+  //     console.log(err);
+  //   })
+  // }
 
 }
 </script>
