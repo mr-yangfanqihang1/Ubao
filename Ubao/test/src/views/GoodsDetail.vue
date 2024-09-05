@@ -148,7 +148,7 @@ export default {
             this.$router.push({
               path: '/cart',
               query: {
-                status: 0
+                status:"购物车"
               }
             });
           })
@@ -182,7 +182,7 @@ export default {
             this.$router.push({
               path: '/cart',
               query: {
-                status: 1
+                status: "未发货"
               }
             });
           })

@@ -252,7 +252,7 @@ data() {
     selectedItemsCount: 0,
     totalAmount :0,
     selectedItems: [],
-    status: "购物车",
+    status: this.$route.query.status,
     statusMap: {
       "全部": 9,
       "购物车": 0,
@@ -288,6 +288,9 @@ data() {
       },
     ],
   };
+},
+mounted(){
+  this.fetchCartItems();
 },
 /*   watch: {
   status(newStatus) {
