@@ -249,7 +249,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("../assets/mainpage.png");
+  background-image: url("../assets/hutao.png");
   background-size: cover;
   z-index: -1;
   opacity: 0.8;
