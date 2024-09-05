@@ -81,6 +81,7 @@ public class OrderService {
     }
     
 
+<<<<<<< Updated upstream
     public Response<Void> updateStatus(String token, List<UpdateStatus> requests) {
         try {
             for (UpdateStatus request : requests) {
@@ -89,6 +90,11 @@ public class OrderService {
                     return new Response<>(5, "结算商品失败，原因未知！", null);
                 }
             }
+=======
+    public Response<Void> updateStatus(String token, List<UpdateStatus> request) {
+        int result = orderMapper.updateStatus(new Order(/* 初始化 Order 对象 */));
+        if (result > 0) {
+>>>>>>> Stashed changes
             return new Response<>(1, "结算成功！", null);
         } catch (Exception e) {
             return new Response<>(-1, "更新状态失败：" + e.getMessage(), null);
