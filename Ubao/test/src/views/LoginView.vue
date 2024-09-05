@@ -122,11 +122,11 @@ export default {
           this.errorMessage = '';
           localStorage.setItem('token', token); // 存储 JWT 令牌
           alert('登录成功！');
-<<<<<<< HEAD
-=======
+
+
           localStorage.setItem('userID', userID);
           this.$router.push('/main'); // 使用 Vue Router 进行页面跳转
->>>>>>> f38ce41947f22aa56b2f3123521b954a0500c8e1
+
           // 进行页面跳转或其他操作
         } else {
           this.errorMessage = message;
