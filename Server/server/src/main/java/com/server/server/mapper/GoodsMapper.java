@@ -27,4 +27,5 @@ public interface GoodsMapper {
 
     @Select("SELECT * FROM goods limit 100")
     List<Goods> getGoodsList();
+
 }
