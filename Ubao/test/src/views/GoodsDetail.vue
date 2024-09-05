@@ -128,7 +128,8 @@ export default {
     addToCart() {
       // 准备需要传输的数据
       const orderData = {
-        user_id: localStorage.getItem('userID'),
+        // user_id: localStorage.getItem('userID'),
+        user_id: 1,
         goods_id: this.id,
         num: 1,
         total: this.goods.goodsPrice,
@@ -162,7 +163,8 @@ export default {
     },
     buyNow() {
       const orderData = {
-        user_id: localStorage.getItem('userID'),
+        // user_id: localStorage.getItem('userID'),
+        user_id: 1,
         goods_id: this.id,
         num: 1,
         total: this.goods.goodsPrice,
