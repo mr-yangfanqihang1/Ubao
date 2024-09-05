@@ -1,8 +1,9 @@
-
 package com.server.server;
 
 import com.server.server.data.Account;
 import com.server.server.mapper.AccountMapper;
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +34,18 @@ public class AccountController {
         for (Account account : accounts) {
             if (account.getUsername().equals(username) && account.getPassword().equals(password)) {
                 String token = jwtUtil.generateToken(username);
+                Integer userID = account.getId();
                 response.put("status", 1);
-                response.put("message", "登录成功！");
-                response.put("token", token);
+                try {
+                    response.put("token", token);
+                    System.out.println("lllllllllllllllllllllll");
+                    response.put("userID", userID);
+                    response.put("message", "登录成功！");
+                    System.out.println(userID+"aaaaaaaaaaaaaaaaaaaaa");
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+
                 return ResponseEntity.ok(response);
             }
         }
@@ -43,6 +53,27 @@ public class AccountController {
         response.put("status", 0);
         response.put("message", "用户名或密码错误！");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
+
+    // 示例受保护接口
+    @GetMapping("/protected")
+    public ResponseEntity<Map<String, Object>> protectedEndpoint(HttpServletRequest request) {
+        Map<String, Object> response = new HashMap<>();
+
+        // 从请求中获取 JWT Claims
+        Claims claims = (Claims) request.getAttribute("claims");
+        if (claims == null) {
+            response.put("status", 0);
+            response.put("message", "未授权的访问");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+
+        String username = claims.getSubject();
+        response.put("status", 1);
+        response.put("message", "你已成功访问受保护的接口！");
+        response.put("username", username);
+
+        return ResponseEntity.ok(response);
     }
 
     // 注册接口
@@ -84,8 +115,5 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+
 }
-
-
-
-

@@ -1,14 +1,13 @@
-
 <template>
   <div class="login-register-container">
     <!-- 背景图 -->
     <div class="background-image"></div>
-    
+
     <!-- 商标图标 -->
     <div class="logo">
       <img src="@/assets/logo.png" alt="Logo" />
     </div>
-    
+
     <!-- 切换按钮 -->
     <div class="toggle-buttons">
       <button @click="isLogin = true" :class="{ active: isLogin }">登录</button>
@@ -21,21 +20,21 @@
       <div class="input-group">
         <label for="login-username">用户名</label>
         <input
-          type="text"
-          id="login-username"
-          v-model="username"
-          placeholder="请输入用户名"
-          required
+            type="text"
+            id="login-username"
+            v-model="username"
+            placeholder="请输入用户名"
+            required
         />
       </div>
       <div class="input-group">
         <label for="login-password">密码</label>
         <input
-          type="password"
-          id="login-password"
-          v-model="password"
-          placeholder="请输入密码"
-          required
+            type="password"
+            id="login-password"
+            v-model="password"
+            placeholder="请输入密码"
+            required
         />
       </div>
       <button type="submit">登录</button>
@@ -47,41 +46,41 @@
       <div class="input-group">
         <label for="register-username">用户名</label>
         <input
-          type="text"
-          id="register-username"
-          v-model="registerUsername"
-          placeholder="请输入用户名"
-          required
+            type="text"
+            id="register-username"
+            v-model="registerUsername"
+            placeholder="请输入用户名"
+            required
         />
       </div>
       <div class="input-group">
         <label for="register-email">邮箱</label>
         <input
-          type="email"
-          id="register-email"
-          v-model="registerEmail"
-          placeholder="请输入邮箱"
-          required
+            type="email"
+            id="register-email"
+            v-model="registerEmail"
+            placeholder="请输入邮箱"
+            required
         />
       </div>
       <div class="input-group">
         <label for="register-password">密码</label>
         <input
-          type="password"
-          id="register-password"
-          v-model="registerPassword"
-          placeholder="请输入密码"
-          required
+            type="password"
+            id="register-password"
+            v-model="registerPassword"
+            placeholder="请输入密码"
+            required
         />
       </div>
       <div class="input-group">
         <label for="confirm-password">确认密码</label>
         <input
-          type="password"
-          id="confirm-password"
-          v-model="confirmPassword"
-          placeholder="请确认密码"
-          required
+            type="password"
+            id="confirm-password"
+            v-model="confirmPassword"
+            placeholder="请确认密码"
+            required
         />
       </div>
       <button type="submit">注册</button>
@@ -110,28 +109,57 @@ export default {
     };
   },
   methods: {
-  handleLogin() {
-    axios
-      .post('http://localhost:8080/api/login', {
-        username: this.username,
-        password: this.password,
-      })
-      .then(response => {
-        const { status, message, token } = response.data;
-        if (status === 1) {
-          this.errorMessage = '';
-          localStorage.setItem('token', token); // 存储 JWT 令牌
-          alert('登录成功！');
-          // 进行页面跳转或其他操作
-        } else {
-          this.errorMessage = message;
-        }
-      })
-      .catch(error => {
-        console.error('登录请求失败:', error);
-        this.errorMessage = '登录失败，请稍后重试。';
-      });
-  },
+    handleLogin() {
+      axios
+          .post('http://localhost:8080/api/login', {
+            username: this.username,
+            password: this.password,
+          })
+          .then(response => {
+            const { status, message, token,userID } = response.data;
+            if (status === 1) {
+              this.errorMessage = '';
+              localStorage.setItem('token', token); // 存储 JWT 令牌
+              alert('登录成功！');
+              localStorage.setItem('userID', userID);
+              this.$router.push('/main'); // 使用 Vue Router 进行页面跳转
+              // 进行页面跳转或其他操作
+            } else {
+              this.errorMessage = message;
+            }
+          })
+          .catch(error => {
+            console.error('登录请求失败:', error);
+            this.errorMessage = '登录失败，请稍后重试。';
+          });
+    },
+    handleProtectedRequest() {
+      axios
+          .get('http://localhost:8080/api/protected') // 示例受保护接口
+          .then(response => {
+            console.log('受保护接口的响应:', response.data);
+            // 处理成功的响应
+          })
+          .catch(error => {
+            console.error('访问受保护接口失败:', error);
+            // 处理错误
+          });
+    },
+    created() {
+      // 设置 axios 请求拦截器
+      axios.interceptors.request.use(
+          config => {
+            const token = localStorage.getItem('token'); // 从 localStorage 中获取 JWT 令牌
+            if (token) {
+              config.headers['Authorization'] = `Bearer ${token}`; // 将 JWT 添加到请求头
+            }
+            return config;
+          },
+          error => {
+            return Promise.reject(error);
+          }
+      );
+    },
     handleRegister() {
       if (this.registerPassword !== this.confirmPassword) {
         this.errorMessage = '两次输入的密码不匹配！';
@@ -139,27 +167,27 @@ export default {
       }
 
       axios
-        .post('http://localhost:8080/api/register', {
-          userType: 1,
-          username: this.registerUsername,
-          email: this.registerEmail,
-          password: this.registerPassword,
-          address: '',
-        })
-        .then(response => {
-          const { status, message } = response.data;
-          if (status === 1) {
-            this.errorMessage = '';
-            alert('注册成功！');
-            this.isLogin = true;
-          } else {
-            this.errorMessage = message;
-          }
-        })
-        .catch(error => {
-          console.error('注册请求失败:', error);
-          this.errorMessage = '注册失败，请稍后重试。';
-        });
+          .post('http://localhost:8080/api/register', {
+            userType: 1,
+            username: this.registerUsername,
+            email: this.registerEmail,
+            password: this.registerPassword,
+            address: '',
+          })
+          .then(response => {
+            const { status, message } = response.data;
+            if (status === 1) {
+              this.errorMessage = '';
+              alert('注册成功！');
+              this.isLogin = true;
+            } else {
+              this.errorMessage = message;
+            }
+          })
+          .catch(error => {
+            console.error('注册请求失败:', error);
+            this.errorMessage = '注册失败，请稍后重试。';
+          });
     },
   },
 };
