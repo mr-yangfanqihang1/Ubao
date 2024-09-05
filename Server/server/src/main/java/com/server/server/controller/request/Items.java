@@ -14,4 +14,5 @@ public class Items {
     private String goods_name;
     private int goods_num;
     private double goods_price;
+    private int order_status;
 } 
