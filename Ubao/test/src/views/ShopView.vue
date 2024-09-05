@@ -92,7 +92,27 @@ export default {
         status: ''
       },
       tableData: [],
-      currentView: 'order' // 默认显示首页内容
+      currentView: 'order', // 默认显示首页内容
+      cartItems: [
+        {
+          goods_id: 1,
+          shop_id: 1,
+          shop_name: "",
+          items: [
+            {
+              order_id: 0,
+              shop_id: 0,
+              goods_id: 0,
+              goods_img: "",
+              goods_name: "",
+              goods_num: 1,
+              goods_price: 0.0,
+              order_status: 0,
+              selected: false,
+            },
+          ],
+        },
+      ],
     };
   },
   methods: {

@@ -323,7 +323,7 @@
           status: this.statusMap[this.status]
         },
         headers: {
-          'Authorization': this.token
+          'Authorization': localStorage.getItem('token')
         }
       }).then(response => {
         if (response.data.code === 1) {
@@ -425,7 +425,7 @@
       };
       axios.post('http://localhost:8080/api/order/delete', requestData, {
           headers: {
-            'authorization': this.token
+            'authorization':localStorage.getItem('token')
           }
         })
         .then(response => {
@@ -507,7 +507,7 @@
       // 发送请求更新状态
       axios.post('http://localhost:8080/api/order/updateStatus', requestData, {
         headers: {
-          'authorization': this.token
+          'authorization': localStorage.getItem('token')
         }
       })
       .then(response => {
