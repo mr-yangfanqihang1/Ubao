@@ -73,6 +73,8 @@ public class HelloController {
     }
     
     public static void main(String[] args) {
+        System.out.println("卧蚕年末");
         SpringApplication.run(HelloController.class, args);
+
     }
 }

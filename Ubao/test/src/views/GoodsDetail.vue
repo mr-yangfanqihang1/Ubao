@@ -111,7 +111,10 @@ export default {
   mounted() {
     // 发起 axios 请求获取商品数据
     this.$axios.get('http://localhost:8080/api/goodlistt', {
-      params: { id: this.id }
+      params: { id: this.id },
+      headers: {
+        'Authorization': `Bearer ${this.token}`
+      }
     }).then(res => {
       this.goods = res.data.data;  // 获取数据并赋值给 goods 对象
 
@@ -123,16 +126,73 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$message({
-        type: 'success',
-        message: '已加入购物车!'
-      });
+      // 准备需要传输的数据
+      const orderData = {
+        user_id: localStorage.getItem('userID'),
+        goods_id: this.id,
+        num: 1,
+        total: this.goods.goodsPrice,
+        status: 0
+      };
+      // 向后端发送 POST 请求
+      this.$axios.post('http://localhost:8080/api/order/createOrder', orderData, {
+        headers: {
+          'Authorization': `Bearer ${this.token}`
+        }
+      })
+          .then(() => {
+            this.$message({
+              type: 'success',
+              message: '已加入购物车!'
+            });
+            this.$router.push({
+              path: '/cart',
+              query: {
+                status: 0
+              }
+            });
+          })
+          .catch(err => {
+            console.error('加入购物车失败：', err);
+            this.$message({
+              type: 'error',
+              message: '加入购物车失败!'
+            });
+          });
     },
     buyNow() {
-      this.$message({
-        type: 'success',
-        message: '进行购买操作!'
-      });
+      const orderData = {
+        user_id: localStorage.getItem('userID'),
+        goods_id: this.id,
+        num: 1,
+        total: this.goods.goodsPrice,
+        status: 1
+      };
+      // 向后端发送 POST 请求
+      this.$axios.post('http://localhost:8080/api/order/createOrder', orderData, {
+        headers: {
+          'Authorization': `Bearer ${this.token}`
+        }
+      })
+          .then(() => {
+            this.$message({
+              type: 'success',
+              message: '已购买!'
+            });
+            this.$router.push({
+              path: '/cart',
+              query: {
+                status: 1
+              }
+            });
+          })
+          .catch(err => {
+            console.error('购买失败：', err);
+            this.$message({
+              type: 'error',
+              message: '购买失败!'
+            });
+          });
     },
     // 选择存储容量
     selectStorage(size) {
