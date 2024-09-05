@@ -5,18 +5,23 @@
     <el-header height="100px" style="background-color: transparent"  >
 
 <!--      <el-link type="primary" href="https://element.eleme.io" target="_blank">主要链接</el-link>-->
-      <el-row >
+      <el-row style="line-height: 100px">
         <el-col :span="4">
           <el-image style="height: 100px;" :src="logo2" :fit="fit" />
         </el-col>
-        <el-col :span="8">
+        <el-col :span="6">
           <el-input v-model="input" placeholder="请输入商品"></el-input>
         </el-col>
         <el-col :span="2">
           <el-button type="primary" icon="el-icon-search" @click="toSelectGoods" style="background-color: #ff5000">搜索</el-button>
         </el-col>
 <!--        空白占位-->
-        <el-col :span="4" style="border: 1px solid transparent;">
+        <el-col :span="3">
+           <span v-if="token">已登录</span>
+           <span v-else>未登录</span>
+        </el-col>
+        <el-col :span="3">
+          <el-button  v-if="token" type="primary"  @click="logout" >退出登录</el-button>
         </el-col>
         <el-col :span="3">
           <el-link  type="primary"  target="_blank" style="color: #FF5000" @click="toLogin" >登录/注册</el-link>
@@ -112,6 +117,7 @@ export default {
   },
   data() {
     return {
+      token: localStorage.getItem('token'),
       input: '',
       logo,
       logo2,
@@ -165,6 +171,10 @@ export default {
     }
   },
   methods: {
+    logout(){
+      localStorage.setItem("token","")
+      location.reload();
+    },
     load () {
       if(this.count<20)
       this.count += 2
@@ -182,8 +192,7 @@ export default {
       })
     },
     toGoodsDetail: function (index){
-     // let id=this.goodsList[index].id
-      let id=index
+     let id=this.goodsList[index].id
       this.$router.push({
         path: '/goodsDetail',
         query: {
@@ -209,6 +218,9 @@ export default {
   mounted() {
     this.$axios.get('http://localhost:8080/api/goodslist',{
       params: {
+      },
+      headers: {
+        'Authorization': `Bearer ${this.token}`
       }
     }).then(res=>{
       console.log(res.data);
