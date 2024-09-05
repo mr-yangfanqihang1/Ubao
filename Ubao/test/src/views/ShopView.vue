@@ -28,18 +28,27 @@
         </div>
         <div v-if="currentView === 'order'">
     
-            
+            <el-dropdown trigger="click">
+            <span class="el-dropdown-link" style="cursor: pointer;">
+              <i class="el-icon-setting" style="margin-right: 15px;"></i>
+              设置
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>查看</el-dropdown-item>
+              <el-dropdown-item>新增</el-dropdown-item>
+              <el-dropdown-item>删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
 
           <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="订单编号">
               <el-input v-model="formInline.order_id" placeholder="请输入"></el-input>
             </el-form-item>
             <el-form-item label="订单状态">
-              <el-select v-model="formInline.status" placeholder="全部">
-                <el-option label="全部" value="9" style="color:gray"></el-option>
+              <el-select v-model="formInline.region" placeholder="活动区域">
                 <el-option label="未发货" value="1" style="color:red"></el-option>
-                <el-option label="已发货" value="2" style="color:orange"></el-option>
-                <el-option label="已签收" value="3" style="color:green"></el-option>
+                <el-option label="已发货" value="2" style="color:green"></el-option>
+                <el-option label="已" value="2" style="color:green"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item>
@@ -50,19 +59,9 @@
 
             <thead>
               <tr>
-                <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235);">订单编号</th>
+                <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235);">日期</th>
                 <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">姓名</th>
                 <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">地址</th>
-                <el-dropdown trigger="click">
-                  <span class="el-dropdown-link" style="cursor: pointer;">
-                    <i class="el-icon-setting" style="margin-right: 15px;"></i>
-                    设置
-                  </span>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>新增</el-dropdown-item>
-                    <el-dropdown-item>删除</el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
               </tr>
             </thead>
             <tbody>
