@@ -1,15 +1,11 @@
 
 <template>
-
 <div>
-  <!--   eslint-disable-next-line-->
-<!--  <div style="background-image: url("@/assets/hutao.png")"></div>-->
-<!--  <div class="background-image"></div>-->
-  <el-container style="margin-left:5%;margin-right:5%;">
+  <el-container style="margin-left:5%;margin-right:5%; ">
     <el-header height="100px" style="background-color: transparent"  >
 
 <!--      <el-link type="primary" href="https://element.eleme.io" target="_blank">主要链接</el-link>-->
-      <el-row  style="line-height: 100px">
+      <el-row >
         <el-col :span="4">
           <el-image style="height: 100px;" :src="logo2" :fit="fit" />
         </el-col>
@@ -243,17 +239,6 @@ export default {
 
 
 <style scoped>
-.background-image{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("../assets/hutao.png");
-  background-size: cover;
-  z-index: -1;
-  opacity: 0.8;
-}
 a {
   font-size: 25px;
   font-family: PingFangSC, PingFang SC;
