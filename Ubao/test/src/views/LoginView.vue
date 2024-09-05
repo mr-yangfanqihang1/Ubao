@@ -117,11 +117,12 @@ export default {
         password: this.password,
       })
       .then(response => {
-        const { status, message, token } = response.data;
+        const { status, message, token,userID } = response.data;
         if (status === 1) {
           this.errorMessage = '';
           localStorage.setItem('token', token); // 存储 JWT 令牌
           alert('登录成功！');
+          localStorage.setItem('userID', userID);
           this.$router.push('/main'); // 使用 Vue Router 进行页面跳转
           // 进行页面跳转或其他操作
         } else {

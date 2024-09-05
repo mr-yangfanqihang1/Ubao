@@ -35,9 +35,11 @@ public class AccountController {
         for (Account account : accounts) {
             if (account.getUsername().equals(username) && account.getPassword().equals(password)) {
                 String token = jwtUtil.generateToken(username);
+                Integer userID = account.getId();
                 response.put("status", 1);
                 response.put("message", "登录成功！");
                 response.put("token", token);
+                response.put("userID", userID); 
                 return ResponseEntity.ok(response);
             }
         }

@@ -4,6 +4,7 @@ import com.server.server.data.Account;
 import java.util.List;
 import org.apache.ibatis.annotations.*;
 
+
 @Mapper
 public interface AccountMapper {
     @Select("SELECT * FROM account WHERE id = #{id}")
@@ -23,6 +24,10 @@ public interface AccountMapper {
     void delete(int id);
 
     Account findByUsername(String username);
+    
 
-}
+        
+    }
+
+
 
