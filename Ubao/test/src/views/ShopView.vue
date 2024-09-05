@@ -1,8 +1,5 @@
 <template>
   <el-container style="height: 100%; background-color: aliceblue; line-height: 1; border: 2px solid #eee">
-    <!-- <el-header style="display: flex; align-items: center; justify-content: center; height: 80px;background-color: rgb(238, 241, 246)">
-      我的数据库
-    </el-header> -->
     <el-container>
       <el-aside width="200px" style="height:600px; background-color: rgb(238, 241, 246)">
         <el-menu :default-openeds="['1', '3']" style="background-color: rgb(238, 241, 246)" active-background-color="#409eff" active-text-color="#409eff">
@@ -23,13 +20,11 @@
           <!-- 首页的具体内容 -->
         </div>
         <div v-if="currentView === 'goods'">
-          <h2>商品管理内容</h2>
-          <!-- 商品管理的具体内容 -->
+          <goods-management></goods-management> <!-- 使用商品管理组件 -->
         </div>
         <div v-if="currentView === 'order'">
-    
-            
-
+          <h2>订单管理内容</h2>
+          <!-- 订单管理内容 -->
           <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="订单编号">
               <el-input v-model="formInline.order_id" placeholder="请输入"></el-input>
@@ -47,7 +42,6 @@
             </el-form-item>
           </el-form>
           <table border="1" style="width: 100%; border-collapse: collapse; border: 1px solid rgb(235, 235, 235); text-align: left;">
-
             <thead>
               <tr>
                 <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235);">订单编号</th>
@@ -75,7 +69,7 @@
                 <td style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">{{ item.address }}</td>
               </tr>
             </tbody>
-            </table>
+          </table>
         </div>
       </el-main>
     </el-container>
@@ -84,7 +78,12 @@
 
 <script>
 import axios from 'axios';
+import GoodsManagement from './GoodsManagement.vue'; // 引入商品管理组件
+
 export default {
+  components: {
+    GoodsManagement // 注册商品管理组件
+  },
   data() {
     return {
       formInline: {
@@ -92,7 +91,7 @@ export default {
         status: ''
       },
       tableData: [],
-      currentView: 'order' // 默认显示首页内容
+      currentView: 'main' // 默认显示首页内容
     };
   },
   methods: {
@@ -101,10 +100,8 @@ export default {
     }
   },
   mounted() {
-    // 调整路径，确保路径正确
     axios.get("https://apifoxmock.com/m2/5075036-4736682-default/210094948")
       .then((result) => {
-        // 确保数据结构符合预期
         if (result.data.formInline) {
           this.formInline = result.data.formInline;
         } else {
