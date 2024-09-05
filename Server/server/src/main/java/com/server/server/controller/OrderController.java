@@ -22,9 +22,9 @@ public class OrderController {
     }
 
     @PostMapping("/cartItems")
-    public Response getCartItems(@RequestHeader("Authorization") String token,@RequestParam Integer userId,@RequestParam Integer status) {
+    public Response getCartItems(@RequestHeader("Authorization") String token,@RequestParam Integer userId,@RequestParam Integer status,@RequestParam String goodsName) {
         System.out.println("userID: " + userId);
-        return orderService.getCartItems(userId,status);
+        return orderService.getCartItems(userId,status,goodsName );
     }
 
 
@@ -41,6 +41,10 @@ public class OrderController {
     @PostMapping("/updateNum")
     public Response updateNum(@RequestHeader("Authorization") String token, @RequestBody List<UpdateNum> request) {
         return orderService.updateNum(token, request);
+    }
+    @PostMapping("/selectByName")
+    public Response selectByName(@RequestHeader("Authorization") String token,@RequestBody SelectByName request) {
+        return orderService.selectByName(token,request);
     }
 
 }

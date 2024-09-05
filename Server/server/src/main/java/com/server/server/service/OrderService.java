@@ -25,12 +25,12 @@ public class OrderService {
         }
     }
 
-    public Response<List<CartItems>> getCartItems(int userId, int status) {
+    public Response<List<CartItems>> getCartItems(int userId, int status,String goodsName) {
         try {
             // 调用mapper连接数据库查询
             System.out.println("userId: " + userId);
     
-            List<CartItems> cartItems = orderMapper.getCartItems(userId, status);
+            List<CartItems> cartItems = orderMapper.getCartItems(userId, status,goodsName);
             
             // 处理空购物车的情况
             if (cartItems == null || cartItems.isEmpty()) {
@@ -40,7 +40,7 @@ public class OrderService {
             // 遍历购物车中的每个商店，为每个商店获取商品信息
             for (CartItems cartItem : cartItems) {
                 int shopId = cartItem.getShop_id(); // 假设CartItems类有getShop_id方法
-                List<Items> items = getItemsByShopId(shopId, userId, status); // 调用getItemsByShopId获取商品信息
+                List<Items> items = getItemsByShopId(shopId, userId, status,goodsName); // 调用getItemsByShopId获取商品信息
                 cartItem.setItems(items); // 设置商店的商品列表
             }
     
@@ -52,14 +52,14 @@ public class OrderService {
     }
     
 
-    public List<Items> getItemsByShopId(int shopId, int userId, int status) {
+    public List<Items> getItemsByShopId(int shopId, int userId, int status,String goodsName) {
         // 打印传入的参数值
         System.out.println("shop_id: " + shopId);
         System.out.println("userId: " + userId);
         System.out.println("status: " + status);
         
         // 调用mapper方法
-        return orderMapper.selectGoodsByShopId(shopId, userId, status);
+        return orderMapper.selectGoodsByShopId(shopId, userId, status,goodsName);
     }
 
 
@@ -107,6 +107,19 @@ public class OrderService {
             return new Response<>(1, "更新购物车商品数量成功！", null);
         } catch (Exception e) {
             return new Response<>(-1, "更新商品数量失败：" + e.getMessage(), null);
+        }
+    }
+
+    public Response<Void> selectByName(String token, SelectByName request) {
+        try {
+            int result = orderMapper.selectByName(request);
+            
+            if (result <= 0) {
+                return new Response<>(4, "删除商品失败，请重试！", null);
+            }
+            return new Response<>(1, "删除商品成功！", null);
+        } catch (Exception e) {
+            return new Response<>(-1, "删除订单失败：" + e.getMessage(), null);
         }
     }
     
