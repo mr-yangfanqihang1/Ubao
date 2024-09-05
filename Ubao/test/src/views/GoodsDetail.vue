@@ -111,7 +111,7 @@ export default {
   mounted() {
     // 发起 axios 请求获取商品数据
     this.$axios.get('http://localhost:8080/api/goodlistt', {
-      params: { id: 1 }
+      params: { id: this.id }
     }).then(res => {
       this.goods = res.data.data;  // 获取数据并赋值给 goods 对象
 

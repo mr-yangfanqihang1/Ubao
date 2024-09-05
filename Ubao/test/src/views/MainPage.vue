@@ -5,7 +5,7 @@
     <el-header height="100px" style="background-color: transparent"  >
 
 <!--      <el-link type="primary" href="https://element.eleme.io" target="_blank">主要链接</el-link>-->
-      <el-row >
+      <el-row style="line-height: 100px">
         <el-col :span="4">
           <el-image style="height: 100px;" :src="logo2" :fit="fit" />
         </el-col>
