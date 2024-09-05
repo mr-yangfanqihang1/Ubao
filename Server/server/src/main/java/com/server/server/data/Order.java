@@ -1,8 +1,6 @@
 package com.server.server.data;
-
 import com.server.server.controller.request.CreateOrder;
 import com.server.server.controller.request.DeleteOrder;
-import com.server.server.controller.request.QueryOrder;
 import com.server.server.controller.request.UpdateNum;
 import com.server.server.controller.request.UpdateStatus;
 
@@ -35,7 +33,7 @@ public class Order {
     public static Order convertToOrder(DeleteOrder deleteOrder) {
         return new Order(
             deleteOrder.getOrder_id(),
-            0,
+            deleteOrder.getUser_id(),
             0,
             0,
             0,
@@ -43,21 +41,10 @@ public class Order {
         );
     }
 
-    public static Order convertToOrder(QueryOrder queryOrder) {
-        return new Order(
-            0,
-            queryOrder.getUser_Id(),
-            0,
-            0,
-            0,
-            queryOrder.getStatus()
-        );
-    }
-
     public static Order convertToOrder(UpdateNum updateNum) {
         return new Order(
             updateNum.getOrder_id(),
-            0,
+            updateNum.getUser_id(),
             0,
             updateNum.getNum(),
             0,
@@ -68,11 +55,12 @@ public class Order {
     public static Order convertToOrder(UpdateStatus updateStatus) {
         return new Order(
             updateStatus.getOrder_id(),
-            0,
+            updateStatus.getUser_id(),
             0,
             0,
             0,
             updateStatus.getStatus()
         );
     }
+
 }

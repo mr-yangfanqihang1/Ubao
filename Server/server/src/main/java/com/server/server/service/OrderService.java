@@ -41,7 +41,7 @@ public class OrderService {
             for (CartItems cartItem : cartItems) {
                 int shopId = cartItem.getShop_id(); // 假设CartItems类有getShop_id方法
                 List<Items> items = getItemsByShopId(shopId, userId, status); // 调用getItemsByShopId获取商品信息
-                cartItem.setItems(items); // 设置商店的商品列表，假设CartItems有setItems方法
+                cartItem.setItems(items); // 设置商店的商品列表
             }
     
             return new Response<>(1, "购物车状态请求成功！", cartItems);
@@ -65,35 +65,51 @@ public class OrderService {
 
 
 
-    public Response<Void> updateNum(String token, UpdateNum request) {
-        int result = orderMapper.update(new Order(/* 初始化 Order 对象 */));
-        if (result > 0) {
-            return new Response<>(1, "更新购物车商品数量成功！", null);
-        } else {
-            return new Response<>(4, "更新数据失败，请重试！", null);
-        }
-    }
+
 
     public Response<Void> deleteOrder(String token, DeleteOrder request) {
-        int result = orderMapper.delete(request.getOrder_id());
-        if (result > 0) {
-            return new Response<>(1, "删除购物车商品成功！", null);
-        } else {
-            return new Response<>(4, "删除商品失败，请重试！", null);
+        try {
+            int result = orderMapper.delete(Order.convertToOrder(request));
+            
+            if (result <= 0) {
+                return new Response<>(4, "删除商品失败，请重试！", null);
+            }
+            return new Response<>(1, "删除商品成功！", null);
+        } catch (Exception e) {
+            return new Response<>(-1, "删除订单失败：" + e.getMessage(), null);
         }
     }
+    
 
-    public Response<Void> updateStatus(String token, UpdateStatus request) {
-        int result = orderMapper.update(new Order(/* 初始化 Order 对象 */));
-        if (result > 0) {
+    public Response<Void> updateStatus(String token, List<UpdateStatus> requests) {
+        try {
+            for (UpdateStatus request : requests) {
+                int result = orderMapper.updateStatus(Order.convertToOrder(request));
+                if (result <= 0) {
+                    return new Response<>(5, "结算商品失败，原因未知！", null);
+                }
+            }
             return new Response<>(1, "结算成功！", null);
-        } else {
-            return new Response<>(5, "结算该商品失败，原因未知！", null);
+        } catch (Exception e) {
+            return new Response<>(-1, "更新状态失败：" + e.getMessage(), null);
         }
     }
+    
 
-    public Response<Void> clearGoods(String token) {
-        // 处理清空购物车的逻辑
-        return new Response<>(1, "清空购物车成功", null);
+    public Response<Void> updateNum(String token, List<UpdateNum> requests) {
+        try {
+            for (UpdateNum request : requests) {
+                int result = orderMapper.updateNum(Order.convertToOrder(request));
+                if (result <= 0) {
+                    return new Response<>(4, "更新数据失败，请重试！", null);
+                }
+            }
+            return new Response<>(1, "更新购物车商品数量成功！", null);
+        } catch (Exception e) {
+            return new Response<>(-1, "更新商品数量失败：" + e.getMessage(), null);
+        }
     }
+    
+
+
 }
