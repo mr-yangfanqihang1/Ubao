@@ -28,4 +28,28 @@ public interface GoodsMapper {
     @Select("SELECT * FROM goods limit 100")
     List<Goods> getGoodsList();
 
+    @Select("SELECT * FROM goods ")
+    List<Goods> getmoreGoodsList();
+
+    @Select("<script>" +
+    "SELECT * FROM goods " +
+    "<where> " +
+    "  <if test='searchQuery != null and searchQuery != \"\"'> " +
+    "    goods_title LIKE CONCAT('%', #{searchQuery}, '%') " +
+    "  </if> " +
+    "  <if test='tag != null and tag != \"\"'> " +
+    "    AND goods_title LIKE CONCAT('%', #{tag}, '%') " +
+    "  </if> " +
+    "</where> " +
+    "<if test='sort != null'> " +
+    "  ORDER BY " +
+    "  <choose> " +
+    "    <when test='sort == \"price\"'> goods_price </when> " +
+    "    <when test='sort == \"sales\"'> goods_sales DESC </when> " +
+    "  </choose> " +
+    "</if> " +
+    "limit 100"+
+    "</script>")
+List<Goods> searchGoods(@Param("searchQuery") String searchQuery, @Param("tag") String tag, @Param("sort") String sort);
+
 }
