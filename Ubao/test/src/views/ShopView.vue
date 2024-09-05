@@ -44,11 +44,18 @@
           <table border="1" style="width: 100%; border-collapse: collapse; border: 1px solid rgb(235, 235, 235); text-align: left;">
             <thead>
               <tr>
-                <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235);">订单编号</th>
-                <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">商品名称</th>
-                <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">用户地址</th>
-                <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">订单状态</th>
-                <th>
+                <th style="padding: 8px;border: 1px solid rgb(235, 235, 235);">订单编号</th>
+                <th style="padding: 8px;border: 1px solid rgb(235, 235, 235)">商品名称</th>
+                <th style="padding: 8px;border: 1px solid rgb(235, 235, 235)">用户地址</th>
+                <th style="padding: 8px;border: 1px solid rgb(235, 235, 235)">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in tableData" :key="index">
+                <td style="padding: 8px;border: 1px solid rgb(235, 235, 235)">{{ item.date }}</td>
+                <td style="padding: 8px;border: 1px solid rgb(235, 235, 235);">{{ item.name }}</td>
+                <td style="padding: 8px;border: 1px solid rgb(235, 235, 235)">{{ item.address }}</td>
+                <td style="padding: 8px;border: 1px solid rgb(235, 235, 235)">
                   <el-dropdown trigger="click">
                     <span class="el-dropdown-link" style="cursor: pointer;">
                       <i class="el-icon-setting" style="margin-right: 15px;"></i>
@@ -59,17 +66,11 @@
                       <el-dropdown-item>删除</el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(item, index) in tableData" :key="index">
-                <td style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">{{ item.date }}</td>
-                <td style="padding: 8px;border: 1px  solid rgb(235, 235, 235);">{{ item.name }}</td>
-                <td style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">{{ item.address }}</td>
+                </td>
               </tr>
             </tbody>
           </table>
+
         </div>
       </el-main>
     </el-container>

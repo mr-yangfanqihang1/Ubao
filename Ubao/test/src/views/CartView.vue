@@ -160,7 +160,7 @@
                 prop="goods_name" 
                 width="250">
                 <template #default="scope">
-                  <div  @click="toGoodsDetail(scope.row.goods_id)" style="display: flex; align-items: center;cursor:pointer ">
+                  <div  @click="toGoodsDetail(scope.row.goods_id)" style="display: flex; align-items: center;cursor: pointer">
                     <el-image 
                       style="margin-right: 10px; width: 150px;" 
                       :src="scope.row.goods_img" 
@@ -230,7 +230,28 @@
           <el-checkbox v-model="selectAll" @change="toggleSelectAll">全选</el-checkbox>
           <span>已选商品 {{ selectedItemsCount }} 件</span>
           <span>合计（不含运费）：¥{{ totalAmount }}</span>
-          <el-button type="primary" style="background-color: #FF5000" @click="checkout">结算</el-button>
+          <el-button type="primary" style="background-color: #FF5000" @click="checkout">结算
+            <el-dialog :visible.sync="dialogVisible" title="选中的商品" style="line-height: 30px;">
+            <div v-for="merchant in selectedMerchants" :key="merchant.shop_id">
+              <h3>{{ merchant.shop_name }}</h3>
+              <el-table :data="merchant.items" style="width: 100%">
+                <el-table-column prop="goods_name" label="商品名称" width="200"></el-table-column>
+                <el-table-column prop="goods_price" label="商品单价" width="200"></el-table-column>
+                <el-table-column label="商品数量" width="150">
+                  <template #default="scope"> 
+                    <span>X {{ scope.row.goods_num }}</span>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <div>运费: 10元</div>
+            </div>
+            <div >总价格（含运费）: {{ totalPrice }}</div>
+            <span slot="footer" class="dialog-footer">
+              <el-button  @click="cancelCheckout">取消</el-button>
+              <el-button type="primary" @click="confirmCheckout">确认付款</el-button>
+            </span>
+          </el-dialog>
+          </el-button>
         </el-footer>
       </div>
       
@@ -245,6 +266,7 @@ import { Message } from 'element-ui';
 export default {
 data() {
   return {
+    dialogVisible: true,
     input: "",
     token: "1",
     user_id: 1,
@@ -268,6 +290,13 @@ data() {
       "已发货": "orange",
       "已签收": "#67c23a"
     },
+    requestData:{
+      order_id: -1,
+        user_id: localStorage.getItem('userID'),
+        total: 0,
+        status: -1
+    },
+
     cartItems: [
       {
         goods_id: 1,
@@ -485,68 +514,99 @@ methods: {
     this.removeFromTable(orderId, merchantId);
     this.delete(orderId);
   },
+
+    
   checkout() {
-      // 获取选中的商品
-      const selectedItems = this.cartItems.flatMap(merchant => 
-        merchant.items.filter(item => item.selected).map(item => ({
-          ...item,
-          shop_id: merchant.shop_id // 将商家的shop_id添加到每个item中,才能按商家分组
-        }))
-      );
+  // 获取选中的商品
+  const selectedItems = this.cartItems.flatMap(merchant => 
+    merchant.items.filter(item => item.selected).map(item => ({
+      ...item,
+      shop_id: merchant.shop_id // 将商家的shop_id添加到每个item中,才能按商家分组
+    }))
+  );
 
-          // 计算每个商家中至少有一个商品被选中的商家数量
-      const merchantSelectedNum = this.cartItems.reduce((count, merchant) => {
-        const hasSelectedItems = merchant.items.some(item => item.selected);
-        return hasSelectedItems ? count + 1 : count;
-      }, 0);
-
-      // 假设每个商家的运费为10
-      const shippingFeePerMerchant = 20;
-      const totalShippingFee = merchantSelectedNum * shippingFeePerMerchant;
-
-      // 准备请求数据
-      const requestData = selectedItems.map(item => ({
-        order_id: item.order_id,
-        user_id: localStorage.getItem('userID'),
-        total: item.goods_price * item.goods_num + totalShippingFee/merchantSelectedNum,
-        status: 1
-      }));
-
-      console.log(requestData);
-
-    // 发送请求更新状态
-    axios.post('http://localhost:8080/api/order/updateStatus', requestData, {
-      headers: {
-        'Authorization': localStorage.getItem('token')
-      }
-    })
-    .then(response => {
-      // 使用element 消息窗 输出返回的消息
-        Message({
-          message: response.data.message,
-          type: 'success',
-          showClose: false,
-          duration: 3000 // 提示窗显示时间，单位为毫秒
-        });
-      if(response.data.code==1){
-        selectedItems.forEach(item => {
-            this.removeFromTable(item.order_id, item.shop_id);
-//            alert("goods_id: "+item.goods_id+" shop_id: "+item.shop_id);
-        });
-      }
-      else{
-        Message({
-          message: response.data.message,
-          type: 'error',
-          showClose: false,
-          duration: 3000 // 提示窗显示时间，单位为毫秒
-        });
-      }
-    })
-    .catch(error => {
-      console.error('Error updating order status:', error);
-    });
+  if (selectedItems.length === 0) {
+    // No items selected, don't open the dialog
+    return;
   }
+
+  // 按商家分组
+  const groupedByMerchant = selectedItems.reduce((acc, item) => {
+    const merchant = acc.find(m => m.shop_id === item.shop_id);
+    if (merchant) {
+      merchant.items.push(item);
+    } else {
+      acc.push({
+        shop_id: item.shop_id,
+        shop_name: item.shop_name,
+        items: [item]
+      });
+    }
+    return acc;
+  }, []);
+
+  // 计算总价格（含运费）
+  const merchantSelectedNum = groupedByMerchant.length;
+  const shippingFeePerMerchant = 10;
+  const totalShippingFee = merchantSelectedNum * shippingFeePerMerchant;
+  const totalPrice = selectedItems.reduce((sum, item) => sum + item.goods_price * item.goods_num, 0) + totalShippingFee;
+
+  this.selectedMerchants = groupedByMerchant;
+  this.totalPrice = totalPrice;
+
+  // 准备请求数据
+  this.requestData = selectedItems.map(item => ({
+    order_id: item.order_id,
+    user_id: localStorage.getItem('userID'),
+    total: item.goods_price * item.goods_num + totalShippingFee / merchantSelectedNum,
+    status: 1
+  }));
+
+  // Set dialog visible
+  this.dialogVisible = true;
+},
+
+cancelCheckout() {
+  // Simply close the dialog
+  this.dialogVisible = false;
+  console.log("Dialog closed");
+},
+
+confirmCheckout() {
+  axios.post('http://localhost:8080/api/order/updateStatus', this.requestData, {
+    headers: {
+      'Authorization': localStorage.getItem('token')
+    }
+  })
+  .then(response => {
+    Message({
+      message: response.data.message,
+      type: 'success',
+      showClose: false,
+      duration: 3000
+    });
+
+    if (response.data.code === 1) {
+      this.selectedItems.forEach(item => {
+        this.removeFromTable(item.order_id, item.shop_id);
+      });
+    } else {
+      Message({
+        message: response.data.message,
+        type: 'error',
+        showClose: false,
+        duration: 3000
+      });
+    }
+
+    // Close the dialog after confirmation is processed
+    this.dialogVisible = false;
+  })
+  .catch(error => {
+    console.error('Error updating order status:', error);
+  });
+}
+
 
 },
 };

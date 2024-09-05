@@ -20,7 +20,7 @@
             <el-input v-model="input" placeholder="请输入商品名称"></el-input>
           </el-col>
           <el-col :span="2">
-            <el-button type="primary" icon="el-icon-search" @click="toSelectGoods" style="background-color: #ff5000;">搜索</el-button>
+            <el-button type="primary" icon="el-icon-search" @click="fetchCartItems" style="background-color: #ff5000;">搜索</el-button>
           </el-col>
           <el-col :span="4" style="border: 1px solid transparent;">
           </el-col>
@@ -64,13 +64,13 @@
                 align="center">
               </el-table-column>
 
-              <!-- 表格列：商品信息 -->
+              <!-- 表格列：商品图片 -->
               <el-table-column 
                 label="商品信息" 
                 prop="goods_name" 
-                width="250">
+                width="250" >
                 <template #default="scope">
-                  <div style="display: flex; align-items: center;">
+                  <div @click="toGoodsDetail(scope.row.goods_id)" style="display: flex; align-items: center;cursor: pointer;">
                     <el-image 
                       style="margin-right: 10px; width: 150px;" 
                       :src="scope.row.goods_img" 
@@ -119,7 +119,7 @@
                 <template #default="scope">
                   <el-button 
                     type="text" 
-                    @click="removeItem(scope.row.order_id, scope.row.goods_id, merchant.shop_id)" 
+                    @click="removeItem(scope.row.order_id,  merchant.shop_id)" 
                     style="color: #FF5000">
                     删除
                   </el-button>
@@ -160,7 +160,7 @@
                 prop="goods_name" 
                 width="250">
                 <template #default="scope">
-                  <div style="display: flex; align-items: center;">
+                  <div  @click="toGoodsDetail(scope.row.goods_id)" style="display: flex; align-items: center;cursor:pointer ">
                     <el-image 
                       style="margin-right: 10px; width: 150px;" 
                       :src="scope.row.goods_img" 
@@ -212,7 +212,7 @@
                 <template #default="scope">
                   <el-button 
                     type="text" 
-                    @click="removeItem(scope.row.order_id, scope.row.goods_id, merchant.shop_id)" 
+                    @click="removeItem(scope.row.order_id,  merchant.shop_id)" 
                     style="color: #FF5000">
                     删除
                   </el-button>
@@ -245,6 +245,7 @@ import { Message } from 'element-ui';
 export default {
 data() {
   return {
+    input: "",
     token: "1",
     user_id: 1,
     logo: logo,
@@ -252,7 +253,7 @@ data() {
     selectedItemsCount: 0,
     totalAmount :0,
     selectedItems: [],
-    status: "购物车",
+    status: this.$route.query.status,
     statusMap: {
       "全部": 9,
       "购物车": 0,
@@ -289,6 +290,9 @@ data() {
     ],
   };
 },
+mounted(){
+  this.fetchCartItems();
+},
 /*   watch: {
   status(newStatus) {
     this.fetchCartItems(newStatus);
@@ -304,6 +308,14 @@ computed: {
   
 },
 methods: {
+  toGoodsDetail(goodsId){
+      this.$router.push({
+        path: '/goodsDetail',
+        query: {
+          id: goodsId
+        }
+      })
+    },
   getStatusColorByValue(value) {
     const statusName = this.getStatusNameByValue(value);
     return this.statusColorMap[statusName] || 'black'; // 如果没有找到匹配的颜色，默认返回黑色
@@ -319,8 +331,9 @@ methods: {
   fetchCartItems() {
     axios.post('http://localhost:8080/api/order/cartItems', null, {
       params: {
-        userId: 1,
-        status: this.statusMap[this.status]
+        userId: localStorage.getItem('userID'),
+        status: this.statusMap[this.status],
+        goodsName: this.input
       },
       headers: {
         'Authorization': localStorage.getItem('token')
@@ -348,9 +361,6 @@ methods: {
   },
 
 
-  updateTotalPrice() {
-    // Update total price logic...
-  },
   handleMerchantSelectionChange(merchantId) {
     let merchantIndex = this.cartItems.findIndex((m) => m.shop_id === merchantId);
     if (merchantIndex !== -1) {
@@ -420,7 +430,7 @@ methods: {
 
   delete(orderId) {
     const requestData = {
-      user_id: this.user_id,
+      user_id: localStorage.getItem('userID'),
       order_id: orderId
     };
     axios.post('http://localhost:8080/api/order/delete', requestData, {
@@ -458,11 +468,11 @@ methods: {
       });
   },
 
-  removeFromTable(goodsId, merchantId){     //结算也可以使用，便于代码复用
+  removeFromTable(orderId, merchantId){     //结算也可以使用，便于代码复用
     let merchantIndex = this.cartItems.findIndex((m) => m.shop_id === merchantId);
     if (merchantIndex !== -1) {
       let merchant = this.cartItems[merchantIndex];
-      merchant.items = merchant.items.filter((item) => item.goods_id !== goodsId);
+      merchant.items = merchant.items.filter((item) => item.order_id !== orderId);
       if (merchant.items.length === 0) {
         this.cartItems.splice(merchantIndex, 1);
       }
@@ -471,9 +481,9 @@ methods: {
     this.updateSelectAllState();
   },
 
-  removeItem(order_id,goodsId, merchantId) {
-    this.removeFromTable(goodsId, merchantId);
-    this.delete(order_id);
+  removeItem(orderId, merchantId) {
+    this.removeFromTable(orderId, merchantId);
+    this.delete(orderId);
   },
   checkout() {
       // 获取选中的商品
@@ -497,7 +507,7 @@ methods: {
       // 准备请求数据
       const requestData = selectedItems.map(item => ({
         order_id: item.order_id,
-        user_id: this.user_id,
+        user_id: localStorage.getItem('userID'),
         total: item.goods_price * item.goods_num + totalShippingFee/merchantSelectedNum,
         status: 1
       }));
@@ -520,7 +530,7 @@ methods: {
         });
       if(response.data.code==1){
         selectedItems.forEach(item => {
-            this.removeFromTable(item.goods_id, item.shop_id);
+            this.removeFromTable(item.order_id, item.shop_id);
 //            alert("goods_id: "+item.goods_id+" shop_id: "+item.shop_id);
         });
       }
