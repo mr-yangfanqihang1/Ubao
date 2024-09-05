@@ -3,6 +3,8 @@ package com.server.server;
 
 import com.server.server.data.Account;
 import com.server.server.mapper.AccountMapper;
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +49,27 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
+    // 示例受保护接口
+    @GetMapping("/protected")
+    public ResponseEntity<Map<String, Object>> protectedEndpoint(HttpServletRequest request) {
+        Map<String, Object> response = new HashMap<>();
+        
+        // 从请求中获取 JWT Claims
+        Claims claims = (Claims) request.getAttribute("claims");
+        if (claims == null) {
+            response.put("status", 0);
+            response.put("message", "未授权的访问");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+
+        String username = claims.getSubject();
+        response.put("status", 1);
+        response.put("message", "你已成功访问受保护的接口！");
+        response.put("username", username);
+
+        return ResponseEntity.ok(response);
+    }
+
     // 注册接口
     @PostMapping("/register")
     public Map<String, Object> register(@RequestBody Account newAccount) {
@@ -87,7 +110,4 @@ public class AccountController {
         }
     }
 }
-
-
-
 
