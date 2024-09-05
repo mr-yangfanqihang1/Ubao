@@ -76,6 +76,9 @@ export default {
         searchQuery: this.searchQuery,
         tag: this.selectedTag,
         sort: this.sortKey
+      },
+      headers: {
+        'Authorization': `Bearer ${this.token}`
       }
     })
     .then((res) => {
