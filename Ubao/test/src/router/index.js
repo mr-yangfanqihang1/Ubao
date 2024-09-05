@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import TableView from '../views/TableView.vue'
+import ShopView from '@/views/ShopView.vue'
 import CartView from '@/views/CartView.vue'
 import MainPage from "@/views/MainPage.vue";
 import LoginView  from "@/views/LoginView.vue";
@@ -10,9 +10,9 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/dept',
-    name: 'TableView',
-    component: TableView
+    path: '/shop',
+    name: 'ShopView',
+    component: ShopView
   },
   {
     path: '/',

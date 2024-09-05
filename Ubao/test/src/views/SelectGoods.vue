@@ -64,7 +64,7 @@ export default {
       selectedTag: '',
       sortKey: '',
       goodsList: [],
-      tags: ['苹果', '小米', 'oppo', '华为', '电子产品'], // 示例标签，可根据需求调整
+      tags: ['苹果', '小米', 'oppo', '华为'], 
     };
   },
   methods: {
