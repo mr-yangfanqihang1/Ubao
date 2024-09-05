@@ -23,10 +23,6 @@ public class OrderController {
 
     @PostMapping("/cartItems")
     public Response getCartItems(@RequestHeader("Authorization") String token,@RequestParam Integer userId,@RequestParam Integer status) {
-<<<<<<< Updated upstream
-=======
-        // 处理获取购物车信息的逻辑
->>>>>>> Stashed changes
         System.out.println("userID: " + userId);
         return orderService.getCartItems(userId,status);
     }
@@ -37,11 +33,7 @@ public class OrderController {
         return orderService.deleteOrder(token, request);
     }
 
-<<<<<<< Updated upstream
     @PostMapping("/updateStatus")
-=======
-     @PostMapping("/updateStatus")
->>>>>>> Stashed changes
     public Response updateStatus(@RequestHeader("Authorization") String token, @RequestBody List<UpdateStatus> request) {
         return orderService.updateStatus(token, request);
     }
