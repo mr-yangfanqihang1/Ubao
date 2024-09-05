@@ -199,11 +199,7 @@
                 <el-table-column 
                   label="状态" 
                   align="center">
-                  <template #default="scope">
-                    <span :style="{ color: getStatusColorByValue(scope.row.order_status) }">
-                      {{ getStatusNameByValue(scope.row.order_status) }}
-                    </span>
-                  </template>
+
                 </el-table-column>
                 <!-- 表格列：操作 -->
                 <el-table-column 
@@ -425,7 +421,7 @@
       };
       axios.post('http://localhost:8080/api/order/delete', requestData, {
           headers: {
-            'authorization': this.token
+            'Authorization': this.token
           }
         })
         .then(response => {
@@ -507,7 +503,7 @@
       // 发送请求更新状态
       axios.post('http://localhost:8080/api/order/updateStatus', requestData, {
         headers: {
-          'authorization': this.token
+          'Authorization': this.token
         }
       })
       .then(response => {
