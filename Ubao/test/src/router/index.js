@@ -10,7 +10,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/dept',
+    path: '/shop/dept',
     name: 'TableView',
     component: TableView
   },
