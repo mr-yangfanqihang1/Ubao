@@ -28,17 +28,7 @@
         </div>
         <div v-if="currentView === 'order'">
     
-            <el-dropdown trigger="click">
-            <span class="el-dropdown-link" style="cursor: pointer;">
-              <i class="el-icon-setting" style="margin-right: 15px;"></i>
-              设置
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>查看</el-dropdown-item>
-              <el-dropdown-item>新增</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+            
 
           <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="订单编号">
@@ -63,6 +53,16 @@
                 <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235);">订单编号</th>
                 <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">姓名</th>
                 <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">地址</th>
+                <el-dropdown trigger="click">
+                  <span class="el-dropdown-link" style="cursor: pointer;">
+                    <i class="el-icon-setting" style="margin-right: 15px;"></i>
+                    设置
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>新增</el-dropdown-item>
+                    <el-dropdown-item>删除</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
               </tr>
             </thead>
             <tbody>
