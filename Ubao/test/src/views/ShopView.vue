@@ -31,32 +31,49 @@
         </div>
         <div v-if="currentView === 'order'">
     
-          <el-dropdown trigger="click">
-          <span class="el-dropdown-link" style="cursor: pointer;">
-            <i class="el-icon-setting" style="margin-right: 15px;"></i>
-            设置
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+            <el-dropdown trigger="click">
+            <span class="el-dropdown-link" style="cursor: pointer;">
+              <i class="el-icon-setting" style="margin-right: 15px;"></i>
+              设置
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>查看</el-dropdown-item>
+              <el-dropdown-item>新增</el-dropdown-item>
+              <el-dropdown-item>删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
 
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="订单编号">
-            <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-          </el-form-item>
-          <el-form-item label="商品名称">
-            <el-select v-model="formInline.region" placeholder="活动区域">
-              <el-option label="北邮海淀" value="1"></el-option>
-              <el-option label="北邮沙河" value="2"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit">查询</el-button>
-          </el-form-item>
-        </el-form>
+          <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <el-form-item label="订单编号">
+              <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+            </el-form-item>
+            <el-form-item label="商品名称">
+              <el-select v-model="formInline.region" placeholder="活动区域">
+                <el-option label="北邮海淀" value="1"></el-option>
+                <el-option label="北邮沙河" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="onSubmit">查询</el-button>
+            </el-form-item>
+          </el-form>
+          <table border="1" style="width: 100%; border-collapse: collapse; border: 1px solid rgb(235, 235, 235); text-align: left;">
+
+<thead>
+  <tr>
+    <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235);">日期</th>
+    <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">姓名</th>
+    <th style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">地址</th>
+  </tr>
+</thead>
+<tbody>
+  <tr v-for="(item, index) in tableData" :key="index">
+    <td style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">{{ item.date }}</td>
+    <td style="padding: 8px;border: 1px  solid rgb(235, 235, 235);">{{ item.name }}</td>
+    <td style="padding: 8px;border: 1px  solid rgb(235, 235, 235)">{{ item.address }}</td>
+  </tr>
+</tbody>
+</table>
         </div>
       </el-main>
     </el-container>
@@ -73,7 +90,7 @@ export default {
         region: ''
       },
       tableData: [],
-      currentView: 'main' // 默认显示首页内容
+      currentView: 'order' // 默认显示首页内容
     };
   },
   methods: {
