@@ -38,10 +38,10 @@
 
     <!-- 商品列表 -->
     <el-row :gutter="20">
-      <el-col :span="6" v-for="(product, index) in filteredGoodsList" :key="index">
+      <el-col :span="6" v-for="(product, index) in goodsList" :key="index">
         <el-card :body-style="{ padding: '10px' }">
-          <img :src="product.goodsImg" alt="" style="width: 100%; height: 200px; object-fit: cover;" @click="toGoodsDetail(index)" />
-          <div style="padding: 14px;" @click="toGoodsDetail(index)">
+          <img :src="product.goodsImg" alt="" style="width: 100%; height: 200px; object-fit: cover;" @click="toGoodsDetail(product.id)" />
+          <div style="padding: 14px;" @click="toGoodsDetail(product.id)">
             <span>{{ product.goodsTitle }}</span>
             <div class="bottom clearfix" style="margin-top: 10px;">
               <span>价格：{{ product.goodsPrice }}元</span>
@@ -59,73 +59,48 @@
 export default {
   data() {
     return {
-      searchQuery: '',
+      maininput: this.$route.query.input,
+      searchQuery: this.$route.query.input,
       selectedTag: '',
       sortKey: '',
       goodsList: [],
-      tags: ['女装', '男装', '美妆', '电子产品'], // 示例标签，可根据需求调整
+      tags: ['苹果', '小米', 'oppo', '华为', '电子产品'], // 示例标签，可根据需求调整
     };
-  },
-  computed: {
-    filteredGoodsList() {
-      // 过滤商品列表
-      let filteredList = this.goodsList;
-
-      // 根据搜索关键词过滤
-      if (this.searchQuery) {
-        filteredList = filteredList.filter((item) =>
-          item.goodsTitle.includes(this.searchQuery)
-        );
-      }
-
-      // 根据标签过滤
-      if (this.selectedTag) {
-        filteredList = filteredList.filter((item) =>
-          item.tags.includes(this.selectedTag)
-        );
-      }
-
-      // 根据排序字段排序
-      if (this.sortKey) {
-        filteredList.sort((a, b) => {
-          if (this.sortKey === 'price') {
-            return a.goodsPrice - b.goodsPrice;
-          } else if (this.sortKey === 'sales') {
-            return b.goodsSales - a.goodsSales;
-          }
-        });
-      }
-
-      return filteredList;
-    },
   },
   methods: {
     searchGoods() {
-      // 执行搜索逻辑
-      console.log('搜索商品：', this.searchQuery);
-    },
+  // 发起请求获取商品列表
+  this.$axios
+    .get('http://localhost:8080/api/goodslist1', {
+      params: {
+        searchQuery: this.searchQuery,
+        tag: this.selectedTag,
+        sort: this.sortKey
+      }
+    })
+    .then((res) => {
+      console.log(res.data);
+      this.goodsList = res.data.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+,
     sortGoods(key) {
       this.sortKey = key;
+      this.searchGoods(); // 根据排序字段重新搜索
     },
-    toGoodsDetail(index) {
-      let id = index;
+    toGoodsDetail(id) {
       this.$router.push({
         path: '/goodsDetail',
-        query: { id },
+        query: { id }
       });
     },
   },
   mounted() {
-    // 获取商品列表数据
-    this.$axios
-      .get('http://localhost:8080/api/goodslist1')
-      .then((res) => {
-        console.log(res.data);
-        this.goodsList = res.data.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // 初始加载商品列表数据
+    this.searchGoods();
   },
 };
 </script>
@@ -135,4 +110,6 @@ export default {
   color: #ff5000;
 }
 </style>
+
+
 

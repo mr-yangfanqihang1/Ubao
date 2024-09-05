@@ -42,7 +42,7 @@
             </div>
   
             <!-- 商品信息表格 -->
-            <el-table :data="merchant.items" style="width: 100%" border
+            <el-table ref="table_{{ merchant.shop_id }}" :data="merchant.items" style="width: 100%" border
             @select="handleItemSelectionChange"
             @select-all="handleMerchantSelectionChange(merchant.shop_id)"
             show-header="false">
@@ -80,7 +80,7 @@
               <!-- 表格列：操作 -->
               <el-table-column label="操作" align="center">
                 <template #default="scope">
-                  <el-button type="text" @click="removeItem(scope.row.goods_id, merchant.shop_id)" style="color: #FF5000">删除</el-button>
+                  <el-button type="text" @click="removeItem(scope.row.order_id,scope.row.goods_id, merchant.shop_id)" style="color: #FF5000">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -106,6 +106,7 @@
     data() {
       return {
         token:"1",
+        user_id:1,
         logo: logo,
         selectAll: false,
         selectedItems: [],
@@ -116,11 +117,13 @@
             shop_name: "小米旗舰店",
             items: [
               {
-                goods_id: 456,
+                order_id:0,
+                shop_id:0,
+                goods_id: 0,
                 goods_img: "",
                 goods_name: "",
                 goods_num: 1,
-                goods_price: 0.0,
+                goods_price: 0.0,               
                 selected: false,
               },
             ],
@@ -163,13 +166,14 @@
         }
       }).then(response => {
         if (response.data.code === 1) {
-          // 为每个 items 添加 selected 属性，默认值为 false
+          // 为每个 items 添加 selected 属性，默认值为 false.为shop_id赋值
           this.cartItems = response.data.data.map(cart => {
             return {
               ...cart,
               items: cart.items.map(item => ({
                 ...item,
-                selected: false
+                selected: false,
+                shop_id: cart.shop_id
               }))
             };
           });
@@ -208,7 +212,8 @@
       }
       this.updateSelectedItems();
       this.updateSelectAllState();
-    },
+      
+},
     updateSelectedItems() {
       this.selectedItems = this.cartItems.flatMap((m) =>
         m.items.filter((item) => item.selected)
@@ -245,7 +250,28 @@
         });
       });
     },
-    removeItem(goodsId, merchantId) {
+
+
+    delete(orderId) {
+      const requestData = {
+        user_id: this.user_id,
+        order_id: orderId
+      };
+      axios.post('http://localhost:8080/api/order/delete', requestData, {
+          headers: {
+            'authorization': this.token
+          }
+        })
+        .then(response => {
+          alert(response.data.message);
+          console.log('Items deleted successfully:', response.data);
+        })
+        .catch(error => {
+          console.error('Error deleting items:', error);
+        });
+    },
+
+    removeFromTable(goodsId, merchantId){     //结算也可以使用，便于代码复用
       let merchantIndex = this.cartItems.findIndex((m) => m.shop_id === merchantId);
       if (merchantIndex !== -1) {
         let merchant = this.cartItems[merchantIndex];
@@ -257,9 +283,48 @@
       this.updateSelectedItems();
       this.updateSelectAllState();
     },
-    checkout() {
-      alert("结算成功！");
+
+    removeItem(order_id,goodsId, merchantId) {
+      this.removeFromTable(goodsId, merchantId);
+      this.delete(order_id);
     },
+    checkout() {
+      // 获取选中的商品
+      const selectedItems = this.cartItems.flatMap(merchant => 
+        merchant.items.filter(item => item.selected)
+      );
+      // 准备请求数据
+      const requestData = selectedItems.map(item => ({
+        order_id: item.order_id,
+        user_id:  this.user_id,
+        status: 1
+      }));
+      // 发送请求更新状态
+      axios.post('http://localhost:8080/api/order/updateStatus', requestData, {
+        headers: {
+          'authorization': this.token
+        }
+      })
+      .then(response => {
+        // 使用 alert 输出返回的消息
+        alert(response.data.message);
+        if(response.data.code==1){
+          selectedItems.forEach(item => {
+              this.removeFromTable(item.goods_id, item.shop_id);
+  //            alert("goods_id: "+item.goods_id+" shop_id: "+item.shop_id);
+          });
+
+
+         
+        }
+        console.log('Order status updated successfully:', response.data);
+        // 你可以在这里更新购物车的状态
+      })
+      .catch(error => {
+        console.error('Error updating order status:', error);
+      });
+    }
+
   },
 };
 </script>

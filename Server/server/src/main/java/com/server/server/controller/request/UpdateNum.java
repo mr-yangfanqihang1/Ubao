@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 public class UpdateNum {
     private int order_id;
     private int num;
+    private int user_id;
     
     
 }
