@@ -50,7 +50,7 @@ public class AccountController {
     }
 
     // 示例受保护接口
-    @GetMapping("/protected")
+    @GetMapping("/api/**")
     public ResponseEntity<Map<String, Object>> protectedEndpoint(HttpServletRequest request) {
         Map<String, Object> response = new HashMap<>();
         

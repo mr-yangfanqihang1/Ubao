@@ -294,6 +294,7 @@ data() {
       order_id: -1,
         user_id: localStorage.getItem('userID'),
         total: 0,
+        num :0,
         status: -1
     },
 
