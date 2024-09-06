@@ -97,7 +97,7 @@
                 <template #default="scope">
                   <el-input-number 
                     v-model="scope.row.goods_num" 
-                    @change="updateTotalPrice" 
+                    @change="updateNum" 
                     :min="1" 
                     :max="9999" 
                     style="width: fit-content;">
@@ -266,7 +266,7 @@ import { Message } from 'element-ui';
 export default {
 data() {
   return {
-    dialogVisible: true,
+    dialogVisible: false,
     input: "",
     token: "1",
     user_id: 1,
@@ -389,7 +389,6 @@ methods: {
     });
   },
 
-
   handleMerchantSelectionChange(merchantId) {
     let merchantIndex = this.cartItems.findIndex((m) => m.shop_id === merchantId);
     if (merchantIndex !== -1) {
@@ -401,28 +400,41 @@ methods: {
     }
     this.updateSelectedItems();
     this.updateSelectAllState();
+    this.updateNum();
   },
   handleItemSelectionChange(selection, row) {
-    let merchantIndex = this.cartItems.findIndex((m) => m.items.some((item) => item.goods_id === row.goods_id));
+    let merchantIndex = this.cartItems.findIndex((m) => m.items.some((item) => item.order_id === row.order_id));
     if (merchantIndex !== -1) {
       let merchant = this.cartItems[merchantIndex];
-      let itemIndex = merchant.items.findIndex((item) => item.goods_id === row.goods_id);
+      let itemIndex = merchant.items.findIndex((item) => item.order_id === row.order_id);
       if (itemIndex !== -1) {
         merchant.items[itemIndex].selected = !merchant.items[itemIndex].selected;
       }
     }
     this.updateSelectedItems();
     this.updateSelectAllState();
+    this.updateNum();
     
 },
+ updateNum(){
+    this.selectedItemsCount = this.selectedItems.reduce((total, item) => {
+      return total + item.goods_num;
+    }, 0);
+    this.totalAmount = this.cartItems.reduce(
+        (sum, merchant) =>
+          sum +
+          merchant.items
+            .filter((item) => item.selected)
+            .reduce((s, item) => s + item.goods_price * item.goods_num, 0),
+        0
+      );
+ },
   updateSelectedItems() {
     this.selectedItems = this.cartItems.flatMap((m) =>
       m.items.filter((item) => item.selected)
     );
-    this.selectedItemsCount = this.selectedItems.length;
-    this.totalAmount = this.selectedItems.reduce((total, item) => {
-      return total + (item.goods_price * item.goods_num);
-    }, 0);
+    this.updateNum();
+    
   },
   updateSelectAllState() {
     // Update the 'selectAll' state based on individual item selections

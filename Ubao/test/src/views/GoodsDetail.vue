@@ -105,7 +105,7 @@ export default {
         cpuInfo: ''
       },
       storageOptions: [64, 128, 256, 512], // 可选择的存储容量
-      selectedStorage: 128 // 默认选择的存储容量
+      selectedStorage: 64 // 默认选择的存储容量
     };
   },
   mounted() {
