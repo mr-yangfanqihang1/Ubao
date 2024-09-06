@@ -122,7 +122,7 @@
                     </span>
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item>修改</el-dropdown-item>
-                      <el-dropdown-item @click="removeItem(scope.row.order_id, merchant.shop_id)">删除</el-dropdown-item>
+                      <el-dropdown-item @click.native="removeItem(scope.row.order_id, merchant.shop_id)">删除</el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
                 </template>
@@ -246,52 +246,63 @@ export default {
         console.error('Error fetching cart items:', error);
       });
     },
-    removeItem(orderId, merchantId) {
-      const requestData = {
-        user_id: localStorage.getItem('userID'),
-        order_id: orderId
-      };
-      axios.post('http://localhost:8080/api/order/delete', requestData, {
+    removeFromTable(orderId, merchantId){     
+    let merchantIndex = this.cartItems.findIndex((m) => m.shop_id === merchantId);
+    if (merchantIndex !== -1) {
+      let merchant = this.cartItems[merchantIndex];
+      merchant.items = merchant.items.filter((item) => item.order_id !== orderId);
+      if (merchant.items.length === 0) {
+        this.cartItems.splice(merchantIndex, 1);
+      }
+    }
+  },
+
+  removeItem(orderId, merchantId) {
+    console.log(orderId);
+    this.removeFromTable(orderId, merchantId);
+    this.delete(orderId);
+  },
+    
+  delete(orderId) {
+    const requestData = {
+      user_id: 666/* localStorage.getItem('userID') */,
+      order_id: orderId
+    };
+    axios.post('http://localhost:8080/api/order/delete', requestData, {
         headers: {
           'Authorization': localStorage.getItem('token')
         }
       })
       .then(response => {
-        if (response.data.code === 1) {
-          Message({
-            message: '删除成功',
+        if(response.data.code==1){
+            Message({
+            message: response.data.message,
             type: 'success',
-            showClose: true
-          });
-          this.removeFromTable(orderId, merchantId);
-        } else {
+            showClose: false,
+            duration: 3000 // 提示窗显示时间，单位为毫秒
+        });
+        console.log('Items deleted successfully:', response.data);
+        }
+        else{
           Message({
             message: response.data.message,
             type: 'error',
-            showClose: true
-          });
+            showClose: false,
+            duration: 3000 // 提示窗显示时间，单位为毫秒
+        });
         }
       })
       .catch(error => {
         Message({
-          message: '删除失败',
+          message: error.message,
           type: 'error',
-          showClose: true
+          showClose: false,
+          duration: 3000 // 提示窗显示时间，单位为毫秒
         });
-        console.error('Error deleting item:', error);
+        console.error('Error deleting items:', error);
       });
-    },
-    removeFromTable(orderId, merchantId) {
-      let merchantIndex = this.cartItems.findIndex(m => m.shop_id === merchantId);
-      if (merchantIndex !== -1) {
-        let merchant = this.cartItems[merchantIndex];
-        merchant.items = merchant.items.filter(item => item.order_id !== orderId);
-        if (merchant.items.length === 0) {
-          this.cartItems.splice(merchantIndex, 1);
-        }
-      }
-    }
   },
+},
   mounted() {
     this.fetchCartItems();
   }
