@@ -35,6 +35,17 @@
         >销量排序</el-button>
       </el-col>
     </el-row>
+<!-- 分页控件 -->
+<el-pagination
+  background
+  layout="prev, pager, next"
+  :total="totalItems"
+  :page-size="pageSize"
+  :current-page.sync="currentPage"
+  @current-change="handlePageChange"
+  style="margin-top: 20px;"
+></el-pagination>
+
 
     <!-- 商品列表 -->
     <el-row :gutter="20">
@@ -58,24 +69,28 @@
 <script>
 export default {
   data() {
-    return {
-      maininput: this.$route.query.input,
-      searchQuery: this.$route.query.input,
-      selectedTag: '',
-      sortKey: '',
-      goodsList: [],
-      tags: ['苹果', '小米', 'oppo', '华为'], 
-    };
-  },
+  return {
+    maininput: this.$route.query.input,
+    searchQuery: this.$route.query.input,
+    selectedTag: '',
+    sortKey: '',
+    goodsList: [],
+    tags: ['苹果', '小米', 'oppo', '华为'],
+    currentPage: 1, // 当前页码
+    pageSize: 100 // 每页显示的条数
+  };
+}
+,
   methods: {
     searchGoods() {
-  // 发起请求获取商品列表
   this.$axios
     .get('http://localhost:8080/api/goodslist1', {
       params: {
         searchQuery: this.searchQuery,
         tag: this.selectedTag,
-        sort: this.sortKey
+        sort: this.sortKey,
+        page: this.currentPage, // 当前页码
+        pageSize: this.pageSize // 每页条数
       }
     })
     .then((res) => {
@@ -86,6 +101,7 @@ export default {
       console.log(err);
     });
 }
+
 ,
     sortGoods(key) {
       this.sortKey = key;
@@ -97,6 +113,10 @@ export default {
         query: { id }
       });
     },
+    handlePageChange(page) {
+    this.currentPage = page;
+    this.searchGoods(); // 当页码变化时重新获取商品数据
+  }
   },
   mounted() {
     // 初始加载商品列表数据
