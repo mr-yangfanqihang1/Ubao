@@ -202,7 +202,10 @@ export default {
     },
     toCart: function (){
       this.$router.push({
-        path: '/cart'
+        path: '/cart',
+        query: {
+                status: "购物车"
+              }
       })
     },
     toCategory: function (category){
