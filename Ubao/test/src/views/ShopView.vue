@@ -27,7 +27,7 @@
           <!-- 订单管理内容 -->
           <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="商品名称">
-              <el-input v-model="formInline.goods_id" placeholder="请输入"></el-input>
+              <el-input v-model="formInline.goods_name" placeholder="请输入"></el-input>
             </el-form-item>
             <el-form-item label="订单状态">
               <el-select v-model="formInline.status" placeholder="全部">
