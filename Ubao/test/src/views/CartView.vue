@@ -558,28 +558,28 @@ methods: {
     return acc;
   }, []);
 
-  // 计算总价格（含运费）
-  const merchantSelectedNum = groupedByMerchant.length;
-  const shippingFeePerMerchant = 10;
-  const totalShippingFee = merchantSelectedNum * shippingFeePerMerchant;
-  const totalPrice = selectedItems.reduce((sum, item) => sum + item.goods_price * item.goods_num, 0) + totalShippingFee;
+    // 计算总价格（含运费）
+    const merchantSelectedNum = groupedByMerchant.length;
+    const shippingFeePerMerchant = 10;
+    const totalShippingFee = merchantSelectedNum * shippingFeePerMerchant;
+    const totalPrice = selectedItems.reduce((sum, item) => sum + item.goods_price * item.goods_num, 0) + totalShippingFee;
 
-  this.selectedMerchants = groupedByMerchant;
-  this.totalPrice = totalPrice;
+    this.selectedMerchants = groupedByMerchant;
+    this.totalPrice = totalPrice;
 
-  // 准备请求数据
-  this.requestData = selectedItems.map(item => ({
-    order_id: item.order_id,
-    user_id: localStorage.getItem('userID'),
-    total: item.goods_price * item.goods_num + totalShippingFee / merchantSelectedNum,
-    num:this.selectedItemsCount,
-    status: 1
-  }));
+    // 准备请求数据
+    this.requestData = selectedItems.map(item => ({
+      order_id: item.order_id,
+      user_id: localStorage.getItem('userID'),
+      total: item.goods_price * item.goods_num + totalShippingFee / merchantSelectedNum,
+      num:this.selectedItemsCount,
+      status: 1
+    }));
 
-  // Set dialog visible
-  this.dialogVisible = true;
-  console.log(this.dialogVisible);
-},
+    // Set dialog visible
+    this.dialogVisible = true;
+    console.log(this.dialogVisible);
+  },
 
 cancelCheckout() {
   // Simply close the dialog
