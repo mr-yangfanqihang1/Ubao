@@ -74,7 +74,10 @@ public interface OrderMapper {
 
     @Update("UPDATE `order` SET num=#{num} where id=#{id}")
     int updateNum(Order order);
-    @Update("UPDATE `order` SET status=#{status} ,num=#{num}, total=#{total}where id=#{id} AND user_id=#{userId}")
+    @Update("UPDATE `order`" +
+                "SET `status` = #{status}, `num` = #{num}, `total` = #{total}" + 
+                "WHERE `id` = #{id} AND `user_id` = #{userId};"
+    )
     int updateStatus(Order order);
 
     @Delete("DELETE FROM `order` WHERE id=#{id}")
