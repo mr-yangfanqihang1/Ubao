@@ -247,7 +247,7 @@
             </div>
             <div >总价格（含运费）: {{ totalPrice }}</div>
             <span slot="footer" class="dialog-footer">
-              <el-button  @click="cancelCheckout">取消</el-button>
+              <el-button  @click.stop="cancelCheckout">取消</el-button>
               <el-button type="primary" @click="confirmCheckout">确认付款</el-button>
             </span>
           </el-dialog>
@@ -576,12 +576,14 @@ methods: {
 
   // Set dialog visible
   this.dialogVisible = true;
+  console.log(this.dialogVisible);
 },
 
 cancelCheckout() {
   // Simply close the dialog
   this.dialogVisible = false;
   console.log("Dialog closed");
+  console.log(this.dialogVisible);
 },
 
 confirmCheckout() {
