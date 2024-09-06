@@ -16,7 +16,7 @@ public class Order {
     private int userId;
     private int goodsId;
     private int num;
-    private int total;
+    private double total;
     private int status;
 
     public static Order convertToOrder(CreateOrder createOrder) {
@@ -57,8 +57,8 @@ public class Order {
             updateStatus.getOrder_id(),
             updateStatus.getUser_id(),
             0,
-            0,
-            0,
+            updateStatus.getNum(),
+            updateStatus.getTotal(),
             updateStatus.getStatus()
         );
     }

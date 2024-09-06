@@ -15,7 +15,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(@SuppressWarnings("null") InterceptorRegistry registry) {
         registry.addInterceptor(jwtRequestInterceptor)
                 //.addPathPatterns("/api/**") // 拦截所有请求
-                .excludePathPatterns(" /api/**"); // 排除登录和注册请求
+                .excludePathPatterns("/api/**"); // 排除登录和注册请求
     }
 
 }

@@ -8,6 +8,7 @@ public class UpdateStatus {
     private int status;
     private int user_id;
     private int num;
+    private double total;
     
     
     

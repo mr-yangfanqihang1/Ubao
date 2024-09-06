@@ -572,6 +572,7 @@ methods: {
     order_id: item.order_id,
     user_id: localStorage.getItem('userID'),
     total: item.goods_price * item.goods_num + totalShippingFee / merchantSelectedNum,
+    num:this.selectedItemsCount,
     status: 1
   }));
 
