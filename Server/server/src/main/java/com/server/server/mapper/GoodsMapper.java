@@ -48,13 +48,8 @@ public interface GoodsMapper {
     "    <when test='sort == \"sales\"'> goods_sales DESC </when> " +
     "  </choose> " +
     "</if> " +
-    "LIMIT #{offset}, #{pageSize} " +
+    "limit 100"+
     "</script>")
-List<Goods> searchGoods(@Param("searchQuery") String searchQuery, 
-                        @Param("tag") String tag, 
-                        @Param("sort") String sort,
-                        @Param("offset") int offset, 
-                        @Param("pageSize") int pageSize);
-
+List<Goods> searchGoods(@Param("searchQuery") String searchQuery, @Param("tag") String tag, @Param("sort") String sort);
 
 }

@@ -19,17 +19,12 @@ public class GoodsController {
     public Response<List<Goods>> searchGoods(
             @RequestParam(required = false) String searchQuery,
             @RequestParam(required = false) String tag,
-            @RequestParam(required = false) String sort,
-            @RequestParam(defaultValue = "1") int page,  // 默认第一页
-            @RequestParam(defaultValue = "100") int pageSize) {  // 默认每页100条
-        
-        int offset = (page - 1) * pageSize;  // 计算偏移量
-        List<Goods> list = goodsMapper.searchGoods(searchQuery, tag, sort, offset, pageSize);
-        
+            @RequestParam(required = false) String sort) {
+    
+        List<Goods> list = goodsMapper.searchGoods(searchQuery, tag, sort);
         Response<List<Goods>> result = new Response<>();
         result.setData(list);
         return result;
     }
-    
 }   
 
