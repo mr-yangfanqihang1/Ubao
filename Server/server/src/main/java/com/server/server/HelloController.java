@@ -1,7 +1,6 @@
 package com.server.server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.server.server.service.GodsService;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,12 +64,7 @@ public class HelloController {
         System.out.println("hello world!");
         return "Hello World~";
     }
-    @Autowired
-    private GodsService service;
-    @RequestMapping("/table")
-    public Data.table table() {
-        return service.table();
-    }
+
     
     public static void main(String[] args) {
         System.out.println("卧蚕年末");
