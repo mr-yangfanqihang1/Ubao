@@ -1,3 +1,4 @@
+
 <template>
   <div class="login-register-container">
     <!-- 背景图 -->
@@ -121,8 +122,11 @@ export default {
           this.errorMessage = '';
           localStorage.setItem('token', token); // 存储 JWT 令牌
           alert('登录成功！');
+
+
           localStorage.setItem('userID', userID);
           this.$router.push('/main'); // 使用 Vue Router 进行页面跳转
+
           // 进行页面跳转或其他操作
         } else {
           this.errorMessage = message;
@@ -132,33 +136,6 @@ export default {
         console.error('登录请求失败:', error);
         this.errorMessage = '登录失败，请稍后重试。';
       });
-  },
-  handleProtectedRequest() {
-      axios
-        .get('http://localhost:8080/api/**') // 示例受保护接口
-        .then(response => {
-          console.log('受保护接口的响应:', response.data);
-          // 处理成功的响应
-        })
-        .catch(error => {
-          console.error('访问受保护接口失败:', error);
-          // 处理错误
-        });
-    },
-    created() {
-    // 设置 axios 请求拦截器
-    axios.interceptors.request.use(
-      config => {
-        const token = localStorage.getItem('token'); // 从 localStorage 中获取 JWT 令牌
-        if (token) {
-          config.headers['Authorization'] = `Bearer ${token}`; // 将 JWT 添加到请求头
-        }
-        return config;
-      },
-      error => {
-        return Promise.reject(error);
-      }
-    );
   },
     handleRegister() {
       if (this.registerPassword !== this.confirmPassword) {
