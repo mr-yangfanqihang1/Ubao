@@ -23,7 +23,7 @@
           <goods-management></goods-management> <!-- 使用商品管理组件 -->
         </div>
         <div v-if="currentView === 'order'">
-          <h2>订单管理内容</h2>
+          <h2>订单管理</h2>
           <!-- 订单管理内容 -->
           <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="商品名称">
@@ -161,7 +161,7 @@ export default {
     },
       formInline: {
         goods_name: '',
-        status: '未发货'
+        status: '全部'
       },
       cartItems: [
         {
@@ -183,7 +183,7 @@ export default {
           ],
         },
       ],
-      currentView: 'main' // 默认显示首页内容
+      currentView: 'order' // 默认显示首页内容
     };
   },
   computed: {

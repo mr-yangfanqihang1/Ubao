@@ -23,11 +23,11 @@
         <el-form-item label="商品售价" prop="price">
           <el-input v-model="productForm.price" placeholder="请输入商品售价" type="number"></el-input>
         </el-form-item>
-  
-        <!-- 商家名称 -->
-        <el-form-item label="商家名称" prop="merchantName">
-          <el-input v-model="productForm.merchantName" placeholder="请输入商家名称"></el-input>
+
+        <el-form-item label="商品数量" prop="num">
+          <el-input v-model="productForm.price" placeholder="请输入商品数量" type="number"></el-input>
         </el-form-item>
+  
   
         <!-- 提交按钮 -->
         <el-form-item>
@@ -46,7 +46,7 @@
           image: '',
           imageList: [],
           price: null,
-          merchantName: ''
+          num:null
         }
       };
     },
