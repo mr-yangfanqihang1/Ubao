@@ -4,11 +4,6 @@
 **项目名称**：邮宝（YouBao）  
 **参考原型**：淘宝网(www.taobao.com)  
 **项目定位**：校园二手商品交易平台  
-![image](https://github.com/user-attachments/assets/fc4e9ee7-8566-41ca-b311-ab2897a2c637)
-![image](https://github.com/user-attachments/assets/edff0739-bf7b-4276-bf78-c6fe97835438)
-![image](https://github.com/user-attachments/assets/a39e9f5c-090e-4d9c-9df7-e34e5e852038)
-![image](https://github.com/user-attachments/assets/7efb566a-12dd-443c-ab18-90ba742e5a12)
-![image](https://github.com/user-attachments/assets/7a6fa38e-519d-4eb0-91cb-38f7260517aa)
 
 ### 技术架构
 | 模块       | 技术选型                                                                 |
@@ -137,4 +132,14 @@ youbao/
 ├── docs/              # 文档
 └── gulpfile.js        # 构建配置
 ```
+## 七、项目演示
 
+![image](https://github.com/user-attachments/assets/fc4e9ee7-8566-41ca-b311-ab2897a2c637)
+
+![image](https://github.com/user-attachments/assets/edff0739-bf7b-4276-bf78-c6fe97835438)
+
+![image](https://github.com/user-attachments/assets/a39e9f5c-090e-4d9c-9df7-e34e5e852038)
+
+![image](https://github.com/user-attachments/assets/7efb566a-12dd-443c-ab18-90ba742e5a12)
+
+![image](https://github.com/user-attachments/assets/7a6fa38e-519d-4eb0-91cb-38f7260517aa)
